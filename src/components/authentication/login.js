@@ -8,7 +8,7 @@ const Login=()=>{
     const [password,setPassword]=useState("");
 
     return(
-        <View style={styles.container}>
+        <View >
             <ScrollView>
             <View style={{flex: 2}}>
 

@@ -5,7 +5,7 @@ import styles from "../styles";
 
 const Register=()=>{
     return(
-        <View style={styles.container}>
+        <View>
             <View style={{flex: 2}}>
 
                 <View style={{alignItems:'center',justifyContent: "center"}}>

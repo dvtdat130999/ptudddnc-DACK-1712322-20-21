@@ -3,7 +3,6 @@ import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "center",
         paddingHorizontal: 10,
         backgroundColor:'black'
     },
@@ -17,9 +16,15 @@ const styles = StyleSheet.create({
         borderRadius:5,
         backgroundColor:'azure'
     },
+    item: {
+        backgroundColor: "#f9c2ff",
+        padding: 20,
+        marginVertical: 8
+    },
     logo:{
-        width:'20%',
-        height:'20%',
+        width:50,
+        height:50,
+
 
     },
     space: {
@@ -50,6 +55,55 @@ const styles = StyleSheet.create({
     },
     countText: {
         color: "#FF00FF"
+    },
+    homeBackground:{
+        alignSelf:'stretch',
+        fontWeight:'bold',
+        marginTop:20,
+        backgroundColor:'gray'
+
+    },
+    homeContent:{
+      color:'white',
+      alignSelf:'center',
+      fontWeight:'bold',
+      fontSize:25
+
+    },
+    courseText:{
+        color:'white'
+    },
+    course:{
+        flexDirection:'column',
+        marginLeft:30,
+        marginRight:30,
+        height:300,
+
+    },
+    courseOfHome:{
+        alignItems:'center'
+        ,marginLeft:30
+        ,fontWeight:'bold'
+        ,fontSize:20
+        ,color:'white'
+    },
+    imageAuthorHome:{
+        width:100,
+        height:100,
+        borderRadius:50,
+    },
+    authorHome:{
+        flexDirection:'column',
+        marginLeft:30,
+        marginRight:30,
+        height:200,
+    },
+    authorText:{
+        color:'white',
+        alignSelf:'center'
+    },
+    courseOfList:{
+
     }
 });
 
