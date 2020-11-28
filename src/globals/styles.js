@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     },
     sectionCourseItem:{
         flexDirection:'column',
+        marginTop:10,
         marginLeft:30,
         marginRight:30,
         height:300,
@@ -119,13 +120,107 @@ const styles = StyleSheet.create({
         marginRight:30,
         height:200,
     },
+
+    courseOfList:{
+
+    },
+    imageButtonImageBackground:{
+        height:100,
+        marginTop:20,
+        marginLeft:20,
+        marginRight:20,
+    },
+    imageButtonTouch:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    imageButtonText:{
+        color:'white',
+        fontSize:25,
+        fontWeight:'bold',
+        textAlign:'center'
+    },
+    imageAuthor:{
+        width:100,
+        height:100,
+        borderRadius:50,
+    },
+    author:{
+        flexDirection:'column',
+        marginLeft:30,
+        marginRight:30,
+    },
     authorText:{
         color:'white',
         alignSelf:'center'
     },
-    courseOfList:{
+    authorBrowse:{
+        alignItems:'center'
+        ,marginLeft:30
+        ,fontWeight:'bold'
+        ,fontSize:20
+        ,color:'white'
+    },
+    sectionAuthorItem:{
+        marginLeft:30,
+        marginRight:30,
+    },
+    sectionSkillsItem:{
+        justifyContent:'center',
+        alignItems:'center',
+        width:150,
+        height:30,
+        borderRadius:20,
+        backgroundColor:'gray',
+        marginTop:10,
+        marginLeft:20,
+        marginRight:20
+    },
+    sectionSkillsItemText:{
+        color:'white',
 
+    },
+    skillBrowse:{
+        alignItems:'center'
+        ,marginLeft:30
+        ,fontWeight:'bold'
+        ,fontSize:20
+        ,color:'white'
+    },
+    sectionCategoriesItem:{
+        marginTop:10,
+        marginLeft:30,
+        marginRight:30,
+        height:100,
+        width:300
+
+
+    },
+
+    categoriesBrowse:{
+        alignItems:'center'
+        ,marginLeft:30
+        ,fontWeight:'bold'
+        ,fontSize:20
+        ,color:'white'
+    },
+    listCoursesItem:{
+        flexDirection:'row',
+        marginTop:10,
+        marginLeft:20,
+        borderBottomColor:'white',
+        borderBottomWidth:1,
+    },
+    listAuthorsItem:{
+        flexDirection:'row',
+        marginTop:10,
+        marginLeft:20,
+        borderBottomColor:'white',
+        borderBottomWidth:1,
     }
+
+
 });
 
 export default styles;
