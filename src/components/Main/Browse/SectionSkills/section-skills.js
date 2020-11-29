@@ -31,7 +31,7 @@ const SectionSkills=(props)=>{
 
     const renderItem=()=>{
         return DATA.map((item,i)=>{
-            return <SectionSkillsItem name={item.name} key={item.id}/>
+            return <SectionSkillsItem item={item} key={item.id} navigation={props.navigation}/>
         })
     }
     return(

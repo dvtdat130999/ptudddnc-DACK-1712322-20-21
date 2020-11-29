@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList } from 'react-native';
+import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,TouchableOpacity } from 'react-native';
 
 import styles from "../../../../globals/styles";
 import SectionCoursesItem from "../SectionCoursesItem/section-courses-item";
@@ -12,6 +12,8 @@ const SectionCourses=(props)=>{
             author:'Dat',
             level:'Beginner',
             createdDate:'22/10/2020',
+            length:'25m',
+            introduction:'This is first course'
         },
         {
             id: '2',
@@ -19,6 +21,8 @@ const SectionCourses=(props)=>{
             author:'Doan',
             level:'Beginner',
             createdDate:'23/10/2020',
+            length:'5m',
+            introduction:'This is second course'
         },
         {
             id: '3',
@@ -26,6 +30,8 @@ const SectionCourses=(props)=>{
             author:'Vu',
             level:'Intermediate',
             createdDate:'23/10/2020',
+            length:'15m',
+            introduction:'This is third course'
         },
         {
             id: '4',
@@ -33,6 +39,8 @@ const SectionCourses=(props)=>{
             author:'Tien',
             level:'Beginner',
             createdDate:'24/10/2020',
+            length:'27m',
+            introduction:'This is fourth course'
         },
         {
             id: '5',
@@ -40,6 +48,8 @@ const SectionCourses=(props)=>{
             author:'Dat',
             level:'Beginner',
             createdDate:'25/10/2020',
+            length:'35m',
+            introduction:'This is fifth course'
         },
         {
             id: '6',
@@ -47,13 +57,15 @@ const SectionCourses=(props)=>{
             author:'Hay',
             level:'Beginner',
             createdDate:'25/10/2020',
+            length:'29m',
+            introduction:'This is sixth course'
         },
 
     ];
 
     const renderItem=()=>{
         return DATA.map((item,i)=>{
-            return <SectionCoursesItem title={item.title} author={item.author} level={item.level} createdDate={item.createdDate} key={item.id}/>
+            return <SectionCoursesItem navigation={props.navigation} item={item} key={item.id} data={DATA}/>
         })
     };
     return(

@@ -37,7 +37,7 @@ const SectionAuthors=(props)=>{
 
     const renderItem=()=>{
         return DATA.map((item,i)=>{
-            return <SectionAuthorsItem name={item.name} key={item.id}/>
+            return <SectionAuthorsItem item={item} key={item.id} navigation={props.navigation}/>
         })
     }
     return(

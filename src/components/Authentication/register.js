@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions  } from 'react-native';
 
-import styles from "../styles";
+import styles from "../../globals/styles";
+import {navigationName} from "../../globals/constants";
 
-const Register=()=>{
+const Register=(props)=>{
+    const onPressRegister=()=>{
+        props.navigation.navigate(navigationName.Login)
+    }
+    const onPressLogin=()=>{
+        props.navigation.navigate(navigationName.Login)
+    }
     return(
         <View>
             <View style={{flex: 2}}>
@@ -36,19 +43,21 @@ const Register=()=>{
 
                 <View style={styles.space}/>
 
-                <TouchableHighlight >
+                <TouchableHighlight onPress={onPressRegister}>
 
                     <View style={styles.button}>
                         <Text style={styles.textButton}>Register</Text>
                     </View>
                 </TouchableHighlight>
                 <View style={styles.space}/>
-                <View style={{alignItems:'center'}}>
-                    <Text style={{color:'dodgerblue'}}>
-                        Login
-                    </Text>
-                </View>
-                <View style={styles.space}/>
+                <TouchableHighlight onPress={onPressLogin}>
+                    <View style={{alignItems:'center'}}>
+                        <Text style={{color:'dodgerblue'}}>
+                            Login
+                        </Text>
+                    </View>
+                </TouchableHighlight>
+
 
 
             </View>

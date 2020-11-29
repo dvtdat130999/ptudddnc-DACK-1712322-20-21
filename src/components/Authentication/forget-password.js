@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions  } from 'react-native';
 
-import styles from "../styles";
+import styles from "../../globals/styles";
 
-const ForgerPassword=()=>{
+const ForgetPassword=()=>{
     return(
         <View style={styles.container}>
             <View style={{flex: 2}}>
@@ -38,4 +38,4 @@ const ForgerPassword=()=>{
     );
 };
 
-export default ForgerPassword;
+export default ForgetPassword;

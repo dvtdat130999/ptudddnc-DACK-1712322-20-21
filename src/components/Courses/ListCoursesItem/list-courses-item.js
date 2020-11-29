@@ -5,14 +5,23 @@ import { Card,Form,Row } from 'react-bootstrap';
 import styles from "../../../globals/styles";
 import OnlineCourse from "../../../../assets/online-course.jpg";
 import CourseReadInfo from "../../Common/course-read-info";
+import {navigationName} from "../../../globals/constants";
 const ListCoursesItem=(props)=>{
+    console.log("Check list courses item");
+    console.log(props);
+    const onPressListCoursesItem=()=>{
+        props.navigation.navigate(navigationName.CourseStudy,{
+            item:props.item,
+            data:props.data,
+            navigation:props.navigation
+        });
+
+    }
     return (
 
-        <TouchableOpacity style={styles.listCoursesItem} onPress={()=>{
-                                                            console.log("Press on List Item")
-                                                        }}>
+        <TouchableOpacity style={styles.listCoursesItem} onPress={onPressListCoursesItem}>
             <Image source={OnlineCourse} style={{width:200,height:150}}/>
-            <CourseReadInfo title={props.title} author={props.author} level={props.level} createdDate={props.createdDate}/>
+            <CourseReadInfo item={props.item}/>
 
         </TouchableOpacity>
     );

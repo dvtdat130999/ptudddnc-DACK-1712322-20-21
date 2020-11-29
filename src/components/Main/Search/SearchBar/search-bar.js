@@ -1,6 +1,6 @@
 import React, { Component,useState,useEffect } from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList ,Button} from 'react-native';
-import styles from "../../styles";
+import styles from "../../../../globals/styles";
 
 const SearchBar=(props)=>{
     const [searchContent,setSearchContent]=useState("");

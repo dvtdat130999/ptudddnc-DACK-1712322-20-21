@@ -36,7 +36,7 @@ const SectionCategories=(props)=>{
 
     const renderItem=()=>{
         return DATA.map((item,i)=>{
-            return <SectionCategoriesItem title={item.title} key={item.id}/>
+            return <SectionCategoriesItem item={item} key={item.id} navigation={props.navigation}/>
         })
     }
     return(

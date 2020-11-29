@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
-import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList } from 'react-native';
+import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,Button } from 'react-native';
 
 import VideoPlayer from "./VideoPlayer/video-player";
 import CourseIntroduction from "./CourseIntroduction/course-introduction";
 import ListLessons from "./ListOfLessons/list-lessons";
 const CourseStudy=(props)=>{
+    let data=props.route.params.data;
+    console.log("Check navigation course study");
+    console.log(props.navigation);
+
+    let item=props.route.params.item;
+    props.navigation.setOptions({title:item.title});
+
+    let navigation=props.route.params.navigation;
     const listLessons=[
         {
             name:'first lesson',
@@ -32,11 +40,9 @@ const CourseStudy=(props)=>{
     return(
         <ScrollView>
             <VideoPlayer />
-            <CourseIntroduction name={courseInfo.name} author={courseInfo.author} level={courseInfo.level}
-                                createdDate={courseInfo.createdDate} length={courseInfo.length} introduction={courseInfo.introduction}/>
+            <CourseIntroduction item={item}/>
             <Text style={{color:'white',fontWeight:'bold',fontSize:20,marginTop:20}}>Contents</Text>
-
-            <ListLessons/>
+            <ListLessons navigation={navigation} data={data}/>
 
 
         </ScrollView>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,TouchableOpacity } from 'react-native';
-import styles from "../../styles";
+import styles from "../../../globals/styles";
 
 
 const Setting=(props)=>{
@@ -100,13 +100,9 @@ const Setting=(props)=>{
                   <Text style={{color:'white',fontSize:20,marginTop:10,marginBottom:10}}>Contact Support</Text>
               </View>
           </TouchableOpacity>
-          <TouchableOpacity
-              style={{borderBottomColor: 'gray',
-                  borderBottomWidth: 1,}}>
-              <View>
-                  <Text style={{color:'white',fontSize:20,marginTop:10,marginBottom:10}}>App Version</Text>
-              </View>
-          </TouchableOpacity>
+          <View>
+              <Text style={{color:'white',fontSize:20,marginTop:10,marginBottom:10}}>App Version</Text>
+          </View>
 
           <TouchableHighlight style={{marginTop:40}} onPress={signOut} >
               <View style={styles.buttonLight}>
