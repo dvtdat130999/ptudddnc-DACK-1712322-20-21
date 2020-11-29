@@ -69,12 +69,17 @@ const BrowseNavigation=()=>{
         </BrowseStack.Navigator>
     );
 }
+
+
 const HomeNavigation=()=>{
     return(
         <HomeStack.Navigator>
-            <HomeStack.Screen name={navigationName.Home} component={Home} options={{ headerShown: false }} />
+            <HomeStack.Screen name={navigationName.Home} component={Home} />
 
             <HomeStack.Screen name={navigationName.CourseStudy} component={CourseStudy} />
+            <HomeStack.Screen name={navigationName.Setting} component={Setting} />
+            <HomeStack.Screen name={navigationName.Account} component={Account} />
+            <HomeStack.Screen name={navigationName.Theme} component={ChangeThemes} />
 
         </HomeStack.Navigator>
     );

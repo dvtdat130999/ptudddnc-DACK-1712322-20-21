@@ -13,5 +13,9 @@ export const navigationName={
     Download:"Download",
     ListDownload:"Downloads",
     Authors:"Authors",
-    Paths:"Paths"
+    Paths:"Paths",
+    Setting:"Setting",
+    Account:"Account",
+    Theme:"Theme",
+
 }
