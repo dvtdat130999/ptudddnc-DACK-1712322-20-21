@@ -4,7 +4,11 @@ import styles from "../../../../globals/styles";
 
 const SearchBar=(props)=>{
     const [searchContent,setSearchContent]=useState("");
+    const [isSearch,setIsSearch]=useState(false);
+    const onPressSearch=()=>{
+        setIsSearch(true);
 
+    }
     return(
       <View style={{fontColor:'white',flexDirection:'row',marginTop:10}}>
           <TextInput style={{flex:1, height: 40, borderColor: 'gray', borderWidth: 1,borderRadius:30,color:'white',marginLeft:10 }}
@@ -12,9 +16,7 @@ const SearchBar=(props)=>{
                      value={searchContent}
           >
           </TextInput>
-          <TouchableHighlight  onPress={()=>{
-              console.log(searchContent)
-          }}  >
+          <TouchableHighlight  onPress={onPressSearch}  >
               <View style={{
                   alignItems: "center",
                   padding: 10,}}>

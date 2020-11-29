@@ -1,20 +1,25 @@
 import React from 'react';
-import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions,ImageBackground  } from 'react-native';
+import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions,ImageBackground ,TouchableOpacity } from 'react-native';
 import { Card,Form,Row } from 'react-bootstrap';
 
 import styles from "../../../globals/styles";
 import AuthorImage from "../../../../assets/author.jpg"
 import CourseReadInfo from "../../Common/course-read-info";
 import AuthorReadInfo from "../../Common/author-read-info";
+import {navigationName} from "../../../globals/constants";
 const ListAuthorsItem=(props)=>{
-    console.log(props.name);
+    console.log("Check props navigation of author");
+    console.log(props);
+    const onPress=()=>{
+        props.navigation.navigate(navigationName.ListCourses);
+    }
     return (
 
-        <View style={styles.listAuthorsItem}>
+        <TouchableOpacity style={styles.listAuthorsItem} onPress={onPress}>
             <Image source={AuthorImage} style={styles.imageAuthor}/>
-            <AuthorReadInfo name={props.name}/>
+            <AuthorReadInfo item={props.item}/>
 
-        </View>
+        </TouchableOpacity>
     );
 }
 

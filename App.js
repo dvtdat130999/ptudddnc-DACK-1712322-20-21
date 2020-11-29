@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import { NavigationContainer  } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme  } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -27,22 +27,43 @@ import ChangeThemes from "./src/components/AccountManagement/ChangeThemes/change
 import {navigationName} from "./src/globals/constants"
 import ForgetPassword from "./src/components/Authentication/forget-password";
 import Download from "./src/components/Main/Download/list-download";
+import Search from "./src/components/Main/Search/search";
+const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+        ...DefaultTheme.colors,
+        background: 'black'
+    },
+};
 
 const MainStack = createStackNavigator();
 const AfterLoginStack = createStackNavigator();
 const DownloadStack=createStackNavigator();
 const FirstStack = createStackNavigator();
 
+
 const CourseStack = createStackNavigator();
 const BottomTab=createBottomTabNavigator();
 const HomeStack=createStackNavigator();
 const BrowseStack=createStackNavigator();
+const SearchStack=createStackNavigator();
 
+const SearchNavigation=()=>{
+    return(
+        <SearchStack.Navigator>
+            <SearchStack.Screen name={navigationName.Search} component={Search} options={{ headerShown: false }}/>
+            <SearchStack.Screen name={navigationName.CourseStudy} component={CourseStudy}  />
+            <SearchStack.Screen name={navigationName.ListCourses} component={ListCourses} />
+            <SearchStack.Screen name={navigationName.Authors} component={ListAuthors} />
+
+        </SearchStack.Navigator>
+    );
+}
 const BrowseNavigation=()=>{
     return(
         <BrowseStack.Navigator>
-            <BrowseStack.Screen name={navigationName.Browse} component={Browse} />
-            <BrowseStack.Screen name={navigationName.CourseStudy} component={CourseStudy} />
+            <BrowseStack.Screen name={navigationName.Browse} component={Browse} options={{ headerShown: false }}/>
+            <BrowseStack.Screen name={navigationName.CourseStudy} component={CourseStudy}  />
             <BrowseStack.Screen name={navigationName.ListCourses} component={ListCourses} />
 
         </BrowseStack.Navigator>
@@ -51,7 +72,7 @@ const BrowseNavigation=()=>{
 const HomeNavigation=()=>{
     return(
         <HomeStack.Navigator>
-            <HomeStack.Screen name={navigationName.Home} component={Home} />
+            <HomeStack.Screen name={navigationName.Home} component={Home} options={{ headerShown: false }} />
 
             <HomeStack.Screen name={navigationName.CourseStudy} component={CourseStudy} />
 
@@ -63,7 +84,7 @@ const ListDownloadStack=()=>{
         <DownloadStack.Navigator>
 
 
-            <DownloadStack.Screen name={navigationName.ListCourses} component={Download} options={{title:'Downloads'}}/>
+            <DownloadStack.Screen name={navigationName.ListCourses} component={Download} options={{title:'Downloads',headerShown: false}}/>
             <DownloadStack.Screen name={navigationName.CourseStudy} component={CourseStudy} />
 
         </DownloadStack.Navigator>
@@ -99,14 +120,14 @@ const AfterLogin=()=>{
             <BottomTab.Screen name={navigationName.Home} component={HomeNavigation}/>
             <BottomTab.Screen name={navigationName.Browse} component={BrowseNavigation}/>
             <BottomTab.Screen name={navigationName.ListDownload} component={ListDownloadStack} />
-            <BottomTab.Screen name={navigationName.ListCourses} component={ListCoursesStack}/>
+            <BottomTab.Screen name={navigationName.Search} component={Search}/>
 
         </BottomTab.Navigator>
     );
 }
 const MainStackApp=()=>{
     return(
-        <MainStack.Navigator>
+        <MainStack.Navigator >
             <MainStack.Screen name={navigationName.Authentication} component={AuthenticationStack} options={{ headerShown: false }}/>
             <MainStack.Screen name={navigationName.AfterLogin} component={AfterLogin} options={{ headerShown: false }}/>
 
@@ -115,10 +136,11 @@ const MainStackApp=()=>{
 }
 export default function App() {
   return (
-      <NavigationContainer >
+      <NavigationContainer theme={MyTheme}>
           <MainStackApp/>
 
       </NavigationContainer>
+
 
       /*<View style={styles.container}>
             <Download/>

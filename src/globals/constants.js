@@ -11,5 +11,7 @@ export const navigationName={
     Browse:"Browse",
     Search:"Search",
     Download:"Download",
-    ListDownload:"Downloads"
+    ListDownload:"Downloads",
+    Authors:"Authors",
+    Paths:"Paths"
 }
