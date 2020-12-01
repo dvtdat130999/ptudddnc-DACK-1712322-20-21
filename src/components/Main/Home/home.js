@@ -1,8 +1,8 @@
 import React, { Component,useState,useEffect } from 'react';
-import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,Button } from 'react-native';
+import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,Button,TouchableOpacity } from 'react-native';
 
 import ImageButton from "../../Common/image-button";
-
+import SettingIcon from "../../../../assets/setting.png"
 import SectionCourses from "./SectionCourses/section-courses";
 import {navigationName} from "../../../globals/constants";
 const Home=(props)=>{
@@ -15,11 +15,17 @@ const Home=(props)=>{
     React.useLayoutEffect(() => {
         props.navigation.setOptions({
             headerRight: () => (
-                <TouchableHighlight onPress={onPressSetting}>
+                <TouchableOpacity onPress={onPressSetting}>
+                    <Image
+                        source={SettingIcon}
+                        style={{width:30,height:30,marginRight:20}}
+                    />
+                </TouchableOpacity>
+                /*<TouchableHighlight onPress={onPressSetting}>
                     <View>
                         <Text styles={{color:'white'}}>Setting</Text>
                     </View>
-                </TouchableHighlight>
+                </TouchableHighlight>*/
             ),
         });
     }, [props.navigation]);

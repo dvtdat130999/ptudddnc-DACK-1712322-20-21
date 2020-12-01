@@ -10,7 +10,7 @@ const ForgetPassword=()=>{
 
                 <View style={{alignItems:'center',justifyContent: "center"}}>
                     <Text style={{fontSize:20}} >
-                        Forger Password
+                        Forget Password
                     </Text>
                 </View>
 
