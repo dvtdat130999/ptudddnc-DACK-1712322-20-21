@@ -1,17 +1,20 @@
 import React from 'react';
-import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions,ImageBackground  } from 'react-native';
+import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions,ImageBackground,TouchableOpacity  } from 'react-native';
 import { Card,Form,Row } from 'react-bootstrap';
 import ImageButton from "../../../Common/image-button";
 import styles from "../../../../globals/styles";
+import {navigationName} from "../../../../globals/constants";
 const SectionCategoriesItem=(props)=>{
-    const styleItem="styles.sectionCategoriesItem"
+    const styleItem="styles.sectionCategoriesItem";
+    const onPress=()=>{
+        props.navigation.navigate(navigationName.ListCourses);
+    }
     return (
-        <View style={styles.sectionCategoriesItem}>
+        <TouchableOpacity style={styles.sectionCategoriesItem} onPress={onPress}>
 
-            <ImageButton title={props.title} styleImageButton={styles.sectionCategoriesItem}/>
+            <ImageButton navigation={props.navigation} title={props.item.title} styleImageButton={styles.sectionCategoriesItem}/>
 
-
-        </View>
+        </TouchableOpacity>
 
 
     );

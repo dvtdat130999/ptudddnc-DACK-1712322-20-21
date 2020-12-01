@@ -6,14 +6,32 @@ import UserImage from "../../../../assets/user.jpg"
 import SectionSkillsItem from "../../Main/Browse/SectionSkillsItem/section-skills-item";
 
 const Account=(props)=>{
-    const interested=['Java','React','C','MongoDB']
+    let navigation=props.route.params.navigation;
+    const interested=[
+        {
+            name:'MongoDB',
+        },
+        {
+            name:'Java',
+        },
+        {
+            name:'React',
+        },
+        {
+            name:'C++',
+        },
+        {
+            name:'Communication',
+        }
+
+    ]
     const renderItem=()=>{
         return interested.map((item,i)=>{
-            return <SectionSkillsItem name={item} key={i}/>
+            return <SectionSkillsItem item={item} key={i} navigation={navigation}/>
         })
     }
     return(
-      <View >
+      <ScrollView styles={{marginLeft:10,marginTop:10}}>
             <View styles={{justifyContent:'center',alignItems:'center',flexDirection:'column',flex:1}}>
                 <Image source={UserImage} style={{height:200,width:200}}/>
                 <Text style={{color:'white'}}>Dat Doan</Text>
@@ -46,7 +64,7 @@ const Account=(props)=>{
           <Text style={{color:'white',fontSize:20}}>MOST VIEWED SUBJECT</Text>
           <Text style={{color:'white',fontWeight:'bold',fontSize:20}}>Managerial Skills</Text>
 
-      </View>
+      </ScrollView>
     );
 }
 

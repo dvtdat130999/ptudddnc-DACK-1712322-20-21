@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,TouchableOpacity } from 'react-native';
-import styles from "../../styles";
+import styles from "../../../globals/styles";
+import {navigationName} from "../../../globals/constants";
 
 
 const Setting=(props)=>{
+    let navigation=props.route.params.navigation;
     const signOut=(props)=>{
         console.log("Sign out");
     }
     const account=(props)=>{
+        navigation.navigate(navigationName.Account,{
+            navigation:navigation,
+        });
         console.log('account');
     }
     const subcription=(props)=>{
@@ -28,7 +33,12 @@ const Setting=(props)=>{
     const support=(props)=>{
         console.log("Support")
     }
-
+    const theme=(props)=>{
+        navigation.navigate(navigationName.Theme,{
+            navigation:navigation,
+        });
+        console.log('theme');
+    }
 
     return(
       <View style={{marginLeft:10,marginRight:10}}>
@@ -58,6 +68,15 @@ const Setting=(props)=>{
           >
               <View>
                   <Text style={{color:'white',fontSize:20,marginTop:10,marginBottom:10}}>Communication Preferences</Text>
+              </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+              style={{borderBottomColor: 'gray',
+                  borderBottomWidth: 1,}}
+              onPress={theme}
+          >
+              <View>
+                  <Text style={{color:'white',fontSize:20,marginTop:10,marginBottom:10}}>Theme</Text>
               </View>
           </TouchableOpacity>
           <TouchableOpacity
@@ -100,13 +119,9 @@ const Setting=(props)=>{
                   <Text style={{color:'white',fontSize:20,marginTop:10,marginBottom:10}}>Contact Support</Text>
               </View>
           </TouchableOpacity>
-          <TouchableOpacity
-              style={{borderBottomColor: 'gray',
-                  borderBottomWidth: 1,}}>
-              <View>
-                  <Text style={{color:'white',fontSize:20,marginTop:10,marginBottom:10}}>App Version</Text>
-              </View>
-          </TouchableOpacity>
+          <View>
+              <Text style={{color:'white',fontSize:20,marginTop:10,marginBottom:10}}>App Version</Text>
+          </View>
 
           <TouchableHighlight style={{marginTop:40}} onPress={signOut} >
               <View style={styles.buttonLight}>

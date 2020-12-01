@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions  } from 'react-native';
 
-import styles from "../styles";
+import styles from "../../globals/styles";
 
-const ForgerPassword=()=>{
+const ForgetPassword=()=>{
     return(
         <View style={styles.container}>
             <View style={{flex: 2}}>
 
                 <View style={{alignItems:'center',justifyContent: "center"}}>
                     <Text style={{fontSize:20}} >
-                        Forger Password
+                        Forget Password
                     </Text>
                 </View>
 
@@ -38,4 +38,4 @@ const ForgerPassword=()=>{
     );
 };
 
-export default ForgerPassword;
+export default ForgetPassword;

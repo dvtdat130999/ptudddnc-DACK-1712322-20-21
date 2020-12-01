@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,TouchableOpacity } from 'react-native';
-import styles from "../../styles";
+import styles from "../../../globals/styles";
 
 
 const ChangeThemes=(props)=>{

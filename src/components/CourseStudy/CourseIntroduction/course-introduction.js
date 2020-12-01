@@ -14,9 +14,9 @@ const CourseIntroduction=(props)=>{
     };
     return(
         <View>
-            <Text style={{color:'white',fontWeight:'bold',fontSize:20,marginTop:10}}>{props.name}</Text>
-            <Text style={{color:'white',marginTop:10}}>{props.author}</Text>
-            <Text style={{color:'white',marginTop:10}}>{props.level} . {props.createdDate} . {props.length}</Text>
+            <Text style={{color:'white',fontWeight:'bold',fontSize:20,marginTop:10}}>{props.item.title}</Text>
+            <Text style={{color:'white',marginTop:10}}>{props.item.author}</Text>
+            <Text style={{color:'white',marginTop:10}}>{props.item.level} . {props.item.createdDate} . {props.item.length}</Text>
             <TouchableHighlight style={{marginTop:20}} onPress={related}>
                 <View style={{height:40,borderRadius:5,backgroundColor:'gray',justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
                     <Text style={{color:'white'}}>Related paths & courses</Text>
@@ -28,7 +28,7 @@ const CourseIntroduction=(props)=>{
                 </View>
             </TouchableHighlight>
             <CourseStudyService/>
-            <Text style={{color:'white',marginTop:10}}>{props.introduction}</Text>
+            <Text style={{color:'white',marginTop:10}}>{props.item.introduction}</Text>
 
         </View>
     );

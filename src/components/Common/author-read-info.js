@@ -6,7 +6,7 @@ import React from "react";
 const AuthorReadInfo=(props)=>{
     return(
         <View style={styles.author}>
-            <Text style={styles.authorText}>{props.name}</Text>
+            <Text style={styles.authorText}>{props.item.name}</Text>
         </View>
     );
 }

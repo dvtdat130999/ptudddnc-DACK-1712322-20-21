@@ -36,7 +36,7 @@ const ListAuthors=(props)=>{
 
     const renderItem=()=>{
         return DATA.map((item,i)=>{
-            return <ListAuthorsItem name={item.name} key={item.id}/>
+            return <ListAuthorsItem item={item} key={i+1} navigation={props.navigation}/>
         })
     };
     return(

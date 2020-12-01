@@ -1,12 +1,20 @@
 import React, { Component,useState } from 'react';
 import { StyleSheet,View, Image, TextInput,TouchableHighlight,Dimensions,ScrollView,SafeAreaView,Text  } from 'react-native';
 
-import styles from "../styles";
+import styles from "../../globals/styles";
+import {navigationName} from "../../globals/constants";
 
-const Login=()=>{
+const Login=(props)=>{
     const [username,setUsername]=useState("");
     const [password,setPassword]=useState("");
 
+    const onPressLogin=()=>{
+        props.navigation.navigate(navigationName.AfterLogin);
+    }
+    const onPressForgetPassword=()=>{
+        props.navigation.navigate(navigationName.ForgetPassword);
+
+    }
     return(
         <View >
             <ScrollView>
@@ -30,13 +38,13 @@ const Login=()=>{
                 <Text style={styles.label}>Password</Text>
                 <TextInput secureTextEntry={true} style={styles.inputLogin} defaultValue={password} onChangeText={password=>{setPassword(password)}}></TextInput>
                 <View style={styles.space}/>
-                <TouchableHighlight >
+                <TouchableHighlight onPress={onPressLogin}>
                     <View style={styles.button}>
                         <Text style={styles.textButton}> Login</Text>
                     </View>
                 </TouchableHighlight>
                 <View style={styles.space}/>
-                <TouchableHighlight >
+                <TouchableHighlight onPress={onPressForgetPassword}>
                     <View style={styles.buttonLight}>
                         <Text style={styles.textButton}>Forget password</Text>
                     </View>

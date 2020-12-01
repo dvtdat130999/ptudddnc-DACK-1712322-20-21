@@ -10,14 +10,14 @@ import SectionCategories from "./SectionCategories/section-categories";
 import styles from "../../../globals/styles"
 const Browse=(props)=>{
     return(
-        <View>
-            <ImageButton title="New Releases" styleImageButton={styles.imageButtonImageBackground}/>
-            <ImageButton title="Recommend" styleImageButton={styles.imageButtonImageBackground}/>
-            <SectionCourses title="Path"/>
-            <SectionSkills title="Skills"/>
-            <SectionCategories title="Categories"/>
-            <SectionAuthors title="Authors"/>
-        </View>
+        <ScrollView>
+            <ImageButton navigation={props.navigation} title="New Releases" styleImageButton={styles.imageButtonImageBackground}/>
+            <ImageButton navigation={props.navigation}  title="Recommend" styleImageButton={styles.imageButtonImageBackground}/>
+            <SectionCourses navigation={props.navigation}  title="Path"/>
+            <SectionSkills navigation={props.navigation}  title="Skills"/>
+            <SectionCategories navigation={props.navigation}  title="Categories"/>
+            <SectionAuthors navigation={props.navigation}  title="Authors"/>
+        </ScrollView>
 
 
 );
