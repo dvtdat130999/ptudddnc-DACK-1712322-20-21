@@ -3,37 +3,22 @@ import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,
 
 import styles from "../../../globals/styles";
 import ListAuthorsItem from "../ListAuthorsItem/list-authors-item";
+import {authors} from "../../../data/authors";
+
 const ListAuthors=(props)=>{
-    const DATA = [
-        {
-            id: '1',
-            name:'Dat'
-        },
-        {
-            id: '2',
-            name:'Doan'
-        },
-        {
-            id: '3',
-            name:'Dong'
-        },
-        {
-            id: '4',
-            name:'Hay'
-        },
-        {
-            id: '5',
-            name:'Tien'
-        },
-        {
-            id: '6',
-            name:'Nhan'
-        },
+    let DATA;
+    console.log("Check props of list author");
 
+    console.log(props);
 
-
-    ];
-
+    if(props.searchResult)
+    {
+        DATA=props.searchResult;
+    }
+    else
+    {
+        DATA=authors;
+    }
     const renderItem=()=>{
         return DATA.map((item,i)=>{
             return <ListAuthorsItem item={item} key={i+1} navigation={props.navigation}/>

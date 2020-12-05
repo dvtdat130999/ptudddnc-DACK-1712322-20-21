@@ -1,18 +1,29 @@
-import React, { Component } from 'react';
+import React, {Component, useContext} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,TouchableOpacity } from 'react-native';
 
 import styles from "../../../globals/styles";
 import BookmarkIcon from "../../../../assets/bookmarkicon.png"
 import AddToChannelIcon from"../../../../assets/add-to-channel.png"
 import DownloadIcon from "../../../../assets/downloadicon.jpg"
+import {AuthenticationContext} from "../../../provider/authentication-provider";
+import {BookmarkContext} from "../../../provider/bookmark-provider";
 const CourseStudyService=(props)=>{
-    const bookmark=(props)=>{
-        console.log("Press bookmark")
+    const {coursesBookmark,setCoursesBookmark}=useContext(BookmarkContext);
+    const {authentication}=useContext(AuthenticationContext);
+    const bookmark=()=>{
+        let bookmark={
+            user:authentication.user.fullname,
+            course:props.item,
+        };
+
+        let courses=coursesBookmark;
+        courses=courses.concat(bookmark);
+        setCoursesBookmark(courses);
     };
-    const addToChannel=(props)=>{
+    const addToChannel=()=>{
         console.log("Press add to channel")
     };
-    const download=(props)=>{
+    const download=()=>{
         console.log("Press download")
     }
 

@@ -3,32 +3,10 @@ import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,
 
 import styles from "../../../../globals/styles";
 import SectionSkillsItem from "../SectionSkillsItem/section-skills-item";
+import {skills} from "../../../../data/skills";
+
 const SectionSkills=(props)=>{
-    const DATA = [
-        {
-            id: '1',
-            name:'Java'
-        },
-        {
-            id: '2',
-            name:'C'
-        },
-        {
-            id: '3',
-            name:'React'
-        },
-        {
-            id: '4',
-            name:'React Native'
-        },
-        {
-            id: '5',
-            name:'Communication'
-        },
-
-
-    ];
-
+    const DATA=skills;
     const renderItem=()=>{
         return DATA.map((item,i)=>{
             return <SectionSkillsItem item={item} key={item.id} navigation={props.navigation}/>

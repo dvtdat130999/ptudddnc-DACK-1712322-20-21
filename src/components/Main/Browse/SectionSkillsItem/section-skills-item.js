@@ -6,15 +6,15 @@ import styles from "../../../../globals/styles";
 import {navigationName} from "../../../../globals/constants";
 const SectionSkillsItem=(props)=>{
     const onPress=()=>{
-        props.navigation.navigate(navigationName.ListCourses);
+        props.navigation.navigate(navigationName.ListCourses,{
+            skill:props.item,
+        });
 
     }
     return (
         <TouchableHighlight onPress={onPress}>
             <View style={styles.sectionSkillsItem}>
                 <Text style={styles.sectionCourseItemText}>{props.item.name}</Text>
-
-
             </View>
 
         </TouchableHighlight>

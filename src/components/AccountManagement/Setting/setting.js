@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React, {Component, useContext} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,TouchableOpacity } from 'react-native';
 import styles from "../../../globals/styles";
 import {navigationName} from "../../../globals/constants";
-
+import {ThemeContext} from "../../../../App";
 
 const Setting=(props)=>{
+    console.log(props);
     let navigation=props.route.params.navigation;
     const signOut=(props)=>{
+        navigation.navigate(navigationName.Login);
         console.log("Sign out");
     }
     const account=(props)=>{

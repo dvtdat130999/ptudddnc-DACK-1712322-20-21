@@ -12,7 +12,7 @@ const Register=(props)=>{
         props.navigation.navigate(navigationName.Login)
     }
     return(
-        <View>
+        <ScrollView style={{marginLeft:10,marginRight:10}}>
             <View style={{flex: 2}}>
 
                 <View style={{alignItems:'center',justifyContent: "center"}}>
@@ -61,7 +61,7 @@ const Register=(props)=>{
 
 
             </View>
-        </View>
+        </ScrollView>
     );
 };
 

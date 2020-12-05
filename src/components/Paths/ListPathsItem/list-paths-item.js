@@ -3,26 +3,28 @@ import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,
 import { Card,Form,Row } from 'react-bootstrap';
 
 import styles from "../../../globals/styles";
-import AuthorImage from "../../../../assets/author.jpg"
+import PathIcon from "../../../../assets/path.png"
 import CourseReadInfo from "../../Common/course-read-info";
 import AuthorReadInfo from "../../Common/author-read-info";
 import {navigationName} from "../../../globals/constants";
-const ListAuthorsItem=(props)=>{
+import PathReadInfo from "../../Common/path-read-info";
+const ListPathsItem=(props)=>{
+
     const onPress=()=>{
         props.navigation.navigate(navigationName.ListCourses,{
-            author:props.item,
+            path:props.item,
             navigation:props.navigation
 
         })
     }
     return (
 
-        <TouchableOpacity style={styles.listAuthorsItem} onPress={onPress}>
-            <Image source={AuthorImage} style={styles.imageAuthor}/>
-            <AuthorReadInfo item={props.item}/>
+        <TouchableOpacity style={styles.listCoursesItem} onPress={onPress}>
+            <Image source={PathIcon} style={{width:200,height:200}}/>
+            <PathReadInfo item={props.item}/>
 
         </TouchableOpacity>
     );
 }
 
-export default ListAuthorsItem;
+export default ListPathsItem;

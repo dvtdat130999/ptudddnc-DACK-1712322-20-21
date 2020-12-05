@@ -1,42 +1,23 @@
 import React, { Component } from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList } from 'react-native';
-
+import {categories} from"../../../../data/categories"
 import styles from "../../../../globals/styles";
 import SectionCategoriesItem from "../SectionCategoriesItem/section-categories-item";
+
 const SectionCategories=(props)=>{
-    const DATA = [
-        {
-            id: '1',
-            title:'Software Development'
-        },
-        {
-            id: '2',
-            title:'Business'
-        },
-        {
-            id: '3',
-            title:'Conferences'
-        },
-        {
-            id: '4',
-            title:'Createive'
-        },
-        {
-            id: '5',
-            title:'Math'
-        },
-        {
-            id: '6',
-            title:'Project'
-        },
-
-
-
-    ];
+    const DATA = categories;
 
     const renderItem=()=>{
         return DATA.map((item,i)=>{
-            return <SectionCategoriesItem item={item} key={item.id} navigation={props.navigation}/>
+            if(i<10)
+            {
+                return <SectionCategoriesItem item={item} key={i} navigation={props.navigation}/>
+
+            }
+            else
+            {
+                return <View key={i}></View>
+            }
         })
     }
     return(
@@ -46,7 +27,5 @@ const SectionCategories=(props)=>{
                 {renderItem()}
             </ScrollView>
         </View>
-    );
-}
-
+    );}
 export default SectionCategories;

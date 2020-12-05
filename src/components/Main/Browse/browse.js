@@ -8,12 +8,13 @@ import SectionAuthors from "./SectionAuthors/section-authors";
 import SectionSkills from "./SectionSkills/section-skills";
 import SectionCategories from "./SectionCategories/section-categories";
 import styles from "../../../globals/styles"
+import SectionPaths from "./SectionPaths/section-paths";
 const Browse=(props)=>{
     return(
         <ScrollView>
             <ImageButton navigation={props.navigation} title="New Releases" styleImageButton={styles.imageButtonImageBackground}/>
             <ImageButton navigation={props.navigation}  title="Recommend" styleImageButton={styles.imageButtonImageBackground}/>
-            <SectionCourses navigation={props.navigation}  title="Path"/>
+            <SectionPaths navigation={props.navigation}  title="Path"/>
             <SectionSkills navigation={props.navigation}  title="Skills"/>
             <SectionCategories navigation={props.navigation}  title="Categories"/>
             <SectionAuthors navigation={props.navigation}  title="Authors"/>

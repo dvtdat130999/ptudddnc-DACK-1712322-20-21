@@ -9,7 +9,7 @@ const ForgetPassword=()=>{
             <View style={{flex: 2}}>
 
                 <View style={{alignItems:'center',justifyContent: "center"}}>
-                    <Text style={{fontSize:20}} >
+                    <Text style={{fontSize:20,color:'white'}} >
                         Forget Password
                     </Text>
                 </View>

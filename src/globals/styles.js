@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         marginTop:10,
         marginLeft:30,
         marginRight:30,
-        height:300,
+        width:200,
         backgroundColor:'lightslategrey',
     },
     sectionCourseItemText:{
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     },
     listCoursesItem:{
         flexDirection:'row',
-        marginTop:10,
+        marginTop:20,
         marginLeft:20,
         borderBottomColor:'white',
         borderBottomWidth:1,

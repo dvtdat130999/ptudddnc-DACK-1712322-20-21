@@ -5,29 +5,13 @@ import VideoPlayer from "./VideoPlayer/video-player";
 import CourseIntroduction from "./CourseIntroduction/course-introduction";
 import ListLessons from "./ListOfLessons/list-lessons";
 const CourseStudy=(props)=>{
-    let data=props.route.params.data;
-    console.log("Check navigation course study");
-    console.log(props.navigation);
+    console.log("Check props of course study");
+    console.log(props);
 
     let item=props.route.params.item;
     props.navigation.setOptions({title:item.title});
 
     let navigation=props.route.params.navigation;
-    const listLessons=[
-        {
-            name:'first lesson',
-            length:'1m'
-        },
-        {
-            name:'second lesson',
-            length:'2m'
-        },
-        {
-            name:'third lesson',
-            length:'3m'
-        },
-
-    ]
     const courseInfo={
         name:'React the big picture',
         author:'Cory House',
@@ -40,9 +24,9 @@ const CourseStudy=(props)=>{
     return(
         <ScrollView>
             <VideoPlayer />
-            <CourseIntroduction item={item}/>
+            <CourseIntroduction item={item} navigation={props.navigation}/>
             <Text style={{color:'white',fontWeight:'bold',fontSize:20,marginTop:20}}>Contents</Text>
-            <ListLessons navigation={navigation} data={data}/>
+            <ListLessons navigation={navigation} item={item}/>
 
 
         </ScrollView>

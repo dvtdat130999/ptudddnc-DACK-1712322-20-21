@@ -5,11 +5,18 @@ import styles from "../../../globals/styles";
 import CourseStudyService from "../CourseStudyService/course-study-service";
 import CheckIcon from "../../../../assets/checkicon.png"
 import CourseIcon from "../../../../assets/course.png"
+import {navigationName} from "../../../globals/constants";
 const CourseIntroduction=(props)=>{
-    const related=(props)=>{
+
+    const related=()=>{
+        props.navigation.navigate(navigationName.RelatedPathsAndCourses,{
+            relatedWithCourse:props.item,
+            navigation:props.navigation
+
+        })
         console.log("Press related")
     };
-    const takeCheck=(props)=>{
+    const takeCheck=()=>{
         console.log("Press check")
     };
     return(
@@ -27,7 +34,7 @@ const CourseIntroduction=(props)=>{
                     <Text style={{color:'white'}}>Take a learning check</Text>
                 </View>
             </TouchableHighlight>
-            <CourseStudyService/>
+            <CourseStudyService item={props.item}/>
             <Text style={{color:'white',marginTop:10}}>{props.item.introduction}</Text>
 
         </View>

@@ -10,7 +10,6 @@ const SectionCoursesItem=(props)=>{
     const onPress=()=>{
         props.navigation.navigate(navigationName.CourseStudy,{
             item:props.item,
-            data:props.data,
             navigation:props.navigation
 
         })

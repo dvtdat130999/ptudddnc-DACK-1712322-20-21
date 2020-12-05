@@ -2,9 +2,8 @@ import 'react-native-gesture-handler';
 import { NavigationContainer, DefaultTheme  } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import {themes} from "./src/globals/themes"
+import React, {useState} from 'react';
 import { StyleSheet, Text, View,Image,Button } from 'react-native';
 import Login from "./src/components/Authentication/login"
 import Register from "./src/components/Authentication/register";
@@ -28,6 +27,11 @@ import {navigationName} from "./src/globals/constants"
 import ForgetPassword from "./src/components/Authentication/forget-password";
 import Download from "./src/components/Main/Download/list-download";
 import Search from "./src/components/Main/Search/search";
+import {AuthenticationProvider} from "./src/provider/authentication-provider";
+import {CoursesProvider} from "./src/provider/courses-provider";
+import RelatedPathsAndCourses from "./src/components/CourseStudy/RelatedPathsAndCourses/related-paths-courses";
+import {BookmarkProvider} from "./src/provider/bookmark-provider";
+
 const MyTheme = {
     ...DefaultTheme,
     colors: {
@@ -65,6 +69,7 @@ const BrowseNavigation=()=>{
             <BrowseStack.Screen name={navigationName.Browse} component={Browse} options={{ headerShown: false }}/>
             <BrowseStack.Screen name={navigationName.CourseStudy} component={CourseStudy}  />
             <BrowseStack.Screen name={navigationName.ListCourses} component={ListCourses} />
+            <BrowseStack.Screen name={navigationName.RelatedPathsAndCourses} component={RelatedPathsAndCourses} options={{title:'Related'}}/>
 
         </BrowseStack.Navigator>
     );
@@ -80,6 +85,8 @@ const HomeNavigation=()=>{
             <HomeStack.Screen name={navigationName.Setting} component={Setting} />
             <HomeStack.Screen name={navigationName.Account} component={Account} />
             <HomeStack.Screen name={navigationName.Theme} component={ChangeThemes} />
+            <HomeStack.Screen name={navigationName.RelatedPathsAndCourses} component={RelatedPathsAndCourses} options={{title:'Related'}}/>
+            <HomeStack.Screen name={navigationName.ListCourses} component={ListCourses} />
 
         </HomeStack.Navigator>
     );
@@ -91,6 +98,7 @@ const ListDownloadStack=()=>{
 
             <DownloadStack.Screen name={navigationName.ListCourses} component={Download} options={{title:'Downloads',headerShown: false}}/>
             <DownloadStack.Screen name={navigationName.CourseStudy} component={CourseStudy} />
+            <DownloadStack.Screen name={navigationName.RelatedPathsAndCourses} component={RelatedPathsAndCourses} options={{title:'Related'}} />
 
         </DownloadStack.Navigator>
     );
@@ -125,7 +133,7 @@ const AfterLogin=()=>{
             <BottomTab.Screen name={navigationName.Home} component={HomeNavigation}/>
             <BottomTab.Screen name={navigationName.Browse} component={BrowseNavigation}/>
             <BottomTab.Screen name={navigationName.ListDownload} component={ListDownloadStack} />
-            <BottomTab.Screen name={navigationName.Search} component={Search}/>
+            <BottomTab.Screen name={navigationName.Search} component={SearchNavigation}/>
 
         </BottomTab.Navigator>
     );
@@ -134,17 +142,32 @@ const MainStackApp=()=>{
     return(
         <MainStack.Navigator >
             <MainStack.Screen name={navigationName.Authentication} component={AuthenticationStack} options={{ headerShown: false }}/>
+
             <MainStack.Screen name={navigationName.AfterLogin} component={AfterLogin} options={{ headerShown: false }}/>
 
         </MainStack.Navigator>
     );
 }
-export default function App() {
-  return (
-      <NavigationContainer theme={MyTheme}>
-          <MainStackApp/>
 
-      </NavigationContainer>
+export const ThemeContext=React.createContext(themes.light);
+
+export default function App() {
+    const [theme,setTheme]=useState(themes.dark);
+
+  return (
+      <BookmarkProvider>
+          <ThemeContext.Provider value={{theme,setTheme}}>
+              <CoursesProvider>
+                  <AuthenticationProvider>
+                      <NavigationContainer theme={MyTheme}>
+                          <MainStackApp/>
+
+                      </NavigationContainer>
+                  </AuthenticationProvider>
+              </CoursesProvider>
+          </ThemeContext.Provider>
+      </BookmarkProvider>
+
 
 
       /*<View style={styles.container}>

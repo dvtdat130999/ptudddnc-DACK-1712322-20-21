@@ -2,10 +2,23 @@ import React, { Component,useState } from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,TouchableOpacity } from 'react-native';
 
 import styles from "../../../globals/styles";
+import {courses} from "../../../data/courses";
 import Lesson from "./Lesson/lesson";
 
 const ListLessons=(props)=>{
-    let data=props.data;
+    let data=[];
+    let path=props.item.path;
+    if(path!=='')
+    {
+        courses.map((item,i)=>{
+            if(item.path===path)
+            {
+                data=data.concat(item);
+            }
+
+        })
+    }
+
     let navigation=props.navigation;
     const renderItem=()=>{
         return data.map((item,i)=>{

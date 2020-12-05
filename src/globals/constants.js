@@ -1,5 +1,5 @@
 export const navigationName={
-    ListCourses:"ListCourses",
+    ListCourses:"Courses",
     CourseStudy:"CourseStudy",
     Home:"Home",
     First:"First",
@@ -17,5 +17,6 @@ export const navigationName={
     Setting:"Setting",
     Account:"Account",
     Theme:"Theme",
+    RelatedPathsAndCourses:'RelatedPathsAndCourses',
 
 }

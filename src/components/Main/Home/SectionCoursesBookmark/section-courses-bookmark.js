@@ -2,14 +2,30 @@ import React, {Component, useContext} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,TouchableOpacity } from 'react-native';
 
 import styles from "../../../../globals/styles";
-import SectionCoursesItem from "../SectionCoursesItem/section-courses-item";
 import {CoursesContext} from "../../../../provider/courses-provider";
+import {BookmarkContext} from "../../../../provider/bookmark-provider";
+import {AuthenticationContext} from "../../../../provider/authentication-provider";
 import {courses} from "../../../../data/courses";
+import SectionCoursesItem from "../SectionCoursesItem/section-courses-item";
 
-const SectionCourses=(props)=>{
+const SectionCoursesBookmark=(props)=>{
 
+    const {coursesBookmark}=useContext(BookmarkContext);
+    if(!coursesBookmark)
+    {
+        return <View></View>
+    }
 
-    const DATA=courses;
+    const {authentication}=useContext(AuthenticationContext);
+
+    let DATA=[];
+
+    coursesBookmark.map((item,i)=>{
+       if(item.user===authentication.user.fullname)
+       {
+           DATA=DATA.concat(item.course);
+       }
+    });
     const renderItem=()=>{
 
         return DATA.map((item,i)=>{
@@ -32,7 +48,6 @@ const SectionCourses=(props)=>{
             </ScrollView>
         </View>
     );
-
 }
 
-export default SectionCourses;
+export default SectionCoursesBookmark;
