@@ -1,9 +1,25 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions  } from 'react-native';
 import Logo from "../../../assets/logo-pluralsight.png"
 import styles from "../../globals/styles";
+import DarkStyles from "../../globals/dark-style";
+import LightStyles from "../../globals/light-style";
 import {navigationName} from "../../globals/constants";
+import {ThemeContext} from "../../provider/theme-provider";
+import {themes} from "../../globals/themes"
 const First=(props)=>{
+    let {changeTheme}=useContext(ThemeContext);
+    let themeStyle;
+    if(changeTheme===themes.dark)
+    {
+
+        themeStyle=DarkStyles;
+    }
+    else
+    {
+        themeStyle=LightStyles;
+    }
+
     const onPressLogin=()=>{
         props.navigation.navigate(navigationName.Login);
     }
@@ -12,41 +28,59 @@ const First=(props)=>{
     }
 
     return(
-        <View >
-            <View style={{justifyContent:'center', alignItems:'center'}}>
-                <Image source={Logo} style={styles.logo}/>
+        <ScrollView style={{backgroundColor:changeTheme.background,flex:1}}>
+        <View style={{flex:1}}>
+            <View style={componentStyle.logoView}>
+                <Image source={Logo} style={componentStyle.logo}/>
 
             </View>
 
-            <View style={{alignItems:'center',padding:40}}>
-                <Text style={{fontSize:30,fontWeight: "bold",color:'azure'}}>Pluralsight</Text>
+            <View style={componentStyle.titleView}>
+                <Text style={themeStyle.title}>Pluralsight</Text>
             </View>
             <TouchableHighlight onPress={onPressLogin}>
-                <View style={styles.button}>
-                    <Text style={styles.textButton}>Login</Text>
+                <View style={themeStyle.button}>
+                    <Text style={themeStyle.textButton}>Login</Text>
                 </View>
             </TouchableHighlight>
             <View style={styles.space} />
 
             <TouchableHighlight onPress={onPressRegister}>
-                <View style={styles.button}>
-                    <Text style={styles.textButton}>Register</Text>
+                <View style={themeStyle.button}>
+                    <Text style={themeStyle.textButton}>Register</Text>
                 </View>
             </TouchableHighlight>
             <View style={styles.space} />
             <TouchableHighlight >
-                <View style={styles.buttonLight}>
-                    <Text style={styles.textButton}>Subscribe to Pluralsight</Text>
+                <View style={themeStyle.buttonLight}>
+                    <Text style={themeStyle.textLightButton}>Subscribe to Pluralsight</Text>
                 </View>
             </TouchableHighlight>
             <View style={styles.space} />
             <TouchableHighlight >
-                <View style={styles.buttonLight}>
-                    <Text style={styles.textButton}>Explore without a subscription</Text>
+                <View style={themeStyle.buttonLight}>
+                    <Text style={themeStyle.textLightButton}>Explore without a subscription</Text>
                 </View>
             </TouchableHighlight>
         </View>
+        </ScrollView>
     );
 };
 
+const componentStyle=StyleSheet.create({
+   logoView:{
+       justifyContent:'center',
+       alignItems:'center'
+   },
+    logo:{
+        width:50,
+        height:50,
+    },
+    titleView:{
+       alignItems:'center',
+        padding:40
+   },
+
+
+});
 export default First;

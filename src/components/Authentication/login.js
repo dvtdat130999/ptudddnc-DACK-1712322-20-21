@@ -2,11 +2,28 @@ import React, {Component, useContext, useEffect, useState} from 'react';
 import { StyleSheet,View, Image, TextInput,TouchableHighlight,Dimensions,ScrollView,SafeAreaView,Text,Alert  } from 'react-native';
 
 import styles from "../../globals/styles";
+import {ThemeContext} from "../../provider/theme-provider";
+import DarkStyles from "../../globals/dark-style";
+import LightStyles from "../../globals/light-style";
+import {themes} from "../../globals/themes";
 import {navigationName} from "../../globals/constants";
 import {login} from "../core/services/authentication-services";
+import {UserContext} from "../../provider/users-provider";
 import {AuthenticationContext, AuthenticationProvider} from "../../provider/authentication-provider";
 
 const Login=(props)=>{
+    let {changeTheme}=useContext(ThemeContext);
+    let themeStyle;
+
+    if(changeTheme===themes.dark)
+    {
+
+        themeStyle=DarkStyles;
+    }
+    else
+    {
+        themeStyle=LightStyles;
+    }
     const [username,setUsername]=useState("");
     const [password,setPassword]=useState("");
 
@@ -29,10 +46,10 @@ const Login=(props)=>{
         }
         else if(status.status===200)
             {
-                return <Text style={{color:'white'}}>Login success</Text>
+                return <Text style={themeStyle.text}>Login success</Text>
             }
         else {
-            return <Text style={{color:'white'}}>{status.errorString}</Text>
+            return <Text style={themeStyle.text}>{status.errorString}</Text>
 
         }
 
@@ -43,10 +60,11 @@ const Login=(props)=>{
 
     }
     const {setAuthentication}=useContext(AuthenticationContext);
-    const validateUser=(username,password)=>{
-        if(username==='admin')
+    const {userList,setUserList}=useContext(UserContext);
+    const validateUser=(user,pass)=>{
+        if(username===user)
         {
-            if(password==='admin')
+            if(password===pass)
             {
                 setMessage("Login is success");
                 return true;
@@ -54,12 +72,10 @@ const Login=(props)=>{
             else
             {
                 setMessage("Password is not correct");
-                console.log(message);
                 return false;
             }
         }
         setMessage("Username is not existed");
-        console.log(message);
 
         return false;
     }
@@ -69,32 +85,34 @@ const Login=(props)=>{
         }
         else
         {
-            return <Text style={{color:'white'}}>{message}</Text>
+            return <Text style={themeStyle.textError}>{message}</Text>
         }
     }
     const onPressLogin=()=>{
         //setStatus(login(username,password));
         //setTimeout(()=>{console.log("Check is success");},100);
         //console.log(isSuccess);
-        if(validateUser(username,password))
-        {
-            setAuthentication(login(username,password));
-            props.navigation.navigate(navigationName.AfterLogin)
+        userList.map((item,i)=>{
+            if(validateUser(item.username,item.password))
+            {
+                setAuthentication(item);
+                props.navigation.navigate(navigationName.AfterLogin)
 
-        }
-
-
-
+            }
+        })
 
         //props.navigation.navigate(navigationName.AfterLogin);
     }
+    const onPressRegister=()=>{
+        props.navigation.navigate(navigationName.Register);
+    }
     return(
-        <ScrollView style={{marginLeft:10,marginRight:10}} >
+        <ScrollView style={{...componentStyle.scrollView,...styles.container,backgroundColor:changeTheme.background}} >
             <View >
                 <View style={{flex: 2}}>
 
-                    <View style={{alignItems:'center',justifyContent: "center"}}>
-                        <Text style={{fontSize:30,fontWeight: "bold",color:'azure'}} >
+                    <View style={componentStyle.titleView}>
+                        <Text style={themeStyle.title} >
                             Login
                         </Text>
                     </View>
@@ -103,132 +121,71 @@ const Login=(props)=>{
 
                 <View style={{flex: 10}}>
 
-                    <Text style={styles.label}>Email or username</Text>
+                    <Text style={themeStyle.textMedium}>Email or username</Text>
 
-                    <TextInput style={styles.inputLogin} onChangeText={text=>{setUsername(text)}} defaultValue={username}></TextInput>
+                    <TextInput style={styles.input} onChangeText={text=>{setUsername(text)}} defaultValue={username}></TextInput>
 
                     <View style={styles.space}/>
-                    <Text style={styles.label}>Password</Text>
-                    <TextInput secureTextEntry={true} style={styles.inputLogin} defaultValue={password} onChangeText={text=>{setPassword(text)}}></TextInput>
+                    <Text style={themeStyle.textMedium}>Password</Text>
+                    <TextInput secureTextEntry={true} style={styles.input} defaultValue={password} onChangeText={text=>{setPassword(text)}}></TextInput>
                     <View style={styles.space}/>
                     {renderMessage()}
 {/*
                     {renderStatus(status)}
 */}
                     <TouchableHighlight onPress={onPressLogin}>
-                        <View style={styles.button}>
-                            <Text style={styles.textButton}> Login</Text>
+                        <View style={themeStyle.button}>
+                            <Text style={themeStyle.textButton}> Login</Text>
                         </View>
                     </TouchableHighlight>
                     <View style={styles.space}/>
                     <TouchableHighlight onPress={onPressForgetPassword}>
-                        <View style={styles.buttonLight}>
-                            <Text style={styles.textButton}>Forget password</Text>
-                        </View>
-                    </TouchableHighlight>
-                    <View style={styles.space}/>
-                    <TouchableHighlight >
-                        <View style={styles.buttonLight}>
-                            <Text  style={styles.textButton}>Need help?</Text>
+                        <View style={themeStyle.buttonLight}>
+                            <Text style={themeStyle.textLightButton}>Forget password</Text>
                         </View>
                     </TouchableHighlight>
                     <View style={styles.space}/>
 
+                    <TouchableHighlight onPress={onPressRegister}>
+                        <View style={themeStyle.buttonLight}>
+                            <Text  style={themeStyle.textLightButton}>Register</Text>
+                        </View>
+                    </TouchableHighlight>
+                    <View style={styles.space}/>
                     <TouchableHighlight >
-                        <View style={styles.buttonLight}>
-                            <Text style={styles.textButton}>Use Single Sign-On(SSO)</Text>
+                        <View style={themeStyle.buttonLight}>
+                            <Text  style={themeStyle.textLightButton}>Need help?</Text>
+                        </View>
+                    </TouchableHighlight>
+
+                    <View style={styles.space}/>
+
+                    <TouchableHighlight >
+                        <View style={themeStyle.buttonLight}>
+                            <Text style={themeStyle.textLightButton}>Use Single Sign-On(SSO)</Text>
                         </View>
                     </TouchableHighlight>
                     <View style={styles.space}/>
 
-                    <TouchableHighlight >
-                        <View style={styles.buttonLight}>
-                            <Text  style={styles.textButton}>Subscribe to Pluralsight</Text>
-                        </View>
-                    </TouchableHighlight>
+
 
                 </View>
             </View>
         </ScrollView>
 
-
     );
-/*
-    return <AuthenticationContext.Consumer>
-        {
-            ({setAuthentication})=>{
-                const onPressLogin=()=>{
-                    setStatus(login(username,password));
-                    setAuthentication(login(username,password));
-                    //props.navigation.navigate(navigationName.AfterLogin);
-                }
-                return(
-                    <ScrollView style={{marginLeft:10,marginRight:10}} >
-                        <View >
-                            <View style={{flex: 2}}>
-
-                                <View style={{alignItems:'center',justifyContent: "center"}}>
-                                    <Text style={{fontSize:30,fontWeight: "bold",color:'azure'}} >
-                                        Login
-                                    </Text>
-                                </View>
-
-                            </View>
-
-                            <View style={{flex: 10}}>
-
-                                <Text style={styles.label}>Email or username</Text>
-
-                                <TextInput style={styles.inputLogin} onChangeText={text=>{setUsername(text)}} defaultValue={username}></TextInput>
-
-                                <View style={styles.space}/>
-                                <Text style={styles.label}>Password</Text>
-                                <TextInput secureTextEntry={true} style={styles.inputLogin} defaultValue={password} onChangeText={text=>{setPassword(text)}}></TextInput>
-                                <View style={styles.space}/>
-                                {renderStatus(status)}
-                                <TouchableHighlight onPress={onPressLogin}>
-                                    <View style={styles.button}>
-                                        <Text style={styles.textButton}> Login</Text>
-                                    </View>
-                                </TouchableHighlight>
-                                <View style={styles.space}/>
-                                <TouchableHighlight onPress={onPressForgetPassword}>
-                                    <View style={styles.buttonLight}>
-                                        <Text style={styles.textButton}>Forget password</Text>
-                                    </View>
-                                </TouchableHighlight>
-                                <View style={styles.space}/>
-                                <TouchableHighlight >
-                                    <View style={styles.buttonLight}>
-                                        <Text  style={styles.textButton}>Need help?</Text>
-                                    </View>
-                                </TouchableHighlight>
-                                <View style={styles.space}/>
-
-                                <TouchableHighlight >
-                                    <View style={styles.buttonLight}>
-                                        <Text style={styles.textButton}>Use Single Sign-On(SSO)</Text>
-                                    </View>
-                                </TouchableHighlight>
-                                <View style={styles.space}/>
-
-                                <TouchableHighlight >
-                                    <View style={styles.buttonLight}>
-                                        <Text  style={styles.textButton}>Subscribe to Pluralsight</Text>
-                                    </View>
-                                </TouchableHighlight>
-
-                            </View>
-                        </View>
-                    </ScrollView>
-
-
-                );
-            }
-        }
-    </AuthenticationContext.Consumer>
-*/
-
 };
+const componentStyle=StyleSheet.create({
+    scrollView:{
+        marginLeft:10,
+        marginRight:10
+    },
+    titleView:{
+        justifyContent:'center',
+        alignItems:'center'
+    },
 
+
+
+});
 export default Login;

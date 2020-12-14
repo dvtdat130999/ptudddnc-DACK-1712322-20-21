@@ -1,4 +1,4 @@
-import React, { Component,useState,useEffect } from 'react';
+import React, {Component, useState, useEffect, useContext} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
@@ -12,7 +12,23 @@ import {courses} from "../../../data/courses";
 import {paths} from "../../../data/paths";
 import {authors} from "../../../data/authors"
 import ResultAll from "./ResultAll/result-all";
+import {themes} from "../../../globals/themes";
+import DarkStyles from "../../../globals/dark-style";
+import LightStyles from "../../../globals/light-style";
+import {ThemeContext} from "../../../provider/theme-provider";
 const Search=(props)=>{
+    let {changeTheme}=useContext(ThemeContext);
+    let themeStyle;
+
+    if(changeTheme===themes.dark)
+    {
+
+        themeStyle=DarkStyles;
+    }
+    else
+    {
+        themeStyle=LightStyles;
+    }
     const [searchContent,setSearchContent]=useState("");
     const [isSearch,setIsSearch]=useState(false);
     const [isClickSearch,setIsClickSearch]=useState(false);
@@ -96,54 +112,63 @@ const Search=(props)=>{
 
 
     return(
-        <ScrollView >
-            <View style={{fontColor:'white',flexDirection:'row',marginTop:10}}>
-                <TextInput style={{flex:1, height: 40, borderColor: 'gray', borderWidth: 1,borderRadius:30,color:'white',marginLeft:10 }}
-                           onChangeText={text=>setSearchContent(text)}
-                           value={searchContent}
-                >
-                </TextInput>
-                <TouchableHighlight  onPress={onPressSearch}  >
-                    <View style={{
-                        alignItems: "center",
-                        padding: 10,}}>
-                        <Text style={{color:'white'}}>Search</Text>
-                    </View>
-                </TouchableHighlight>
+        <ScrollView style={{backgroundColor:changeTheme.background,flex:1}} >
+            <View style={{flex:1}}>
+                <View style={{fontColor:'white',flexDirection:'row',marginTop:10}}>
+                    {changeTheme===themes.dark ?
+                        <TextInput style={{flex:1, height: 40, borderColor: 'gray', borderWidth: 1,borderRadius:30,color:'white',marginLeft:10 }}
+                                   onChangeText={text=>setSearchContent(text)}
+                                   value={searchContent}
+                        >
+                        </TextInput> :
+                        <TextInput style={{flex:1, height: 40, borderColor: 'gray', borderWidth: 1,borderRadius:30,color:'black',marginLeft:10 }}
+                                   onChangeText={text=>setSearchContent(text)}
+                                   value={searchContent}
+                        >
+                        </TextInput>
+                    }
+
+                    <TouchableHighlight  onPress={onPressSearch}  >
+                        <View style={{
+                            alignItems: "center",
+                            padding: 10,}}>
+                            <Text style={themeStyle.text}>Search</Text>
+                        </View>
+                    </TouchableHighlight>
+                </View>
+
+
+                {isSearch  ? <SearchTab.Navigator>
+                    <SearchTab.Screen name="All"
+
+                    >
+                        {()=><ResultAll resultCoursesSearch={resultCoursesSearch}
+                                   resultPathsSearch={resultPathsSearch}
+                                   resultAuthorsSearch={resultAuthorsSearch}
+                                        navigation={props.navigation}
+                        />}
+                    </SearchTab.Screen>
+                    <SearchTab.Screen name={navigationName.ListCourses} options={{title:'Courses'}}
+
+                    >
+                        {()=><ListCourses searchResult={resultCoursesSearch} navigation={props.navigation}/>}
+
+                    </SearchTab.Screen>
+                    <SearchTab.Screen name={navigationName.Paths} options={{title:'Paths'}}
+
+                    >
+                        {()=><ListPaths searchResult={resultPathsSearch} navigation={props.navigation}/>}
+
+                    </SearchTab.Screen>
+                    <SearchTab.Screen name={navigationName.Authors} options={{title:'Authors'}}
+
+                    >
+                        {()=><ListAuthors searchResult={resultAuthorsSearch} navigation={props.navigation}/>}
+
+                    </SearchTab.Screen>
+
+                </SearchTab.Navigator> : <View></View>}
             </View>
-
-
-            {isSearch  ? <SearchTab.Navigator>
-                <SearchTab.Screen name="All"
-
-                >
-                    {()=><ResultAll resultCoursesSearch={resultCoursesSearch}
-                               resultPathsSearch={resultPathsSearch}
-                               resultAuthorsSearch={resultAuthorsSearch}
-                                    navigation={props.navigation}
-                    />}
-                </SearchTab.Screen>
-                <SearchTab.Screen name={navigationName.ListCourses} options={{title:'Courses'}}
-
-                >
-                    {()=><ListCourses searchResult={resultCoursesSearch} navigation={props.navigation}/>}
-
-                </SearchTab.Screen>
-                <SearchTab.Screen name={navigationName.Paths} options={{title:'Paths'}}
-
-                >
-                    {()=><ListPaths searchResult={resultPathsSearch} navigation={props.navigation}/>}
-
-                </SearchTab.Screen>
-                <SearchTab.Screen name={navigationName.Authors} options={{title:'Authors'}}
-
-                >
-                    {()=><ListAuthors searchResult={resultAuthorsSearch} navigation={props.navigation}/>}
-
-                </SearchTab.Screen>
-
-            </SearchTab.Navigator> : <View></View>}
-
         </ScrollView>
     );
 };

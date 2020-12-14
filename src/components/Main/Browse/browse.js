@@ -1,4 +1,4 @@
-import React, { Component,useState,useEffect } from 'react';
+import React, {Component, useState, useEffect, useContext} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList } from 'react-native';
 
 import ImageButton from "../../Common/image-button";
@@ -9,15 +9,33 @@ import SectionSkills from "./SectionSkills/section-skills";
 import SectionCategories from "./SectionCategories/section-categories";
 import styles from "../../../globals/styles"
 import SectionPaths from "./SectionPaths/section-paths";
+import {ThemeContext} from "../../../provider/theme-provider";
+import {themes} from "../../../globals/themes";
+import DarkStyles from "../../../globals/dark-style";
+import LightStyles from "../../../globals/light-style";
 const Browse=(props)=>{
+    let {changeTheme}=useContext(ThemeContext);
+    let themeStyle;
+
+    if(changeTheme===themes.dark)
+    {
+
+        themeStyle=DarkStyles;
+    }
+    else
+    {
+        themeStyle=LightStyles;
+    }
     return(
         <ScrollView>
-            <ImageButton navigation={props.navigation} title="New Releases" styleImageButton={styles.imageButtonImageBackground}/>
-            <ImageButton navigation={props.navigation}  title="Recommend" styleImageButton={styles.imageButtonImageBackground}/>
-            <SectionPaths navigation={props.navigation}  title="Path"/>
-            <SectionSkills navigation={props.navigation}  title="Skills"/>
-            <SectionCategories navigation={props.navigation}  title="Categories"/>
-            <SectionAuthors navigation={props.navigation}  title="Authors"/>
+            <View style={{backgroundColor:changeTheme.background}}>
+                <ImageButton navigation={props.navigation} title="New Releases" styleImageButton={styles.imageButtonImageBackground}/>
+                <ImageButton navigation={props.navigation}  title="Recommend" styleImageButton={styles.imageButtonImageBackground}/>
+                <SectionPaths navigation={props.navigation}  title="Path"/>
+                <SectionSkills navigation={props.navigation}  title="Skills"/>
+                <SectionCategories navigation={props.navigation}  title="Categories"/>
+                <SectionAuthors navigation={props.navigation}  title="Authors"/>
+            </View>
         </ScrollView>
 
 

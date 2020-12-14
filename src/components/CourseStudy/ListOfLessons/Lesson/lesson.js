@@ -1,9 +1,25 @@
-import React, { Component } from 'react';
+import React, {Component, useContext} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,TouchableOpacity } from 'react-native';
 
 import styles from "../../../../globals/styles";
 import {navigationName} from "../../../../globals/constants";
+import {ThemeContext} from "../../../../provider/theme-provider";
+import {themes} from "../../../../globals/themes";
+import DarkStyles from "../../../../globals/dark-style";
+import LightStyles from "../../../../globals/light-style";
 const Lesson=(props)=>{
+    let {changeTheme}=useContext(ThemeContext);
+    let themeStyle;
+
+    if(changeTheme===themes.dark)
+    {
+
+        themeStyle=DarkStyles;
+    }
+    else
+    {
+        themeStyle=LightStyles;
+    }
     let item;
     let data;
     let navigation=props.navigation;
@@ -30,12 +46,12 @@ const Lesson=(props)=>{
 
     return(
         <TouchableOpacity style={{flexDirection:'row',marginTop:15}} onPress={chooseLesson}>
-            <View style={{backgroundColor:'gray',justifyContent:'center',alignItems:'center',width:50,marginLeft:20}}>
-                <Text style={{color:'white'}}>{props.stt}</Text>
+            <View style={themeStyle.lessonItem}>
+                <Text style={themeStyle.text}>{props.stt}</Text>
             </View>
             <View style={{flexDirection:'column',marginLeft:10}}>
-                <Text style={{color:'white',fontWeight:'bold'}}>{item.title}</Text>
-                <Text style={{color:'white'}}>{item.length}</Text>
+                <Text style={themeStyle.titleSmall}>{item.title}</Text>
+                <Text style={themeStyle.text}>{item.length}</Text>
 
             </View>
         </TouchableOpacity>

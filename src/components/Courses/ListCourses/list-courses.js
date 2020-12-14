@@ -5,7 +5,23 @@ import styles from "../../../globals/styles";
 import ListCoursesItem from "../ListCoursesItem/list-courses-item";
 import {navigationName} from "../../../globals/constants";
 import {CoursesContext} from "../../../provider/courses-provider";
+import {themes} from "../../../globals/themes";
+import DarkStyles from "../../../globals/dark-style";
+import LightStyles from "../../../globals/light-style";
+import {ThemeContext} from "../../../provider/theme-provider";
 const ListCourses=(props)=>{
+    let {changeTheme}=useContext(ThemeContext);
+    let themeStyle;
+
+    if(changeTheme===themes.dark)
+    {
+
+        themeStyle=DarkStyles;
+    }
+    else
+    {
+        themeStyle=LightStyles;
+    }
     let DATA;
     let path;
     let category;
@@ -136,11 +152,14 @@ const ListCourses=(props)=>{
         })
     };
     return(
-        <ScrollView style={{marginTop:60}}>
-            <Text style={styles.sectionCoursesTitle}>{props.title}</Text>
-            {renderItem()}
+        <ScrollView style={{backgroundColor:changeTheme.background,flex:1}}>
 
+            <View style={{marginTop:60,flex:1}}>
+                    <Text style={themeStyle.sectionTitle}>{props.title}</Text>
+                    {renderItem()}
+            </View>
         </ScrollView>
+
     );
 
 }

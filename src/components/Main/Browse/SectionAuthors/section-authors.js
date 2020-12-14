@@ -1,10 +1,25 @@
-import React, { Component } from 'react';
+import React, {Component, useContext} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList } from 'react-native';
 import {authors} from"../../../../data/authors"
 import styles from "../../../../globals/styles";
 import SectionAuthorsItem from "../SectionAuthorsItem/section-authors-item";
+import {ThemeContext} from "../../../../provider/theme-provider";
+import {themes} from "../../../../globals/themes";
+import DarkStyles from "../../../../globals/dark-style";
+import LightStyles from "../../../../globals/light-style";
 
 const SectionAuthors=(props)=>{
+    let {changeTheme}=useContext(ThemeContext);
+    let themeStyle;
+    if(changeTheme===themes.dark)
+    {
+
+        themeStyle=DarkStyles;
+    }
+    else
+    {
+        themeStyle=LightStyles;
+    }
     const DATA = authors;
 
     const renderItem=()=>{
@@ -22,7 +37,7 @@ const SectionAuthors=(props)=>{
     }
     return(
         <View style={{marginTop:60}}>
-            <Text style={styles.categoriesBrowse}>{props.title}</Text>
+            <Text style={themeStyle.title}>{props.title}</Text>
             <ScrollView horizontal={true} showHorizontalScrollIndicator={false}>
                 {renderItem()}
             </ScrollView>

@@ -1,10 +1,36 @@
 import React, {Component, useContext} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,TouchableOpacity } from 'react-native';
 import styles from "../../../globals/styles";
+import {ThemeContext} from "../../../provider/theme-provider";
+import DarkStyles from "../../../globals/dark-style";
+import LightStyles from "../../../globals/light-style";
+import {themes} from "../../../globals/themes";
 import {navigationName} from "../../../globals/constants";
-import {ThemeContext} from "../../../../App";
 
 const Setting=(props)=>{
+    let {changeTheme}=useContext(ThemeContext);
+    let themeStyle;
+
+    if(changeTheme===themes.dark)
+    {
+
+        themeStyle=DarkStyles;
+    }
+    else
+    {
+        themeStyle=LightStyles;
+    }
+    console.log(changeTheme);
+    const light=(props)=>{
+
+        setChangeTheme(themes.light);
+        console.log("Theme light");
+    }
+    const dark=(props)=>{
+        setChangeTheme(themes.dark);
+
+        console.log("Theme dark");
+    }
     console.log(props);
     let navigation=props.route.params.navigation;
     const signOut=(props)=>{
@@ -43,96 +69,102 @@ const Setting=(props)=>{
     }
 
     return(
-      <View style={{marginLeft:10,marginRight:10}}>
-          <TouchableOpacity
-              style={{borderBottomColor: 'gray',
-                        borderBottomWidth: 1,}}
-              onPress={account}
-          >
-              <View>
-                  <Text style={{color:'white',fontSize:20,marginTop:10,marginBottom:10}}>Account</Text>
-              </View>
-          </TouchableOpacity>
+        <ScrollView style={{backgroundColor:changeTheme.background}}>
+          <View style={{marginLeft:10,marginRight:10}}>
+              <TouchableOpacity
+                  style={{borderBottomColor: 'gray',
+                            borderBottomWidth: 1,}}
+                  onPress={account}
+              >
+                  <View style={{marginTop:10,marginBottom:10}}>
+                      <Text style={themeStyle.textMedium}>Account</Text>
+                  </View>
+              </TouchableOpacity>
 
-          <TouchableOpacity
-              style={{borderBottomColor: 'gray',
-                  borderBottomWidth: 1,}}
-              onPress={subcription}
-          >
-              <View>
-                  <Text style={{color:'white',fontSize:20,marginTop:10,marginBottom:10}}>Subcription</Text>
-              </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-              style={{borderBottomColor: 'gray',
-                  borderBottomWidth: 1,}}
-              onPress={communication}
-          >
-              <View>
-                  <Text style={{color:'white',fontSize:20,marginTop:10,marginBottom:10}}>Communication Preferences</Text>
-              </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-              style={{borderBottomColor: 'gray',
-                  borderBottomWidth: 1,}}
-              onPress={theme}
-          >
-              <View>
-                  <Text style={{color:'white',fontSize:20,marginTop:10,marginBottom:10}}>Theme</Text>
-              </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-              style={{borderBottomColor: 'gray',
-                  borderBottomWidth: 1,}}
-              onPress={requireWiFiStreaming}
+              <TouchableOpacity
+                  style={{borderBottomColor: 'gray',
+                      borderBottomWidth: 1,}}
+                  onPress={subcription}
+              >
+                  <View style={{marginTop:10,marginBottom:10}}>
+                      <Text style={themeStyle.textMedium}>Subcription</Text>
 
-          >
-              <View>
-                  <Text style={{color:'white',fontSize:20,marginTop:10,marginBottom:10}}>Require Wi-Fi for streaming</Text>
-              </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-              style={{borderBottomColor: 'gray',
-                  borderBottomWidth: 1,}}
-              onPress={requireWiFiDownload}
+                  </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                  style={{borderBottomColor: 'gray',
+                      borderBottomWidth: 1,}}
+                  onPress={communication}
+              >
+                  <View style={{marginTop:10,marginBottom:10}}>
+                      <Text style={themeStyle.textMedium}>Communication Preferences</Text>
 
-          >
-              <View>
-                  <Text style={{color:'white',fontSize:20,marginTop:10,marginBottom:10}}>Require Wi-Fi for downloading</Text>
-              </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-              style={{borderBottomColor: 'gray',
-                  borderBottomWidth: 1,}}
-              onPress={sendFeedback}
+                  </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                  style={{borderBottomColor: 'gray',
+                      borderBottomWidth: 1,}}
+                  onPress={theme}
+              >
+                  <View style={{marginTop:10,marginBottom:10}}>
+                      <Text style={themeStyle.textMedium}>Theme</Text>
 
-          >
-              <View>
-                  <Text style={{color:'white',fontSize:20,marginTop:10,marginBottom:10}}>Send Feedback</Text>
-              </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-              style={{borderBottomColor: 'gray',
-                  borderBottomWidth: 1,}}
-              onPress={support}
+                  </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                  style={{borderBottomColor: 'gray',
+                      borderBottomWidth: 1,}}
+                  onPress={requireWiFiStreaming}
 
-          >
-              <View>
-                  <Text style={{color:'white',fontSize:20,marginTop:10,marginBottom:10}}>Contact Support</Text>
-              </View>
-          </TouchableOpacity>
-          <View>
-              <Text style={{color:'white',fontSize:20,marginTop:10,marginBottom:10}}>App Version</Text>
+              >
+                  <View style={{marginTop:10,marginBottom:10}}>
+                      <Text style={themeStyle.textMedium}>Require Wi-Fi for streaming</Text>
+
+                  </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                  style={{borderBottomColor: 'gray',
+                      borderBottomWidth: 1,}}
+                  onPress={requireWiFiDownload}
+
+              >
+                  <View style={{marginTop:10,marginBottom:10}}>
+                      <Text style={themeStyle.textMedium}>Require Wi-Fi for downloading</Text>
+
+                  </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                  style={{borderBottomColor: 'gray',
+                      borderBottomWidth: 1,}}
+                  onPress={sendFeedback}
+
+              >
+                  <View style={{marginTop:10,marginBottom:10}}>
+                      <Text style={themeStyle.textMedium}>Send feedback</Text>
+
+                  </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                  style={{borderBottomColor: 'gray',
+                      borderBottomWidth: 1,}}
+                  onPress={support}
+
+              >
+                  <View style={{marginTop:10,marginBottom:10}}>
+                      <Text style={themeStyle.textMedium}>Contact support</Text>
+                  </View>
+              </TouchableOpacity>
+
+
+              <TouchableHighlight style={{marginTop:40}} onPress={signOut} >
+                  <View style={themeStyle.buttonLight}>
+                      <Text style={themeStyle.text}>Sign Out</Text>
+                  </View>
+              </TouchableHighlight>
+
+
           </View>
-
-          <TouchableHighlight style={{marginTop:40}} onPress={signOut} >
-              <View style={styles.buttonLight}>
-                  <Text style={{fontSize:20,fontWeight: "bold",color:'dodgerblue'}}>Sign Out</Text>
-              </View>
-          </TouchableHighlight>
-
-
-      </View>
+        </ScrollView>
     );
 }
 

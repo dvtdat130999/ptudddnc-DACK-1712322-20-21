@@ -6,15 +6,16 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         backgroundColor:'black'
     },
+
+
     label:{
       color:'azure'
     },
-    inputLogin:{
+    input:{
         height: 40,
-        borderColor: 'gray',
         borderWidth: 1,
         borderRadius:5,
-        backgroundColor:'azure'
+        backgroundColor:'white'
     },
     item: {
         backgroundColor: "#f9c2ff",
@@ -121,9 +122,7 @@ const styles = StyleSheet.create({
         height:200,
     },
 
-    courseOfList:{
 
-    },
     imageButtonImageBackground:{
         height:100,
         marginTop:20,

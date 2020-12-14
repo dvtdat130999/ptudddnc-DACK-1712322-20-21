@@ -7,21 +7,32 @@ import {BookmarkContext} from "../../../../provider/bookmark-provider";
 import {AuthenticationContext} from "../../../../provider/authentication-provider";
 import {courses} from "../../../../data/courses";
 import SectionCoursesItem from "../SectionCoursesItem/section-courses-item";
+import {ThemeContext} from "../../../../provider/theme-provider";
+import {themes} from "../../../../globals/themes";
+import DarkStyles from "../../../../globals/dark-style";
+import LightStyles from "../../../../globals/light-style";
 
 const SectionCoursesBookmark=(props)=>{
-
-    const {coursesBookmark}=useContext(BookmarkContext);
-    if(!coursesBookmark)
+    let {changeTheme}=useContext(ThemeContext);
+    let themeStyle;
+    if(changeTheme===themes.dark)
     {
-        return <View></View>
+
+        themeStyle=DarkStyles;
     }
+    else
+    {
+        themeStyle=LightStyles;
+    }
+    const {coursesBookmark}=useContext(BookmarkContext);
+
 
     const {authentication}=useContext(AuthenticationContext);
 
     let DATA=[];
 
     coursesBookmark.map((item,i)=>{
-       if(item.user===authentication.user.fullname)
+       if(item.user===authentication.id)
        {
            DATA=DATA.concat(item.course);
        }
@@ -42,10 +53,16 @@ const SectionCoursesBookmark=(props)=>{
     };
     return(
         <View style={{marginTop:60}}>
-            <Text style={styles.courseOfHome}>{props.title}</Text>
-            <ScrollView horizontal={true} showHorizontalScrollIndicator={false}>
-                {renderItem()}
-            </ScrollView>
+            {DATA.length>0 ?
+                <View>
+                    <Text style={themeStyle.title}>{props.title}</Text>
+                    <ScrollView horizontal={true} showHorizontalScrollIndicator={false}>
+                        {renderItem()}
+                    </ScrollView>
+                </View>
+                : <View/>
+            }
+
         </View>
     );
 }

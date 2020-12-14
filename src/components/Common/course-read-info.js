@@ -1,10 +1,25 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,ImageBackground ,TouchableOpacity} from 'react-native';
 import { Card,Form,Row } from 'react-bootstrap';
 
 import styles from "../../globals/styles"
+import {ThemeContext} from "../../provider/theme-provider";
+import {themes} from "../../globals/themes";
+import DarkStyles from "../../globals/dark-style";
+import LightStyles from "../../globals/light-style";
 
 const CourseReadInfo=(props)=>{
+    let {changeTheme}=useContext(ThemeContext);
+    let themeStyle;
+    if(changeTheme===themes.dark)
+    {
+
+        themeStyle=DarkStyles;
+    }
+    else
+    {
+        themeStyle=LightStyles;
+    }
     /*console.log("Check props course read info");
 
     console.log(props);
@@ -14,9 +29,9 @@ const CourseReadInfo=(props)=>{
 
     return(
         <View >
-            <Text style={styles.sectionCourseItemText}>{props.item.title}</Text>
-            <Text style={styles.sectionCourseItemText}>{props.item.author}</Text>
-            <Text style={styles.sectionCourseItemText}>{`${props.item.level} . ${props.item.createdDate}`}</Text>
+            <Text style={themeStyle.sectionCourseItemText}>{props.item.title}</Text>
+            <Text style={themeStyle.sectionCourseItemText}>{props.item.author}</Text>
+            <Text style={themeStyle.sectionCourseItemText}>{`${props.item.level} . ${props.item.createdDate}`}</Text>
         </View>
     );
 }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component, useContext} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList } from 'react-native';
 
 import styles from "../../../globals/styles";
@@ -6,8 +6,23 @@ import CourseStudyService from "../CourseStudyService/course-study-service";
 import CheckIcon from "../../../../assets/checkicon.png"
 import CourseIcon from "../../../../assets/course.png"
 import {navigationName} from "../../../globals/constants";
+import {ThemeContext} from "../../../provider/theme-provider";
+import {themes} from "../../../globals/themes";
+import DarkStyles from "../../../globals/dark-style";
+import LightStyles from "../../../globals/light-style";
 const CourseIntroduction=(props)=>{
+    let {changeTheme}=useContext(ThemeContext);
+    let themeStyle;
 
+    if(changeTheme===themes.dark)
+    {
+
+        themeStyle=DarkStyles;
+    }
+    else
+    {
+        themeStyle=LightStyles;
+    }
     const related=()=>{
         props.navigation.navigate(navigationName.RelatedPathsAndCourses,{
             relatedWithCourse:props.item,
@@ -21,21 +36,33 @@ const CourseIntroduction=(props)=>{
     };
     return(
         <View>
-            <Text style={{color:'white',fontWeight:'bold',fontSize:20,marginTop:10}}>{props.item.title}</Text>
-            <Text style={{color:'white',marginTop:10}}>{props.item.author}</Text>
-            <Text style={{color:'white',marginTop:10}}>{props.item.level} . {props.item.createdDate} . {props.item.length}</Text>
+            <Text style={themeStyle.titleSmall}>{props.item.title}</Text>
+            <View style={styles.space}/>
+            <Text style={themeStyle.text}>{props.item.author}</Text>
+            <View style={styles.space}/>
+
+            <Text style={themeStyle.text}>{props.item.level} . {props.item.createdDate} . {props.item.length}</Text>
+            <View style={styles.space}/>
+            <View style={styles.space}/>
+
             <TouchableHighlight style={{marginTop:20}} onPress={related}>
-                <View style={{height:40,borderRadius:5,backgroundColor:'gray',justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
-                    <Text style={{color:'white'}}>Related paths & courses</Text>
+                <View style={themeStyle.related}>
+                    <Text style={themeStyle.text}>Related paths & courses</Text>
                 </View>
             </TouchableHighlight>
+            <View style={styles.space}/>
+            <View style={styles.space}/>
+
             <TouchableHighlight style={{marginTop:20}} onPress={takeCheck}>
-                <View style={{height:40,borderRadius:5,backgroundColor:'gray',justifyContent:'center',alignItems:'center'}}>
-                    <Text style={{color:'white'}}>Take a learning check</Text>
+                <View style={themeStyle.related}>
+                    <Text style={themeStyle.text}>Take a learning check</Text>
                 </View>
             </TouchableHighlight>
             <CourseStudyService item={props.item}/>
-            <Text style={{color:'white',marginTop:10}}>{props.item.introduction}</Text>
+            <View style={styles.space}/>
+            <View style={styles.space}/>
+
+            <Text style={themeStyle.text}>{props.item.introduction}</Text>
 
         </View>
     );

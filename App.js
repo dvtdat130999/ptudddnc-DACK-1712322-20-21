@@ -3,7 +3,7 @@ import { NavigationContainer, DefaultTheme  } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {themes} from "./src/globals/themes"
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import { StyleSheet, Text, View,Image,Button } from 'react-native';
 import Login from "./src/components/Authentication/login"
 import Register from "./src/components/Authentication/register";
@@ -27,18 +27,14 @@ import {navigationName} from "./src/globals/constants"
 import ForgetPassword from "./src/components/Authentication/forget-password";
 import Download from "./src/components/Main/Download/list-download";
 import Search from "./src/components/Main/Search/search";
-import {AuthenticationProvider} from "./src/provider/authentication-provider";
+import {AuthenticationContext, AuthenticationProvider} from "./src/provider/authentication-provider";
 import {CoursesProvider} from "./src/provider/courses-provider";
 import RelatedPathsAndCourses from "./src/components/CourseStudy/RelatedPathsAndCourses/related-paths-courses";
 import {BookmarkProvider} from "./src/provider/bookmark-provider";
+import {ThemeContext, ThemeProvider} from "./src/provider/theme-provider";
+import {UserProvider} from "./src/provider/users-provider";
 
-const MyTheme = {
-    ...DefaultTheme,
-    colors: {
-        ...DefaultTheme.colors,
-        background: 'black'
-    },
-};
+
 
 const MainStack = createStackNavigator();
 const AfterLoginStack = createStackNavigator();
@@ -139,8 +135,11 @@ const AfterLogin=()=>{
     );
 }
 const MainStackApp=()=>{
+    const {changeTheme}=useContext(ThemeContext);
+    console.log("Check change theme");
+    console.log(changeTheme);
     return(
-        <MainStack.Navigator >
+        <MainStack.Navigator  >
             <MainStack.Screen name={navigationName.Authentication} component={AuthenticationStack} options={{ headerShown: false }}/>
 
             <MainStack.Screen name={navigationName.AfterLogin} component={AfterLogin} options={{ headerShown: false }}/>
@@ -149,23 +148,29 @@ const MainStackApp=()=>{
     );
 }
 
-export const ThemeContext=React.createContext(themes.light);
-
+const DarkTheme = {
+    ...DefaultTheme,
+    colors: {
+        ...DefaultTheme.colors,
+        background: 'black',
+    },
+};
 export default function App() {
-    const [theme,setTheme]=useState(themes.dark);
-
   return (
       <BookmarkProvider>
-          <ThemeContext.Provider value={{theme,setTheme}}>
+          <ThemeProvider>
               <CoursesProvider>
                   <AuthenticationProvider>
-                      <NavigationContainer theme={MyTheme}>
-                          <MainStackApp/>
+                      <UserProvider>
+                          <NavigationContainer  >
+                              <MainStackApp/>
 
-                      </NavigationContainer>
+                          </NavigationContainer>
+                      </UserProvider>
                   </AuthenticationProvider>
               </CoursesProvider>
-          </ThemeContext.Provider>
+          </ThemeProvider>
+
       </BookmarkProvider>
 
 

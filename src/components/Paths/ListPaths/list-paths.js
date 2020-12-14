@@ -1,11 +1,26 @@
-import React, { Component } from 'react';
+import React, {Component, useContext} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList } from 'react-native';
 
 import styles from "../../../globals/styles";
 import {paths} from "../../../data/paths";
 import ListPathsItem from "../ListPathsItem/list-paths-item";
-
+import {themes} from "../../../globals/themes";
+import DarkStyles from "../../../globals/dark-style";
+import LightStyles from "../../../globals/light-style";
+import {ThemeContext} from "../../../provider/theme-provider";
 const ListPaths=(props)=>{
+    let {changeTheme}=useContext(ThemeContext);
+    let themeStyle;
+
+    if(changeTheme===themes.dark)
+    {
+
+        themeStyle=DarkStyles;
+    }
+    else
+    {
+        themeStyle=LightStyles;
+    }
     let DATA;
     console.log("Check props of list paths");
     console.log(props);
@@ -40,11 +55,14 @@ const ListPaths=(props)=>{
         })
     };
     return(
-        <View style={{marginTop:30}}>
-            <Text style={styles.sectionCoursesTitle}>{props.title}</Text>
-            {renderItem()}
+        <ScrollView style={{backgroundColor:changeTheme.background,flex:1}}>
 
-        </View>
+            <View style={{marginTop:60,flex:1}}>
+                <Text style={themeStyle.sectionTitle}>{props.title}</Text>
+                {renderItem()}
+            </View>
+        </ScrollView>
+
     );
 
 }
