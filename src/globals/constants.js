@@ -18,5 +18,5 @@ export const navigationName={
     Account:"Account",
     Theme:"Theme",
     RelatedPathsAndCourses:'RelatedPathsAndCourses',
-
+    Categories:"Categories",
 }

@@ -33,6 +33,8 @@ import RelatedPathsAndCourses from "./src/components/CourseStudy/RelatedPathsAnd
 import {BookmarkProvider} from "./src/provider/bookmark-provider";
 import {ThemeContext, ThemeProvider} from "./src/provider/theme-provider";
 import {UserProvider} from "./src/provider/users-provider";
+import ListCategories from "./src/components/Categories/ListCategories/list-categories";
+import ListPaths from "./src/components/Paths/ListPaths/list-paths";
 
 
 
@@ -66,6 +68,9 @@ const BrowseNavigation=()=>{
             <BrowseStack.Screen name={navigationName.CourseStudy} component={CourseStudy}  />
             <BrowseStack.Screen name={navigationName.ListCourses} component={ListCourses} />
             <BrowseStack.Screen name={navigationName.RelatedPathsAndCourses} component={RelatedPathsAndCourses} options={{title:'Related'}}/>
+            <BrowseStack.Screen name={navigationName.Categories} component={ListCategories}  />
+            <BrowseStack.Screen name={navigationName.Paths} component={ListPaths}  />
+            <BrowseStack.Screen name={navigationName.Authors} component={ListAuthors}  />
 
         </BrowseStack.Navigator>
     );

@@ -9,6 +9,7 @@ import {ThemeContext} from "../../../../provider/theme-provider";
 import {themes} from "../../../../globals/themes";
 import DarkStyles from "../../../../globals/dark-style";
 import LightStyles from "../../../../globals/light-style";
+import {navigationName} from "../../../../globals/constants";
 
 const SectionCourses=(props)=>{
 
@@ -23,6 +24,10 @@ const SectionCourses=(props)=>{
     {
         themeStyle=LightStyles;
     }
+    const seeAll=()=>{
+        props.navigation.navigate(navigationName.ListCourses,{
+        })
+    };
     const DATA=courses;
     const renderItem=()=>{
 
@@ -40,7 +45,17 @@ const SectionCourses=(props)=>{
     };
     return(
         <View style={{marginTop:60}}>
-            <Text style={themeStyle.title}>{props.title}</Text>
+            <View style={{
+
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+            }}>
+                <Text style={themeStyle.title}>{props.title}</Text>
+                <TouchableHighlight style={{marginRight:20}} onPress={seeAll}>
+                    <Text style={themeStyle.textMedium}>See all</Text>
+
+                </TouchableHighlight>
+            </View>
             <ScrollView horizontal={true} showHorizontalScrollIndicator={false}>
                 {renderItem()}
             </ScrollView>
