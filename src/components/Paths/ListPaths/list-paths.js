@@ -9,6 +9,8 @@ import DarkStyles from "../../../globals/dark-style";
 import LightStyles from "../../../globals/light-style";
 import {ThemeContext} from "../../../provider/theme-provider";
 const ListPaths=(props)=>{
+    console.log("CHeck props of listpaths");
+    console.log(props);
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
 
@@ -25,6 +27,12 @@ const ListPaths=(props)=>{
     console.log("Check props of list paths");
     console.log(props);
     let category;
+    if(props.route && props.route.params && props.route.params.category)
+    {
+        category=props.route.params.category;
+
+
+    }
     if(props.relatedWithCourse)
     {
         category=props.relatedWithCourse.category;
@@ -42,6 +50,11 @@ const ListPaths=(props)=>{
             if(category)
             {
                 if(category===item.category)
+                {
+                    return <ListPathsItem item={item} key={i+1} navigation={props.navigation}/>
+
+                }
+                if(category.name===item.category)
                 {
                     return <ListPathsItem item={item} key={i+1} navigation={props.navigation}/>
 

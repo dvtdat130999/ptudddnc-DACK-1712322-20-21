@@ -10,15 +10,19 @@ const ImageButton=(props)=>{
     const onPress=()=>{
         if(props.category)
         {
-            props.navigation.navigate(navigationName.ListCourses,{
+            props.navigation.navigate(navigationName.Paths,{
                 category:props.category,
                 navigation:props.navigation,
 
             })
         }
-        props.navigation.navigate(navigationName.ListCourses,{
-            message:"Change to list courses",
-        });
+        else
+        {
+            props.navigation.navigate(navigationName.ListCourses,{
+                message:"Change to list courses",
+            });
+        }
+
 
 
     };

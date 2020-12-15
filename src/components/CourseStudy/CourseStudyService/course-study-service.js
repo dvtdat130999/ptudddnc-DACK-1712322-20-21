@@ -29,29 +29,47 @@ const CourseStudyService=(props)=>{
     }
     const {coursesBookmark,setCoursesBookmark}=useContext(BookmarkContext);
     const {authentication}=useContext(AuthenticationContext);
-    const [isBookmarked,setIsBookmarked]=useState(false);
+    //const [isBookmarked,setIsBookmarked]=useState(false);
+    const course={
+        user:authentication.id,
+        course:props.item,
+    };
+    //const [isExisted,setIsExisted]=useState(-1);
+    let isExisted=-1;//giu index tien cho viec unbookmark
+    //let isBookmark=false;
+    coursesBookmark.map((item,i)=>{
+        if(item.user===course.user && item.course.id===course.course.id)
+        {
+            //setIsExisted(i);
+            isExisted=i;
+            //isBookmark=true;
+
+        }
+    });
     const bookmark=()=>{
-        let bookmark={
-            user:authentication.id,
-            course:props.item,
-            isBookmarked:true,
-        };
-        let isExisted=false;
-        coursesBookmark.map((item,i)=>{
-           if(item.user===bookmark.user && item.course.id===bookmark.course.id)
-           {
-               isExisted=true;
-           }
-        });
-        if(!isExisted)
+
+        if(isExisted===-1)
         {
             let courses=coursesBookmark;
-            courses=courses.concat(bookmark);
+            courses=courses.concat(course);
             setCoursesBookmark(courses);
+            //isBookmark=true;
+            //setIsBookmarked(true);
         }
 
-    };
 
+
+    };
+    const unbookmark=()=>{
+        const listCourseBookmarked=coursesBookmark;
+        listCourseBookmarked.splice(isExisted,1);
+        setCoursesBookmark(listCourseBookmarked);
+        isExisted=-1;
+        //isBookmark=false;
+        //setIsExisted(-1);
+        //setIsBookmarked(false);
+        console.log("Unbookmark");
+    }
 
     const addToChannel=()=>{
         console.log("Press add to channel")
@@ -62,17 +80,31 @@ const CourseStudyService=(props)=>{
 
     return(
         <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-            <View style={componentStyles.viewImage} >
-                <TouchableOpacity onPress={bookmark} >
-                    <Image
-                        source={BookmarkIcon}
-                        style={componentStyles.image}
-                    />
-                </TouchableOpacity>
-                <View>
-                    <Text style={themeStyle.text}>Bookmark</Text>
+            {isExisted!==-1 ?
+                <View style={componentStyles.viewImage} >
+                    <TouchableOpacity onPress={unbookmark} >
+                        <Image
+                            source={BookmarkIcon}
+                            style={componentStyles.image}
+                        />
+                    </TouchableOpacity>
+                    <View>
+                        <Text style={themeStyle.text}>Unbookmark</Text>
+                    </View>
+                </View> :
+                <View style={componentStyles.viewImage} >
+                    <TouchableOpacity onPress={bookmark} >
+                        <Image
+                            source={BookmarkIcon}
+                            style={componentStyles.image}
+                        />
+                    </TouchableOpacity>
+                    <View>
+                        <Text style={themeStyle.text}>Bookmark</Text>
+                    </View>
                 </View>
-            </View>
+            }
+
             <View style={componentStyles.viewImage} >
                 <TouchableOpacity onPress={addToChannel} >
                         <Image
