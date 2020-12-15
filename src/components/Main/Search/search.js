@@ -148,19 +148,19 @@ const Search=(props)=>{
                                         navigation={props.navigation}
                         />}
                     </SearchTab.Screen>
-                    <SearchTab.Screen name={navigationName.ListCourses} options={{title:'Courses'}}
+                    <SearchTab.Screen name={navigationName.ListCourses} options={{title:'Course'}}
 
                     >
                         {()=><ListCourses searchResult={resultCoursesSearch} navigation={props.navigation}/>}
 
                     </SearchTab.Screen>
-                    <SearchTab.Screen name={navigationName.Paths} options={{title:'Paths'}}
+                    <SearchTab.Screen name={navigationName.Paths} options={{title:'Path'}}
 
                     >
                         {()=><ListPaths searchResult={resultPathsSearch} navigation={props.navigation}/>}
 
                     </SearchTab.Screen>
-                    <SearchTab.Screen name={navigationName.Authors} options={{title:'Authors'}}
+                    <SearchTab.Screen name={navigationName.Authors} options={{title:'Author'}}
 
                     >
                         {()=><ListAuthors searchResult={resultAuthorsSearch} navigation={props.navigation}/>}
