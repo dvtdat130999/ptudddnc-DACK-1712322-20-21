@@ -60,8 +60,9 @@ const Search=(props)=>{
         let result=[];
         courses.map((item,i)=>{
             let title=item.title;
+            let searchContentFixed=searchContent.toLowerCase();
             title=title.toLowerCase();
-            if(title.includes(searchContent))
+            if(title.includes(searchContentFixed))
             {
                 result=result.concat(item);
             }

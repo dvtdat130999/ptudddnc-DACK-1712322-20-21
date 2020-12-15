@@ -28,12 +28,23 @@ const SectionCoursesItem=(props)=>{
             navigation:props.navigation
 
         })
+    };
+    let bookmarked=false;
+    if(props.bookmarked)
+    {
+        bookmarked=true;
     }
     return (
 
         <TouchableOpacity style={themeStyle.sectionCourseItem} onPress={onPress}>
             <Image source={OnlineCourse} style={{width:200,height:200}}/>
-            <CourseReadInfo item={props.item}/>
+            {bookmarked ?
+                <CourseReadInfo item={props.item.course}/>
+                :
+                <CourseReadInfo item={props.item}/>
+
+
+            }
 
         </TouchableOpacity>
     );

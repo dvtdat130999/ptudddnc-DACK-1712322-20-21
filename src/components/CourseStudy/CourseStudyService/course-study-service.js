@@ -34,10 +34,15 @@ const CourseStudyService=(props)=>{
         user:authentication.id,
         course:props.item,
     };
-    //const [isExisted,setIsExisted]=useState(-1);
-    let isExisted=-1;//giu index tien cho viec unbookmark
+    const [isExisted,setIsExisted]=useState(-1);
+    const [firstCheckExisted,setFirstCheckExisted]=useState(false);
+    const [addCourse,setAddCourse]=useState(false);
+    const onChangeAddCourse=()=>{
+        setAddCourse(!addCourse);
+    };
+    //let isExisted=-1;//giu index tien cho viec unbookmark
     //let isBookmark=false;
-    coursesBookmark.map((item,i)=>{
+    /*coursesBookmark.map((item,i)=>{
         if(item.user===course.user && item.course.id===course.course.id)
         {
             //setIsExisted(i);
@@ -45,7 +50,8 @@ const CourseStudyService=(props)=>{
             //isBookmark=true;
 
         }
-    });
+    });*/
+
     const bookmark=()=>{
 
         if(isExisted===-1)
@@ -53,6 +59,7 @@ const CourseStudyService=(props)=>{
             let courses=coursesBookmark;
             courses=courses.concat(course);
             setCoursesBookmark(courses);
+            setIsExisted(0);
             //isBookmark=true;
             //setIsBookmarked(true);
         }
@@ -61,12 +68,21 @@ const CourseStudyService=(props)=>{
 
     };
     const unbookmark=()=>{
+        coursesBookmark.map((item,i)=>{
+            if(item.user===course.user && item.course.id===course.course.id)
+            {
+                setIsExisted(i);
+                //isBookmark=true;
+
+            }
+        });
         const listCourseBookmarked=coursesBookmark;
         listCourseBookmarked.splice(isExisted,1);
         setCoursesBookmark(listCourseBookmarked);
-        isExisted=-1;
+        //isExisted=-1;
         //isBookmark=false;
-        //setIsExisted(-1);
+        setIsExisted(-1);
+        setFirstCheckExisted(false);
         //setIsBookmarked(false);
         console.log("Unbookmark");
     }
@@ -76,7 +92,47 @@ const CourseStudyService=(props)=>{
     };
     const download=()=>{
         console.log("Press download")
-    }
+    };
+    useEffect(()=>{
+        if(!firstCheckExisted)
+        {
+            coursesBookmark.map((item,i)=>{
+                if(item.user===course.user && item.course.id===course.course.id)
+                {
+                    setIsExisted(i);
+                    //isBookmark=true;
+
+                }
+            });
+            setFirstCheckExisted(true);
+        }
+        /*if(addCourse)
+        {
+            setIsExisted(-1);
+            coursesBookmark.map((item,i)=>{
+                if(item.user===course.user && item.course.id===course.course.id)
+                {
+                    setIsExisted(i);
+                    //isBookmark=true;
+
+                }
+            });
+
+
+            if(isExisted===-1)
+            {
+                let courses=coursesBookmark;
+                courses=courses.concat(course);
+
+                setCoursesBookmark(courses);
+                setIsExisted(0);
+                //isBookmark=true;
+                //setIsBookmarked(true);
+            }
+            setAddCourse(false);
+        }*/
+
+    });
 
     return(
         <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>

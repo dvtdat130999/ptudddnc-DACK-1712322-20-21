@@ -1,4 +1,4 @@
-import React, {Component, useContext} from 'react';
+import React, {Component, useContext, useEffect,useState} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,TouchableOpacity } from 'react-native';
 
 import styles from "../../../../globals/styles";
@@ -26,24 +26,24 @@ const SectionCoursesBookmark=(props)=>{
     }
     const {coursesBookmark}=useContext(BookmarkContext);
 
-
     const {authentication}=useContext(AuthenticationContext);
 
-    let DATA=[];
+    const  [DATA,setDATA]=useState(coursesBookmark);
 
-    coursesBookmark.map((item,i)=>{
-       if(item.user===authentication.id)
-       {
-           DATA=DATA.concat(item.course);
-       }
+    useEffect(()=>{
+        if(DATA!==coursesBookmark)
+        {
+            setDATA(coursesBookmark);
+        }
     });
     const renderItem=()=>{
 
         return DATA.map((item,i)=>{
 
+
             if(i<10)
             {
-                return <SectionCoursesItem navigation={props.navigation} item={item} key={i} data={DATA}/>
+                return <SectionCoursesItem navigation={props.navigation} item={item} key={i} data={DATA} bookmarked={true}/>
 
             }
             else {
@@ -65,6 +65,6 @@ const SectionCoursesBookmark=(props)=>{
 
         </View>
     );
-}
+};
 
 export default SectionCoursesBookmark;
