@@ -21,7 +21,7 @@ const AuthorReadInfo=(props)=>{
     }
     return(
         <View style={themeStyle.author}>
-            <Text style={themeStyle.authorText}>{props.item.name}</Text>
+            <Text style={themeStyle.authorText}>{props.item["user.name"]}</Text>
         </View>
     );
 }

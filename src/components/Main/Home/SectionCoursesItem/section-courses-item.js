@@ -37,14 +37,15 @@ const SectionCoursesItem=(props)=>{
     return (
 
         <TouchableOpacity style={themeStyle.sectionCourseItem} onPress={onPress}>
-            <Image source={OnlineCourse} style={{width:200,height:200}}/>
-            {bookmarked ?
+            <Image source={OnlineCourse} style={{width:'100%',height:300}}/>
+            {/* {bookmarked ?
                 <CourseReadInfo item={props.item.course}/>
                 :
                 <CourseReadInfo item={props.item}/>
 
 
-            }
+            } */}
+                <CourseReadInfo item={props.item}/>
 
         </TouchableOpacity>
     );

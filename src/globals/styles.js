@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
         ,fontWeight:'bold'
         ,fontSize:20
         ,color:'white'
+        ,width:'100%'
     },
     course:{
         flexDirection:'column',
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
         marginTop:10,
         marginLeft:30,
         marginRight:30,
-        width:200,
+        width:350,
         backgroundColor:'lightslategrey',
     },
     sectionCourseItemText:{
@@ -162,8 +163,9 @@ const styles = StyleSheet.create({
         ,color:'white'
     },
     sectionAuthorItem:{
-        marginLeft:30,
-        marginRight:30,
+        justifyContent:'center',
+        marginLeft:5,
+        marginRight:20,
     },
     sectionSkillsItem:{
         justifyContent:'center',
@@ -191,7 +193,7 @@ const styles = StyleSheet.create({
         marginTop:10,
         marginLeft:30,
         marginRight:30,
-        height:100,
+        height:150,
         width:300
 
 

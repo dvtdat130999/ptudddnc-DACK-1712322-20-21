@@ -22,27 +22,22 @@ const CourseStudy=(props)=>{
     {
         themeStyle=LightStyles;
     }
-    console.log("Check props of course study");
-    console.log(props);
+  
 
     let item=props.route.params.item;
     props.navigation.setOptions({title:item.title});
 
     let navigation=props.route.params.navigation;
-    const courseInfo={
-        name:'React the big picture',
-        author:'Cory House',
-        level:'beginner',
-        createdDate:'28/11/2020',
-        length:'1h11m',
-        introduction:'You have heard of React, but is it right for you? '
-    }
+    
 
     return(
         <ScrollView>
             <View style={{backgroundColor:changeTheme.background}}>
                 <VideoPlayer />
-                <CourseIntroduction item={item} navigation={props.navigation}/>
+                {props.route.params.searchedCourse ? 
+                    <CourseIntroduction item={item} navigation={props.navigation} searchedCourse={true}/>:
+                    <CourseIntroduction item={item} navigation={props.navigation} />
+                }
                 <View style={styles.space}/>
                 <View style={styles.space}/>
 

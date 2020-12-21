@@ -1,16 +1,5 @@
 export const courses=[
-    {
-        id: '1',
-        title: 'React first course',
-        author:'Dat',
-        level:'Beginner',
-        createdDate:'22/10/2020',
-        length:'25m',
-        introduction:'This is first course',
-        category:'Software Development',
-        path:'React basic',
-        skill:'React',
-    },
+    
     {
         id: '2',
         title: 'React second course',

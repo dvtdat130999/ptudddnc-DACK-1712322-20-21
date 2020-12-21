@@ -1,5 +1,6 @@
-import React, {Component, useContext} from 'react';
-import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,TouchableOpacity } from 'react-native';
+import React, {Component, useContext,useState,useEffect} from 'react';
+import { StyleSheet,View, Text, Image, ScrollView, TextInput,
+    TouchableHighlight,Dimensions ,SectionList,FlatList,TouchableOpacity,ActivityIndicator } from 'react-native';
 
 import styles from "../../../globals/styles"
 import {ThemeContext} from "../../../provider/theme-provider";
@@ -9,54 +10,105 @@ import {themes} from "../../../globals/themes";
 import UserImage from "../../../../assets/user.jpg"
 import SectionSkillsItem from "../../Main/Browse/SectionSkillsItem/section-skills-item";
 import {AuthenticationContext} from "../../../provider/authentication-provider";
-
+import UserApi from "../../../api/userApi";
+import CategoryApi from "../../../api/categoryApi";
 const Account=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
+    const {authentication}=useContext(AuthenticationContext);
+    const [user,setUser]=useState(null);
+    const [favoriteCategories,setFavoritesCategories]=useState([]);
+    const [category,setCategory]=useState(null);
+    const [isLoading,setIsLoading]=useState(true);
 
     if(changeTheme===themes.dark)
     {
 
         themeStyle=DarkStyles;
+        
     }
     else
     {
         themeStyle=LightStyles;
     }
-    console.log(props);
+    console.log("Check background");
+    console.log(changeTheme);
     let navigation=props.route.params.navigation;
-    const interested=[
+    
+    const renderFavorite=()=>{
+        if(favoriteCategories.length>0)
         {
-            name:'MongoDB',
-        },
-        {
-            name:'Java',
-        },
-        {
-            name:'React',
-        },
-        {
-            name:'C++',
-        },
-        {
-            name:'Communication',
+            return favoriteCategories.map((item,i)=>{
+                return <SectionSkillsItem item={item} key={i} navigation={navigation}/>
+            })
         }
-
-    ]
-    const renderItem=()=>{
-        return interested.map((item,i)=>{
-            return <SectionSkillsItem item={item} key={i} navigation={navigation}/>
-        })
+        else{
+            return <View></View>
+        }
+        
     }
-    const {authentication,setAuthentication}=useContext(AuthenticationContext);
-
+    
+    const getUser=async()=>{
+        const res=await UserApi.getUser(authentication);
+        
+        setUser(res.payload);
+        setIsLoading(false);
+    }
+    const getCategory=async(id)=>{
+        const response=await CategoryApi.get(id);
+        console.log("Check category payload");
+        console.log(response.payload);
+        setCategory(response.payload);
+    }
+    useEffect(()=>{
+        if(user===null)
+        {
+            
+            getUser();
+            
+        }
+        if(user && user.favoriteCategories.length>0 && favoriteCategories.length===0)
+        {
+            for(let i=0;i<user.favoriteCategories.length;i++)
+            {
+                getCategory(user.favoriteCategories[i]);
+                let categoryTemp=favoriteCategories;
+                categoryTemp=categoryTemp.concat(category);
+                setFavoritesCategories(categoryTemp);
+            }
+        }
+        
+      
+     });
     return(
-        <ScrollView styles={{marginLeft:10,marginTop:10}}>
-            <View style={{backgroundColor:changeTheme.background}}>
+        <ScrollView style={{flex:1,backgroundColor:changeTheme.background}}>
+            { isLoading && <ActivityIndicator size="large" color="red"/> }
+            
+            <View  style={{marginLeft:10,marginTop:10,flex:1}}>
 
                 <View styles={{justifyContent:'center',alignItems:'center',flexDirection:'column',flex:1}}>
                     <Image source={UserImage} style={{height:200,width:200}}/>
-                    <Text style={themeStyle.text}>{authentication.fullname}</Text>
+                    {user && user.email ? 
+                        <Text style={themeStyle.text}>{`Email: ${user.email}`}</Text>
+                        :
+                        <View></View>                   
+                    }
+                    {user && user.name ? 
+                        <Text style={themeStyle.text}>{`Name: ${user.name}`}</Text>
+                        :
+                        <View></View>                   
+                    }
+                    {/* {user.email!==null ? 
+                    <Text style={themeStyle.text}>{`Email: ${user.email}`}</Text>
+                    :
+                        <View></View>
+                    }
+
+                    {user.name!==null ? 
+                    <Text style={themeStyle.text}>{`Name: ${user.name}`}</Text>
+                        :
+                        <View></View>
+                    } */}
                 </View>
                 <View style={styles.space}/>
                 <View>
@@ -65,10 +117,10 @@ const Account=(props)=>{
                 <View style={{marginTop:20}}>
                     <Text style={styles.skillBrowse}>{props.title}</Text>
                     <ScrollView horizontal={true} showHorizontalScrollIndicator={false}>
-                        {renderItem()}
+                        {renderFavorite()}
                     </ScrollView>
                 </View>
-                <View style={styles.space}/>
+                {/* <View style={styles.space}/>
 
                 <Text style={themeStyle.textMedium}>Activity insights(last 30 days)</Text>
                 <Text style={themeStyle.textMedium}>TOTAL ACTIVE DAYS</Text>
@@ -76,15 +128,15 @@ const Account=(props)=>{
                     <Text style={themeStyle.textMedium}>4</Text>
                     <Text style={themeStyle.text}>  1 day streak</Text>
 
-                </Text>
-                <View style={styles.space}/>
+                </Text> */}
+                {/* <View style={styles.space}/>
 
                 <Text style={themeStyle.textMedium}>MOST ACTIVE OF DAY</Text>
                 <Text style={themeStyle.textMedium}>21:00</Text>
                 <View style={styles.space}/>
 
                 <Text style={themeStyle.textMedium}>MOST VIEWED SUBJECT</Text>
-                <Text style={themeStyle.textMedium}>Managerial Skills</Text>
+                <Text style={themeStyle.textMedium}>Managerial Skills</Text> */}
             </View>
         </ScrollView>
     );

@@ -5,22 +5,31 @@ import { Card,Form,Row } from 'react-bootstrap';
 import styles from "../../globals/styles"
 import {navigationName} from "../../globals/constants";
 const ImageButton=(props)=>{
-    console.log("Check image button props");
-    console.log(props);
     const onPress=()=>{
         if(props.category)
         {
-            props.navigation.navigate(navigationName.Paths,{
+            props.navigation.navigate(navigationName.ListCourses,{
                 category:props.category,
                 navigation:props.navigation,
-
+                message:"From category to list course of category",
             })
         }
         else
         {
-            props.navigation.navigate(navigationName.ListCourses,{
-                message:"Change to list courses",
-            });
+            if(props.topRate)
+            {
+                props.navigation.navigate(navigationName.ListCourses,{
+                    message:"Change to list courses",
+                    topRate:true,
+                });
+            }
+            else
+            {
+                props.navigation.navigate(navigationName.ListCourses,{
+                    message:"Change to list courses",
+                });
+            }
+            
         }
 
 

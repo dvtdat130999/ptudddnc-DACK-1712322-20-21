@@ -33,6 +33,12 @@ const LightStyles = StyleSheet.create({
         fontSize:18,
 
     },
+    textSuccess:{
+        color:'green',
+        fontWeight: "bold",
+        fontSize:18,
+
+    },
     textMedium:{
         color:'black',
         fontSize:20,
@@ -90,7 +96,7 @@ const LightStyles = StyleSheet.create({
         marginTop:10,
         marginLeft:30,
         marginRight:30,
-        width:200,
+        width:350,
         backgroundColor:'white',
     },
     sectionCourseItemText:{
@@ -110,8 +116,10 @@ const LightStyles = StyleSheet.create({
         backgroundColor:'white',
         justifyContent:'center',
         alignItems:'center',
-        width:50,
-        marginLeft:20,
+        width:70,
+        marginLeft:5,
+        marginRight:5,
+        height:70,
         borderWidth:1,
         borderColor:'black'
     }

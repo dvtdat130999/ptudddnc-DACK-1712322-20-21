@@ -7,15 +7,14 @@ import styles from "../../../globals/styles"
 import ListCourses from "../../Courses/ListCourses/list-courses";
 import ListAuthors from "../../Authors/ListAuthors/list-authors";
 import {navigationName} from "../../../globals/constants";
-import ListPaths from "../../Paths/ListPaths/list-paths";
-import {courses} from "../../../data/courses";
-import {paths} from "../../../data/paths";
-import {authors} from "../../../data/authors"
 import ResultAll from "./ResultAll/result-all";
 import {themes} from "../../../globals/themes";
 import DarkStyles from "../../../globals/dark-style";
 import LightStyles from "../../../globals/light-style";
 import {ThemeContext} from "../../../provider/theme-provider";
+import CourseApi from "../../../api/courseApi";
+import InstructorApi from "../../../api/instructorApi";
+import {CoursesContext} from "../../../provider/courses-provider";
 const Search=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
@@ -32,22 +31,170 @@ const Search=(props)=>{
     const [searchContent,setSearchContent]=useState("");
     const [isSearch,setIsSearch]=useState(false);
     const [isClickSearch,setIsClickSearch]=useState(false);
-    const [resultCoursesSearch,setResultCoursesSearch]=useState(null);
-    const [resultAuthorsSearch,setResultAuthorsSearch]=useState(null);
-    const [resultPathsSearch,setResultPathsSearch]=useState(null);
+    const [resultCoursesSearch,setResultCoursesSearch]=useState([]);
+    const [resultAuthorsSearch,setResultAuthorsSearch]=useState([]);
+    const [instructors,setInstructors]=useState([]);
+    const [allCourses,setAllCourses]=useState([]);
+    const [topNew,setTopNew]=useState([]);
+    const [topSell,setTopSell]=useState([]);
+    const [topRate,setTopRate]=useState([]);
+    const getCoursesByKeyword=async()=>{
+        const res=await CourseApi.searchByKeyword(searchContent);
+        setResultCoursesSearch(res.payload);
+        setResultAuthorsSearch(listAuthorsSearch(resultCoursesSearch));
+
+        console.log("Check result search");
+        console.log(resultCoursesSearch);
+        setIsClickSearch(false);
+
+    };
+    const getAllInstructor=async()=>{
+        const res=await InstructorApi.getAll();
+        setInstructors(res.payload);
+        
+    }
+
+    const params={
+        limit:20,
+        page:1
+    };
+    const callApiTopSellCourse=async()=>{
+        const response=await CourseApi.topSell(params);
+        setTopSell(response.payload);
+        
+    }
+    const callApiTopNewCourse=async()=>{
+        const response=await CourseApi.topNew(params);
+        setTopNew(response.payload);
+
+    }
+    const callApiTopRateCourse=async()=>{
+        const response=await CourseApi.topRate(params);
+        setTopRate(response.payload);
+
+    }
+    const [totalCourse,setTotalCourse]=useState(0);
+
     useEffect(()=>{
-        if(isClickSearch)
+        //get all courses
+        if(totalCourse===0)
         {
-            setResultCoursesSearch(listCoursesSearch());
-            setResultAuthorsSearch(listAuthorsSearch(listCoursesSearch()));
-            setResultPathsSearch(listPathsSearch(listCoursesSearch()));
+            const getTotal=async()=>{
+                const res=await CourseApi.getTotalNumber();
+                setTotalCourse(res.payload);
+            }
+            getTotal();
+        }
+        if(totalCourse>0&& allCourses.length<totalCourse)
+        {
+            if(topSell.length===0)
+            {
+                            
+                callApiTopSellCourse()
+            }
+            if(topNew.length===0)
+            {
+                            
+                callApiTopNewCourse()
+            }
+            if(topRate.length===0)
+            {
+                
+                callApiTopRateCourse()
+            }
+            if(topSell.length>0)
+            {
+                topSell.map((item,i)=>{
+                    let isExisted=false;
+                    allCourses.map((itemDATA,j)=>{
+                        if(itemDATA.id===item.id)
+                        {
+                                    
+                            isExisted=true;
+                        }
+                    })
+                    if(isExisted===false)
+                    {
+                        let temp=allCourses;
+                        temp=temp.concat(item);
+                        setAllCourses(temp);
+                    }
+                                
+                });
+            }
+            if(topNew.length>0)
+            {
+                topNew.map((item,i)=>{
+                    let isExisted=false;
+                    allCourses.map((itemDATA,j)=>{
+                        if(itemDATA.id===item.id)
+                        {
+                        
+                            isExisted=true;
+                        }
+                    })
+                    if(isExisted===false)
+                    {
+                        let temp=allCourses;
+                        temp=temp.concat(item);
+                        setAllCourses(temp);
+                    }
+                    
+                });
+            }
+            if(topRate.length>0)
+            {
+                topRate.map((item,i)=>{
+                    let isExisted=false;
+                    allCourses.map((itemDATA,j)=>{
+                        if(itemDATA.id===item.id)
+                        {
+                        
+                            isExisted=true;
+                        }
+                    })
+                    if(isExisted===false)
+                    {
+                        let temp=allCourses;
+                        temp=temp.concat(item);
+                        setAllCourses(temp);
+                    }
+                    
+                });
+            }                        
+        }        
+        //get all instructor
+        if(instructors.length===0)
+        {
+            getAllInstructor();
+        }
+        if(resultCoursesSearch.length===0)
+        {
+            if(isClickSearch)
+            {
+                listCoursesSearch();
+
+            }
+        }
+        if(resultAuthorsSearch.length===0 && resultCoursesSearch.length>0)
+        {
+            if(isClickSearch)
+            {
+                listAuthorsSearch(resultCoursesSearch);
+            }
+        }
+        if(resultAuthorsSearch.length!==0 && resultCoursesSearch.length!==0)
+        {
             setIsClickSearch(false);
         }
+        
+
+
     })
-    const existed=(title,list)=>{
+    const existed=(id,list)=>{
         let result=null;
         list.map((item,i)=>{
-            if(item.name===title)
+            if(item.id===id)
             {
                 result= item;
             }
@@ -58,7 +205,9 @@ const Search=(props)=>{
 
     const listCoursesSearch=()=>{
         let result=[];
-        courses.map((item,i)=>{
+        console.log("Check list courses all ");
+        console.log(allCourses);
+        allCourses.map((item,i)=>{
             let title=item.title;
             let searchContentFixed=searchContent.toLowerCase();
             title=title.toLowerCase();
@@ -67,42 +216,27 @@ const Search=(props)=>{
                 result=result.concat(item);
             }
         });
-        return result;
+        console.log("Check search course in search");
+        console.log(result);
+        setResultCoursesSearch(result);
 
     }
-   const listPathsSearch=(listCourses)=>{
+    const listAuthorsSearch=(courses)=>{
         let result=[];
-        listCourses.map((item,i)=>{
-            //check co trong list path data khong
-            let newPath=existed(item.path,paths);
-            if(newPath)
+        courses.map((item,i)=>{
+            let newInstructor=existed(item.instructorId,instructors);
+            if(newInstructor)
             {
-
-                if(!existed(newPath.name,result))
+                if(!existed(newInstructor.id,result))
                 {
-                    result=result.concat(newPath);
 
+                    result=result.concat(newInstructor);
                 }
             }
 
         });
-       return result;
-    };
-    const listAuthorsSearch=(listCourses)=>{
-        let result=[];
-        listCourses.map((item,i)=>{
-            let newAuthor=existed(item.author,authors);
-            if(newAuthor)
-            {
-                if(!existed(newAuthor.name,result))
-                {
 
-                    result=result.concat(newAuthor);
-                }
-            }
-
-        });
-        return result;
+        setResultAuthorsSearch(result);
     }
     const onPressSearch=()=>{
         setIsSearch(true);
@@ -115,7 +249,7 @@ const Search=(props)=>{
     return(
         <ScrollView style={{backgroundColor:changeTheme.background,flex:1}} >
             <View style={{flex:1}}>
-                <View style={{fontColor:'white',flexDirection:'row',marginTop:10}}>
+                <View style={{fontColor:'white',flexDirection:'row',marginTop:20}}>
                     {changeTheme===themes.dark ?
                         <TextInput style={{flex:1, height: 40, borderColor: 'gray', borderWidth: 1,borderRadius:30,color:'white',marginLeft:10 }}
                                    onChangeText={text=>setSearchContent(text)}
@@ -144,7 +278,6 @@ const Search=(props)=>{
 
                     >
                         {()=><ResultAll resultCoursesSearch={resultCoursesSearch}
-                                   resultPathsSearch={resultPathsSearch}
                                    resultAuthorsSearch={resultAuthorsSearch}
                                         navigation={props.navigation}
                         />}
@@ -155,12 +288,7 @@ const Search=(props)=>{
                         {()=><ListCourses searchResult={resultCoursesSearch} navigation={props.navigation}/>}
 
                     </SearchTab.Screen>
-                    <SearchTab.Screen name={navigationName.Paths} options={{title:'Path'}}
-
-                    >
-                        {()=><ListPaths searchResult={resultPathsSearch} navigation={props.navigation}/>}
-
-                    </SearchTab.Screen>
+                    
                     <SearchTab.Screen name={navigationName.Authors} options={{title:'Author'}}
 
                     >

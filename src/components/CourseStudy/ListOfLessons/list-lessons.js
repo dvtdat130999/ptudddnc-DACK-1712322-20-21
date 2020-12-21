@@ -22,24 +22,24 @@ const ListLessons=(props)=>{
     {
         themeStyle=LightStyles;
     }
-    let data=[];
-    let path=props.item.path;
-    if(path!=='')
-    {
-        courses.map((item,i)=>{
-            if(item.path===path)
-            {
-                data=data.concat(item);
-            }
+    let data=props.item.learnWhat;
+    //let path=props.item.path;
+    // if(path!=='')
+    // {
+    //     courses.map((item,i)=>{
+    //         if(item.path===path)
+    //         {
+    //             data=data.concat(item);
+    //         }
 
-        })
-    }
+    //     })
+    // }
 
     let navigation=props.navigation;
     const renderItem=()=>{
         return data.map((item,i)=>{
 
-            return <Lesson navigation={navigation} item={item} key={item.id} stt={i+1} data={data}/>
+            return <Lesson navigation={navigation} item={item} key={i} stt={i+1} data={data}/>
         })
     }
 

@@ -11,10 +11,20 @@ import {ThemeContext} from "../../../provider/theme-provider";
 import {themes} from "../../../globals/themes";
 import DarkStyles from "../../../globals/dark-style";
 import LightStyles from "../../../globals/light-style";
+import CourseApi from "../../../api/courseApi";
+import {AuthenticationContext} from "../../../provider/authentication-provider";
+import UserApi from "../../../api/userApi";
 const Home=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
-
+    const params={
+        limit:10,
+        page:1
+    };
+    const [topNew,setTopNew]=useState(null);
+    const [topSell,setTopSell]=useState(null);
+    const [user,setUser]=useState(null);
+    const [category,setCategory]=useState([]);
     if(changeTheme===themes.dark)
     {
 
@@ -29,7 +39,42 @@ const Home=(props)=>{
             navigation:props.navigation,
         });
     }
+    const topNewOnChange=async(params)=>{
+        // try{
+            
+        //     const response=await CourseApi.topNew(params);
+        //     console.log("Check payload top new");
+        //     console.log(response.payload);
+        //     return response.payload;
 
+        // }
+        // catch(err){
+        //     console.log("Failed to fetch:"+err);
+        //     return err;
+        // }
+        const response=await CourseApi.topNew(params);
+        
+        return response.payload;
+    };
+    const {authentication}=useContext(AuthenticationContext);
+    const topSellOnChange=async(params)=>{
+        // try{
+            
+        //     const response=await CourseApi.topSell(params);
+        //     console.log("Check payload top sell");
+        //     console.log(response.payload);
+        //     return response.payload;
+        // }
+        // catch(err){
+        //     console.log("Failed to fetch:"+err);
+        //     return err;
+        // }
+        const response=await CourseApi.topSell(params);
+        
+        return response.payload;
+        
+    };
+    
     React.useLayoutEffect(() => {
         props.navigation.setOptions({
             headerRight: () => (
@@ -50,8 +95,8 @@ const Home=(props)=>{
     return(
         <ScrollView>
             <View style={{backgroundColor:changeTheme.background}}>
-                <SectionCourses navigation={props.navigation} title="New"/>
-                <SectionCourses navigation={props.navigation} title="Trending"/>
+                <SectionCourses navigation={props.navigation} title="New" isTopNew={true}/>
+                <SectionCourses navigation={props.navigation} title="Trending" isTopSell={true}/>
                 <SectionCoursesBookmark navigation={props.navigation} title="Bookmark"/>
             </View>
         </ScrollView>

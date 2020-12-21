@@ -22,11 +22,13 @@ const ResultAll=(props)=>{
     {
         themeStyle=LightStyles;
     }
+    console.log("CHeck props resultCOursesSeach");
+    console.log(props.resultCoursesSearch);
+
     return(
         <View style={{backgroundColor:changeTheme.background}}>
             <View>
                 <ListCourses navigation={props.navigation} title="Courses" searchResult={props.resultCoursesSearch}/>
-                <ListPaths navigation={props.navigation} title="Paths" searchResult={props.resultPathsSearch}/>
                 <ListAuthors navigation={props.navigation} title="Authors" searchResult={props.resultAuthorsSearch}/>
             </View>
         </View>

@@ -27,16 +27,11 @@ const Browse=(props)=>{
         themeStyle=LightStyles;
     }
     return(
-        <ScrollView>
-            <View style={{backgroundColor:changeTheme.background}}>
-                <ImageButton navigation={props.navigation} title="New Releases" styleImageButton={styles.imageButtonImageBackground}/>
+            <ScrollView style={{backgroundColor:changeTheme.background}}>
                 <ImageButton navigation={props.navigation}  title="Recommend" styleImageButton={styles.imageButtonImageBackground}/>
-                <SectionPaths navigation={props.navigation}  title="Path"/>
-                <SectionSkills navigation={props.navigation}  title="Skills"/>
                 <SectionCategories navigation={props.navigation}  title="Categories"/>
                 <SectionAuthors navigation={props.navigation}  title="Authors"/>
-            </View>
-        </ScrollView>
+            </ScrollView>
 
 
 );

@@ -10,7 +10,7 @@ import {navigationName} from "../../globals/constants";
 import {login} from "../core/services/authentication-services";
 import {UserContext} from "../../provider/users-provider";
 import {AuthenticationContext, AuthenticationProvider} from "../../provider/authentication-provider";
-
+import UserApi from "../../api/userApi"
 const Login=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
@@ -24,7 +24,7 @@ const Login=(props)=>{
     {
         themeStyle=LightStyles;
     }
-    const [username,setUsername]=useState("");
+    const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
 
     const [status,setStatus]=useState(null);
@@ -60,52 +60,90 @@ const Login=(props)=>{
 
     }
     const {setAuthentication}=useContext(AuthenticationContext);
-    const {userList,setUserList}=useContext(UserContext);
-    const validateUser=(user,pass)=>{
-        if(username===user)
-        {
-            if(password===pass)
-            {
-                setMessage("Login is success");
-                return true;
-            }
-            else
-            {
-                setMessage("Password is not correct");
-                return false;
-            }
-        }
-        setMessage("Username is not existed");
 
-        return false;
+    const {userList,setUserList}=useContext(UserContext);
+    const validateUser=(message)=>{
+        // if(username===user)
+        // {
+        //     if(password===pass)
+        //     {
+        //         setMessage("Login is success");
+        //         return true;
+        //     }
+        //     else
+        //     {
+        //         setMessage("Password is not correct");
+        //         return false;
+        //     }
+        // }
+        // setMessage("Username is not existed");
+
+        // return false;
+        if(message==="OK")
+        {
+            setMessage("Login is success");
+            return true;
+           
+        }
+        else
+        {
+            
+            //save message to render
+            setMessage("Login is failed");
+            return false;
+        }
     }
+
     const renderMessage=()=>{
         if(!message){
             return <View/>
         }
-        else
-        {
-            return <Text style={themeStyle.textError}>{message}</Text>
-        }
+        else if(message==="Login is success")
+            {
+                return <Text style={themeStyle.textSuccess}>{message}</Text>
+            }
+            else
+            {
+                return <Text style={themeStyle.textError}>{message}</Text>
+
+            }
     }
-    const onPressLogin=()=>{
+    const onPressLogin=async()=>{
         //setStatus(login(username,password));
         //setTimeout(()=>{console.log("Check is success");},100);
         //console.log(isSuccess);
-        userList.map((item,i)=>{
-            if(validateUser(item.username,item.password))
+        // userList.map((item,i)=>{
+        //     if(validateUser(item.username,item.password))
+        //     {
+        //         setAuthentication(item);
+        //         props.navigation.navigate(navigationName.AfterLogin)
+
+        //     }
+        // })
+        const res=await UserApi.login(email,password);
+        console.log("Check res");
+        console.log(res.message);
+        if(res&&res.message)
+        {
+            if(validateUser(res.message))
             {
-                setAuthentication(item);
-                props.navigation.navigate(navigationName.AfterLogin)
-
+                //save token to authentication
+                setAuthentication(res.token);
+                //navigate to home page
+                props.navigation.navigate(navigationName.AfterLogin);
             }
-        })
-
-        //props.navigation.navigate(navigationName.AfterLogin);
+        }
+        else{
+            setMessage("Login is failed");
+        }
+        
+        
     }
     const onPressRegister=()=>{
         props.navigation.navigate(navigationName.Register);
     }
+    
+
     return(
         <ScrollView style={{...componentStyle.scrollView,...styles.container,backgroundColor:changeTheme.background}} >
             <View >
@@ -121,9 +159,9 @@ const Login=(props)=>{
 
                 <View style={{flex: 10}}>
 
-                    <Text style={themeStyle.textMedium}>Email or username</Text>
+                    <Text style={themeStyle.textMedium}>Email</Text>
 
-                    <TextInput style={styles.input} onChangeText={text=>{setUsername(text)}} defaultValue={username}></TextInput>
+                    <TextInput style={styles.input} onChangeText={text=>{setEmail(text)}} defaultValue={email}></TextInput>
 
                     <View style={styles.space}/>
                     <Text style={themeStyle.textMedium}>Password</Text>

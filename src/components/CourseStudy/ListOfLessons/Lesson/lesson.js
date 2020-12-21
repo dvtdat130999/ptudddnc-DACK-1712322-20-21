@@ -20,41 +20,42 @@ const Lesson=(props)=>{
     {
         themeStyle=LightStyles;
     }
-    let item;
-    let data;
-    let navigation=props.navigation;
-    if(props.route)
-    {
-        item=props.route.params.item;
-        data=props.route.params.data;
-    }
-    else
-    {
-        item=props.item;
-        data=props.data;
-    }
+    // let item;
+    // let data;
+    // let navigation=props.navigation;
+    // if(props.route)
+    // {
+    //     item=props.route.params.item;
+    //     data=props.route.params.data;
+    // }
+    // else
+    // {
+    //     item=props.item;
+    //     data=props.data;
+    // }
 
-    const chooseLesson=()=>{
-        console.log("Check navigation before change lesson");
-        console.log(props.navigation);
-        props.navigation.navigate(navigationName.CourseStudy,{
-            item:item,
-            data:data,
-        });
-        console.log("Choose lesson");
-    }
+    // const chooseLesson=()=>{
+    //     console.log("Check navigation before change lesson");
+    //     console.log(props.navigation);
+    //     props.navigation.navigate(navigationName.CourseStudy,{
+    //         item:item,
+    //         data:data,
+    //     });
+    //     console.log("Choose lesson");
+    // }
 
     return(
-        <TouchableOpacity style={{flexDirection:'row',marginTop:15}} onPress={chooseLesson}>
+        <View style={{flexDirection:'row',marginTop:15,alignItems:'center'}} >
             <View style={themeStyle.lessonItem}>
                 <Text style={themeStyle.text}>{props.stt}</Text>
             </View>
-            <View style={{flexDirection:'column',marginLeft:10}}>
-                <Text style={themeStyle.titleSmall}>{item.title}</Text>
+            <Text style={themeStyle.titleSmall}>{props.item}</Text>
+
+            {/* <View style={{flexDirection:'column',marginLeft:10}}>
                 <Text style={themeStyle.text}>{item.length}</Text>
 
-            </View>
-        </TouchableOpacity>
+            </View> */}
+        </View>
 
     );
 }

@@ -1,6 +1,5 @@
 import React, {Component, useContext,useState} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions  } from 'react-native';
-
 import styles from "../../globals/styles";
 import {ThemeContext} from "../../provider/theme-provider";
 import DarkStyles from "../../globals/dark-style";
@@ -8,20 +7,34 @@ import LightStyles from "../../globals/light-style";
 import {navigationName} from "../../globals/constants";
 import {themes} from "../../globals/themes";
 import {UserContext} from "../../provider/users-provider";
-
+import UserApi from "../../api/userApi";
 const Register=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     const [username,setUsername]=useState("");
-    const [fullname,setFullname]=useState("");
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const [phone,setPhone]=useState("");
+    const [message,setMessage]=useState("");
+    const renderMessage=(message)=>{
+        if(!message){
+            return <View/>
+        }
+        else if(message==="Register is success")
+            {
+                
+                return <Text style={themeStyle.textSuccess}>{message}</Text>
+            }
+            else 
+            {
+                return <Text style={themeStyle.textError}>{message}</Text>
+
+            }    
+                
+    }
     const onChangeUsername=(e)=>{
         setUsername(e.target.value);
     };
-    const onChangeFullname=(e)=>{
-        setFullname(e.target.value);
-    };
+
     const onChangeEmail=(e)=>{
         setEmail(e.target.value);
     };
@@ -44,18 +57,50 @@ const Register=(props)=>{
         themeStyle=LightStyles;
     }
     const {userList,setUserList}=useContext(UserContext);
-    const onPressRegister=()=>{
-        let user={
-            username:username,
-            fullname:fullname,
-            email:email,
-            password:password,
+    const validateRegister=(message)=>{
+        console.log("Dang validate register");
+        if(message==="OK")
+        {
+            setMessage("Register is success");
+            return true;
+        }
+        else 
+        {
+            setMessage("Email or phone is existed");
+
+        }
+        return false;
+
+    }
+    const onPressRegister= async () => {
+        let user = {
+            username: username,
+            phone: phone,
+            email: email,
+            password: password,
 
         };
-        let users=userList;
+        const response = await UserApi.register(user);
+        console.log(response);
+        if(response.message)
+        {
+            if(validateRegister(response.message))
+            {
+                props.navigation.navigate(navigationName.Login);
+
+            }
+        }
+        else
+        {
+            console.log("Vao day")
+            setMessage("Email or phone is existed");
+
+        }
+        
+        /*let users=userList;
         users=users.concat(user);
         setUserList(users);
-        props.navigation.navigate(navigationName.Login)
+        props.navigation.navigate(navigationName.Login)*/
     };
     const onPressLogin=()=>{
         props.navigation.navigate(navigationName.Login)
@@ -82,10 +127,6 @@ const Register=(props)=>{
 
                 <Text style={themeStyle.textMedium}>Password</Text>
                 <TextInput secureTextEntry={true} style={styles.input} defaultValue={password} onChangeText={text=>{setPassword(text)}}></TextInput>
-                <View style={styles.space}/>
-                <Text style={themeStyle.textMedium}>Full name</Text>
-
-                <TextInput style={styles.input} defaultValue={fullname} onChangeText={text=>{setFullname(text)}}></TextInput>
 
                 <View style={styles.space}/>
                 <Text style={themeStyle.textMedium}>Email</Text>
@@ -93,7 +134,13 @@ const Register=(props)=>{
                 <TextInput style={styles.input} defaultValue={email} onChangeText={text=>{setEmail(text)}}></TextInput>
 
                 <View style={styles.space}/>
+                <Text style={themeStyle.textMedium}>Phone</Text>
+
+                <TextInput style={styles.input} defaultValue={phone} onChangeText={text=>{setPhone(text)}}></TextInput>
+
                 <View style={styles.space}/>
+                <View style={styles.space}/>
+                {renderMessage()}
 
                 <TouchableHighlight onPress={onPressRegister}>
 

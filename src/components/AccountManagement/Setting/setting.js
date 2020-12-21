@@ -6,6 +6,7 @@ import DarkStyles from "../../../globals/dark-style";
 import LightStyles from "../../../globals/light-style";
 import {themes} from "../../../globals/themes";
 import {navigationName} from "../../../globals/constants";
+import {AuthenticationContext} from "../../../provider/authentication-provider";
 
 const Setting=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
@@ -33,7 +34,11 @@ const Setting=(props)=>{
     }
     console.log(props);
     let navigation=props.route.params.navigation;
+    const {setAuthentication}=useContext(AuthenticationContext);
+
     const signOut=(props)=>{
+        setAuthentication(null);
+
         navigation.navigate(navigationName.Login);
         console.log("Sign out");
     }

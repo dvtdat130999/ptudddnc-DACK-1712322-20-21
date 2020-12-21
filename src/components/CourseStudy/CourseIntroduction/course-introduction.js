@@ -10,6 +10,9 @@ import {ThemeContext} from "../../../provider/theme-provider";
 import {themes} from "../../../globals/themes";
 import DarkStyles from "../../../globals/dark-style";
 import LightStyles from "../../../globals/light-style";
+import moment from 'moment';
+import { format } from "date-fns";
+
 const CourseIntroduction=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
@@ -34,14 +37,28 @@ const CourseIntroduction=(props)=>{
     const takeCheck=()=>{
         console.log("Press check")
     };
+    let date=null;
+    if(props.searchedCourse)
+    {
+        date=new Date(props.item.updatedAt);
+    }
+    else
+    {
+        date=new Date(props.item.createdAt);
+
+    }
+    let dateToFormat=format(date,"dd/MM/yyyy");
+
     return(
         <View>
             <Text style={themeStyle.titleSmall}>{props.item.title}</Text>
             <View style={styles.space}/>
-            <Text style={themeStyle.text}>{props.item.author}</Text>
+            {props.searchedCourse ? 
+                <Text style={themeStyle.text}>{props.item.name}</Text>:
+                <Text style={themeStyle.text}>{props.item["instructor.user.name"]}</Text>
+            }
             <View style={styles.space}/>
-
-            <Text style={themeStyle.text}>{props.item.level} . {props.item.createdDate} . {props.item.length}</Text>
+            <Text style={themeStyle.text}>{dateToFormat} . {props.item.totalHours}</Text>
             <View style={styles.space}/>
             <View style={styles.space}/>
 
@@ -53,16 +70,16 @@ const CourseIntroduction=(props)=>{
             <View style={styles.space}/>
             <View style={styles.space}/>
 
-            <TouchableHighlight style={{marginTop:20}} onPress={takeCheck}>
+            {/* <TouchableHighlight style={{marginTop:20}} onPress={takeCheck}>
                 <View style={themeStyle.related}>
                     <Text style={themeStyle.text}>Take a learning check</Text>
                 </View>
-            </TouchableHighlight>
+            </TouchableHighlight> */}
             <CourseStudyService item={props.item}/>
             <View style={styles.space}/>
             <View style={styles.space}/>
 
-            <Text style={themeStyle.text}>{props.item.introduction}</Text>
+            <Text style={themeStyle.text}>{props.item.description}</Text>
 
         </View>
     );

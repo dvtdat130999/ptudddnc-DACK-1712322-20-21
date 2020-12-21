@@ -199,7 +199,7 @@ const componentStyles = StyleSheet.create({
         backgroundColor:'white'
     },
     viewImage:{
-        marginRight:35,
+        marginRight:10,
         alignItems:'center',
         justifyContent:'center'
 

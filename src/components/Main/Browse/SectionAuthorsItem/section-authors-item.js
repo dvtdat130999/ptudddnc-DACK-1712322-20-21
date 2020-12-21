@@ -23,7 +23,7 @@ const SectionAuthorsItem=(props)=>{
     }
     const onPress=()=>{
         props.navigation.navigate(navigationName.ListCourses,{
-            author:props.item,
+            instructor:props.item,
             navigation:props.navigation
 
         })

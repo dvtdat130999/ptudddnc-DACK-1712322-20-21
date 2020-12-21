@@ -31,6 +31,12 @@ const DarkStyles = StyleSheet.create({
         fontSize:18,
 
     },
+    textSuccess:{
+        color:'green',
+        fontWeight: "bold",
+        fontSize:18,
+
+    },
     textMedium:{
         color:'white',
         fontSize:20,
@@ -88,7 +94,7 @@ const DarkStyles = StyleSheet.create({
         marginTop:10,
         marginLeft:30,
         marginRight:30,
-        width:200,
+        width:350,
         backgroundColor:'lightslategrey',
     },
     sectionCourseItemText:{
@@ -97,8 +103,7 @@ const DarkStyles = StyleSheet.create({
     },
     author:{
         flexDirection:'column',
-        marginLeft:30,
-        marginRight:30,
+        
     },
     authorText:{
         color:'white',
@@ -108,8 +113,10 @@ const DarkStyles = StyleSheet.create({
         backgroundColor:'gray',
         justifyContent:'center',
         alignItems:'center',
-        width:50,
-        marginLeft:20
+        width:70,
+        marginLeft:5,
+        marginRight:5,
+        height:70
     }
 });
 

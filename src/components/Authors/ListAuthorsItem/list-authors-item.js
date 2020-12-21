@@ -10,7 +10,7 @@ import {navigationName} from "../../../globals/constants";
 const ListAuthorsItem=(props)=>{
     const onPress=()=>{
         props.navigation.navigate(navigationName.ListCourses,{
-            author:props.item,
+            instructor:props.item,
             navigation:props.navigation
 
         })

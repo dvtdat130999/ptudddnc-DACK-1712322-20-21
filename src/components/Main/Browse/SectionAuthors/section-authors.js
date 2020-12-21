@@ -1,5 +1,6 @@
-import React, {Component, useContext} from 'react';
-import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList } from 'react-native';
+import React, {Component, useContext,useState,useEffect} from 'react';
+import { StyleSheet,View, Text, Image, ScrollView, TextInput,
+    TouchableHighlight,Dimensions ,SectionList,FlatList,ActivityIndicator } from 'react-native';
 import {authors} from"../../../../data/authors"
 import styles from "../../../../globals/styles";
 import SectionAuthorsItem from "../SectionAuthorsItem/section-authors-item";
@@ -8,10 +9,12 @@ import {themes} from "../../../../globals/themes";
 import DarkStyles from "../../../../globals/dark-style";
 import LightStyles from "../../../../globals/light-style";
 import {navigationName} from "../../../../globals/constants";
-
+import InstructorApi from "../../../../api/instructorApi";
 const SectionAuthors=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
+    const [isLoading,setIsLoading]=useState(true);
+
     if(changeTheme===themes.dark)
     {
 
@@ -21,7 +24,7 @@ const SectionAuthors=(props)=>{
     {
         themeStyle=LightStyles;
     }
-    const DATA = authors;
+    const [DATA,setDATA] = useState([]);
     const seeAll=()=>{
         props.navigation.navigate(navigationName.Authors,{
         })
@@ -39,8 +42,21 @@ const SectionAuthors=(props)=>{
             }
         })
     }
+    const getAllInstructor=async()=>{
+        const res=await InstructorApi.getAll();
+        setDATA(res.payload);
+        setIsLoading(false);
+    }
+    useEffect(()=>{
+        if(DATA.length===0)
+        {
+            getAllInstructor();
+        }
+    })
     return(
         <View style={{marginTop:60}}>
+            { isLoading && <ActivityIndicator size="large" color="red"/> }
+
             <View style={{
 
                 flexDirection: 'row',
