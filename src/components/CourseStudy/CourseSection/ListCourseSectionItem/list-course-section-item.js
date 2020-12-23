@@ -19,10 +19,7 @@ const ListCourseSectionItem=(props)=>{
     {
         themeStyle=LightStyles;
     }
-    console.log("Check lesson in list course section item voi index =0");
-    console.log(props.item.lesson[0]);
     const onPressSectionItem=()=>{
-        console.log("Press section item");
         props.navigation.navigate(navigationName.LessonDetail,{
             lesson:props.item.lesson[0],
             listLesson:props.item.lesson,

@@ -3,7 +3,7 @@ import { NavigationContainer, DefaultTheme  } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {themes} from "./src/globals/themes"
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState,useEffect} from 'react';
 import { StyleSheet, Text, View,Image,Button } from 'react-native';
 import Login from "./src/components/Authentication/login"
 import Register from "./src/components/Authentication/register";
@@ -31,13 +31,14 @@ import Search from "./src/components/Main/Search/search";
 import {AuthenticationContext, AuthenticationProvider} from "./src/provider/authentication-provider";
 import {CoursesProvider} from "./src/provider/courses-provider";
 import RelatedPathsAndCourses from "./src/components/CourseStudy/RelatedPathsAndCourses/related-paths-courses";
-import {BookmarkProvider} from "./src/provider/bookmark-provider";
+import {BookmarkContext, BookmarkProvider} from "./src/provider/bookmark-provider";
 import {ThemeContext, ThemeProvider} from "./src/provider/theme-provider";
 import {UserProvider} from "./src/provider/users-provider";
 import ListCategories from "./src/components/Categories/ListCategories/list-categories";
 import ListPaths from "./src/components/Paths/ListPaths/list-paths";
 import AuthorDetail from "./src/components/Authors/AuthorDetail/author-detail";
-
+import CourseApi from "./src/api/courseApi";
+import UserApi from "./src/api/userApi";
 const MainStack = createStackNavigator();
 const AfterLoginStack = createStackNavigator();
 const DownloadStack=createStackNavigator();
@@ -57,6 +58,8 @@ const SearchNavigation=()=>{
             <SearchStack.Screen name={navigationName.CourseStudy} component={CourseStudy}  />
             <SearchStack.Screen name={navigationName.ListCourses} component={ListCourses} />
             <SearchStack.Screen name={navigationName.Authors} component={ListAuthors} />
+            <SearchStack.Screen name={navigationName.LessonDetail} component={LessonDetail} options={{title:"Lesson"}} />
+            <SearchStack.Screen name={navigationName.AuthorDetail} component={AuthorDetail} options={{title:"Author"}} />
 
         </SearchStack.Navigator>
     );
@@ -103,6 +106,7 @@ const ListDownloadStack=()=>{
             <DownloadStack.Screen name={navigationName.ListCourses} component={Download} options={{title:'Downloads',headerShown: false}}/>
             <DownloadStack.Screen name={navigationName.CourseStudy} component={CourseStudy} />
             <DownloadStack.Screen name={navigationName.RelatedPathsAndCourses} component={RelatedPathsAndCourses} options={{title:'Related'}} />
+            <DownloadStack.Screen name={navigationName.LessonDetail} component={LessonDetail} options={{title:'Lesson'}} />
 
         </DownloadStack.Navigator>
     );
@@ -131,6 +135,8 @@ const AuthenticationStack=()=>{
     );
 }
 const AfterLogin=()=>{
+    
+
     return(
         <BottomTab.Navigator  >
 
@@ -156,31 +162,24 @@ const MainStackApp=()=>{
     );
 }
 
-const DarkTheme = {
-    ...DefaultTheme,
-    colors: {
-        ...DefaultTheme.colors,
-        background: 'black',
-    },
-};
 export default function App() {
 
   return (
-      <BookmarkProvider>
-          <ThemeProvider>
-              <CoursesProvider>
-                  <AuthenticationProvider>
-                      <UserProvider>
-                          <NavigationContainer  >
-                              <MainStackApp/>
+    <AuthenticationProvider>
+        <BookmarkProvider>
+            <ThemeProvider>
+                <CoursesProvider>
+                        <UserProvider>
+                            <NavigationContainer  >
+                                <MainStackApp/>
 
-                          </NavigationContainer>
-                      </UserProvider>
-                  </AuthenticationProvider>
-              </CoursesProvider>
-          </ThemeProvider>
+                            </NavigationContainer>
+                        </UserProvider>
+                </CoursesProvider>
+            </ThemeProvider>
 
-      </BookmarkProvider>
+        </BookmarkProvider>
+      </AuthenticationProvider>
 
 
 

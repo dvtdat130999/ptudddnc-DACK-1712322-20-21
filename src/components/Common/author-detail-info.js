@@ -45,7 +45,8 @@ const AuthorDetailInfo=(props)=>{
             <Text style={themeStyle.authorText}>{props.item["user.name"]}</Text>
             <Text style={themeStyle.authorText}>{props.item["user.email"]}</Text>
             <Text style={themeStyle.authorText}>{props.item["user.phone"]}</Text>
-            <ListCourses navigation={props.navigation} instructor={props.item} />
+
+            <ListCourses navigation={props.navigation} instructor={props.item}message={"This is from author detail info"} />
         </View>
     );
 }

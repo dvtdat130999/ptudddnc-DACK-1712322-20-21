@@ -27,8 +27,18 @@ const SectionCourses=(props)=>{
         themeStyle=LightStyles;
     }
     const seeAll=()=>{
+        let type=null;
+        if(props.isTopNew)
+        {
+            type="new";
+        }
+        else
+        {
+            type="sell";
+        }
         props.navigation.navigate(navigationName.ListCourses,{
             message:"This is from section course, we want to see all courses",
+            type:type,
         })
     };
     const [DATA,setDATA]=useState([]);

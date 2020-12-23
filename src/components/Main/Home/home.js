@@ -13,18 +13,14 @@ import DarkStyles from "../../../globals/dark-style";
 import LightStyles from "../../../globals/light-style";
 import CourseApi from "../../../api/courseApi";
 import {AuthenticationContext} from "../../../provider/authentication-provider";
+import {BookmarkContext} from "../../../provider/bookmark-provider";
+
 import UserApi from "../../../api/userApi";
 const Home=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
-    const params={
-        limit:10,
-        page:1
-    };
-    const [topNew,setTopNew]=useState(null);
-    const [topSell,setTopSell]=useState(null);
-    const [user,setUser]=useState(null);
-    const [category,setCategory]=useState([]);
+    
+    
     if(changeTheme===themes.dark)
     {
 
@@ -39,41 +35,55 @@ const Home=(props)=>{
             navigation:props.navigation,
         });
     }
-    const topNewOnChange=async(params)=>{
-        // try{
-            
-        //     const response=await CourseApi.topNew(params);
-        //     console.log("Check payload top new");
-        //     console.log(response.payload);
-        //     return response.payload;
-
-        // }
-        // catch(err){
-        //     console.log("Failed to fetch:"+err);
-        //     return err;
-        // }
-        const response=await CourseApi.topNew(params);
-        
-        return response.payload;
+    const params={
+        limit:20,
+        page:1
     };
+     
+    const getAllCourse=async()=>{
+        const res=await CourseApi.topSell(params);
+        setAllCourses(res.payload);
+    }
     const {authentication}=useContext(AuthenticationContext);
-    const topSellOnChange=async(params)=>{
-        // try{
-            
-        //     const response=await CourseApi.topSell(params);
-        //     console.log("Check payload top sell");
-        //     console.log(response.payload);
-        //     return response.payload;
-        // }
-        // catch(err){
-        //     console.log("Failed to fetch:"+err);
-        //     return err;
-        // }
-        const response=await CourseApi.topSell(params);
-        
-        return response.payload;
-        
-    };
+    const {coursesBookmark,setCoursesBookmark}=useContext(BookmarkContext);
+    const [first,setFirst]=useState(true);
+    const [allCourses,setAllCourses]=useState([]);
+    const getCourseLikeStatus=async(courseId)=>{
+        const res=await UserApi.getCourseLikeStatus(authentication,courseId);
+        return res.likeStatus;
+
+    }
+    useEffect(()=>{
+        if(allCourses.length===0)
+        {
+            getAllCourse();
+        }
+        if(first && allCourses.length!==0)
+        {
+            allCourses.map((item,i)=>{
+                if(getCourseLikeStatus(item.id)===true)
+                {
+                    console.log("Xet course duoc vao book mark");
+                    console.log(item);
+                    let temp=coursesBookmark;
+                    console.log("Check before concat");
+                    console.log(temp);
+                    temp=temp.concat(item);
+                    console.log("Check after concat");
+                    console.log(temp);
+                    setCoursesBookmark(temp);
+                }
+            })
+            setFirst(false);
+
+        }
+        if(coursesBookmark.length>0)
+        {
+            console.log("Bookmark da co course roi");
+            console.log(coursesBookmark);
+        }
+     
+    })
     
     React.useLayoutEffect(() => {
         props.navigation.setOptions({
@@ -92,6 +102,16 @@ const Home=(props)=>{
             ),
         });
     }, [props.navigation]);
+
+    // useEffect(()=>{
+    //     const getLikeStatus=async()=>{
+    //         const tiDB="a395c845-506c-4d5d-82d8-a57fe9f80622"
+    //         const res=await UserApi.getCourseLikeStatus(authentication,tiDB);
+    //         console.log("Check like status of tidb");
+    //         console.log(res.likeStatus);
+    //     }
+    //     getLikeStatus();
+    // })
     return(
         <ScrollView>
             <View style={{backgroundColor:changeTheme.background}}>

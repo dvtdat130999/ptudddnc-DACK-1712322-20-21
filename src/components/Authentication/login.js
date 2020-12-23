@@ -145,9 +145,8 @@ const Login=(props)=>{
     
 
     return(
-        <ScrollView style={{...componentStyle.scrollView,...styles.container,backgroundColor:changeTheme.background}} >
-            <View >
-                <View style={{flex: 2}}>
+        <ScrollView style={{backgroundColor:changeTheme.background,flex:1}} >
+                <View style={{flex: 4,marginTop:20}}>
 
                     <View style={componentStyle.titleView}>
                         <Text style={themeStyle.title} >
@@ -208,7 +207,6 @@ const Login=(props)=>{
 
 
                 </View>
-            </View>
         </ScrollView>
 
     );

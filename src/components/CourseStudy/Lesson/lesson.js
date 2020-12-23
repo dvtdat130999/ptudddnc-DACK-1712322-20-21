@@ -21,13 +21,11 @@ const Lesson=(props)=>{
         themeStyle=LightStyles;
     }
     const onPressLesson=()=>{
-        console.log("Press lesson");
-        console.log(props.item);
-        console.log(props.item.listLesson);
+       
         
         props.navigation.navigate(navigationName.LessonDetail,{
             lesson:props.item,
-            listLesson:props.item.listLesson,
+            listLesson:props.listLesson,
             navigation:props.navigation
         });
     }

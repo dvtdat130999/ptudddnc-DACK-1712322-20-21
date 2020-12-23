@@ -13,7 +13,7 @@ import DarkStyles from "../../../globals/dark-style";
 import LightStyles from "../../../globals/light-style";
 
 import ListAuthorsItem from "../../Authors/ListAuthorsItem/list-authors-item";
-
+import UserApi from "../../../api/userApi";
 const CourseStudyService=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
@@ -29,114 +29,58 @@ const CourseStudyService=(props)=>{
     }
     const {coursesBookmark,setCoursesBookmark}=useContext(BookmarkContext);
     const {authentication}=useContext(AuthenticationContext);
-    //const [isBookmarked,setIsBookmarked]=useState(false);
-    const course={
-        user:authentication.id,
-        course:props.item,
+    const bookmark=async ()=>{
+        const res=await UserApi.likeCourse(authentication,props.item.id);
+        setBookmarkStatus(res.likeStatus);
+        let temp=coursesBookmark;
+        temp=temp.concat(props.item);
+        setCoursesBookmark(temp);
     };
-    const [isExisted,setIsExisted]=useState(-1);
-    const [firstCheckExisted,setFirstCheckExisted]=useState(false);
-    const [addCourse,setAddCourse]=useState(false);
-    const onChangeAddCourse=()=>{
-        setAddCourse(!addCourse);
-    };
-    //let isExisted=-1;//giu index tien cho viec unbookmark
-    //let isBookmark=false;
-    /*coursesBookmark.map((item,i)=>{
-        if(item.user===course.user && item.course.id===course.course.id)
-        {
-            //setIsExisted(i);
-            isExisted=i;
-            //isBookmark=true;
-
-        }
-    });*/
-
-    const bookmark=()=>{
-
-        if(isExisted===-1)
-        {
-            let courses=coursesBookmark;
-            courses=courses.concat(course);
-            setCoursesBookmark(courses);
-            setIsExisted(0);
-            //isBookmark=true;
-            //setIsBookmarked(true);
-        }
-
-
-
-    };
-    const unbookmark=()=>{
-        coursesBookmark.map((item,i)=>{
-            if(item.user===course.user && item.course.id===course.course.id)
+    const getIndex=(list,a)=>{
+        list.map((item,i)=>{
+            if(item===a)
             {
-                setIsExisted(i);
-                //isBookmark=true;
-
+                return i;
             }
-        });
-        const listCourseBookmarked=coursesBookmark;
-        listCourseBookmarked.splice(isExisted,1);
-        setCoursesBookmark(listCourseBookmarked);
-        //isExisted=-1;
-        //isBookmark=false;
-        setIsExisted(-1);
-        setFirstCheckExisted(false);
-        //setIsBookmarked(false);
-        console.log("Unbookmark");
+        })
+        return -1;
     }
-
+    const unbookmark=async ()=>{
+        const res=await UserApi.likeCourse(authentication,props.item.id);
+        setBookmarkStatus(res.likeStatus);
+        let index=getIndex(coursesBookmark,props.item);
+        let temp=coursesBookmark;
+        temp.splice(index,1);
+        setCoursesBookmark(temp);
+    };
     const addToChannel=()=>{
         console.log("Press add to channel")
     };
     const download=()=>{
         console.log("Press download")
     };
+    const [bookmarkStatus,setBookmarkStatus]=useState(null);
+
+    const getCourseLikeStatus=async()=>{
+        const res=await UserApi.getCourseLikeStatus(authentication,props.item.id);
+        
+        setBookmarkStatus(res.likeStatus);
+    }
+
     useEffect(()=>{
-        if(!firstCheckExisted)
+        if(bookmarkStatus===null)
         {
-            coursesBookmark.map((item,i)=>{
-                if(item.user===course.user && item.course.id===course.course.id)
-                {
-                    setIsExisted(i);
-                    //isBookmark=true;
+            getCourseLikeStatus();
 
-                }
-            });
-            setFirstCheckExisted(true);
         }
-        /*if(addCourse)
-        {
-            setIsExisted(-1);
-            coursesBookmark.map((item,i)=>{
-                if(item.user===course.user && item.course.id===course.course.id)
-                {
-                    setIsExisted(i);
-                    //isBookmark=true;
-
-                }
-            });
-
-
-            if(isExisted===-1)
-            {
-                let courses=coursesBookmark;
-                courses=courses.concat(course);
-
-                setCoursesBookmark(courses);
-                setIsExisted(0);
-                //isBookmark=true;
-                //setIsBookmarked(true);
-            }
-            setAddCourse(false);
-        }*/
+        
+        
 
     });
 
     return(
         <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-            {isExisted!==-1 ?
+            {bookmarkStatus ? 
                 <View style={componentStyles.viewImage} >
                     <TouchableOpacity onPress={unbookmark} >
                         <Image
@@ -147,7 +91,7 @@ const CourseStudyService=(props)=>{
                     <View>
                         <Text style={themeStyle.text}>Unbookmark</Text>
                     </View>
-                </View> :
+                </View>:
                 <View style={componentStyles.viewImage} >
                     <TouchableOpacity onPress={bookmark} >
                         <Image
@@ -159,20 +103,11 @@ const CourseStudyService=(props)=>{
                         <Text style={themeStyle.text}>Bookmark</Text>
                     </View>
                 </View>
+
             }
+          
 
-            {/* <View style={componentStyles.viewImage} >
-                <TouchableOpacity onPress={addToChannel} >
-                        <Image
-                            source={AddToChannelIcon}
-                            style={componentStyles.image}
-                        />
-
-                </TouchableOpacity>
-                <View>
-                    <Text style={themeStyle.text}>Add to Channel</Text>
-                </View>
-            </View> */}
+           
             <View style={componentStyles.viewImage} >
                 <TouchableOpacity onPress={download} >
                         <Image

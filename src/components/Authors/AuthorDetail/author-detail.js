@@ -22,7 +22,7 @@ const AuthorDetail=(props)=>{
     return(
         <ScrollView>
             <View style={{backgroundColor:changeTheme.background}}>
-                <AuthorDetailInfo item={props.route.params.instructor} />
+                <AuthorDetailInfo item={props.route.params.instructor} navigation={props.route.params.navigation}/>
             </View>
         </ScrollView>
     )

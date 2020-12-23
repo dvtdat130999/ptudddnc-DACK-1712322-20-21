@@ -106,8 +106,8 @@ const Register=(props)=>{
         props.navigation.navigate(navigationName.Login)
     };
     return(
-        <ScrollView style={{...componentStyle.scrollView,...styles.container,backgroundColor:changeTheme.background}}>
-            <View style={{flex: 2}}>
+        <ScrollView style={{backgroundColor:changeTheme.background}}>
+            <View style={{flex: 2,marginTop:20}}>
 
                 <View style={componentStyle.titleView}>
                     <Text style={themeStyle.title} >

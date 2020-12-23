@@ -12,7 +12,11 @@ import LightStyles from "../../../globals/light-style";
 import {ThemeContext} from "../../../provider/theme-provider";
 import CourseApi from "../../../api/courseApi";
 const ListCourses=(props)=>{
-    
+    const getAllCourse=async()=>{
+        const response=await CourseApi.topSell(params);
+         setAllCourse(response.payload);
+    }
+    const [allCourse,setAllCourse]=useState([]);
     const [DATA,setDATA]=useState([]);
     const [topNew,setTopNew]=useState([]);
     const [topSell,setTopSell]=useState([]);
@@ -41,34 +45,45 @@ const ListCourses=(props)=>{
     
     const renderItem=()=>{
         //return <View></View>
-        return DATA.map((item,i)=>{
-            if(instructor!==null)
-            {
-                
-                if(item.instructorId===instructor.id)
+        if(DATA.length>0)
+        {
+            return DATA.map((item,i)=>{
+                if(category!==null)
                 {
-
-                    return <ListCoursesItem navigation={props.navigation} item={item} key={i} data={DATA} onPressListCoursesItem={onPressListCoursesItem}/>
-
+                    return <ListCoursesItem navigation={props.navigation} item={item} key={i} 
+                                            data={DATA} onPressListCoursesItem={onPressListCoursesItem}
+                                            searchedCourse={true}/>
+    
                 }
                 else
                 {
-                    return <View key={i}></View>
+                    return <ListCoursesItem navigation={props.navigation} item={item} key={i} data={DATA} 
+                    onPressListCoursesItem={onPressListCoursesItem}/>
+    
                 }
-            }
-            if(category!==null)
-            {
-                return <ListCoursesItem navigation={props.navigation} item={item} key={i} 
-                                        data={DATA} onPressListCoursesItem={onPressListCoursesItem}
-                                        searchedCourse={true}/>
+            })
+        }
+        else{
+            return allCourse.map((item,i)=>{
+                if(instructor)
+                {
+                    
+                    if(item.instructorId===instructor.id)
+                    {
+    
+                        return <ListCoursesItem navigation={props.navigation} item={item} key={i} data={DATA} onPressListCoursesItem={onPressListCoursesItem}/>
+    
+                    }
+                    else
+                    {
+                        return <View key={i}></View>
+                    }
+                }
+            })
+        }
 
-            }
-            else
-            {
-                return <ListCoursesItem navigation={props.navigation} item={item} key={i} data={DATA} onPressListCoursesItem={onPressListCoursesItem}/>
-
-            }
-        })
+        
+       
     };
     const params={
         limit:20,
@@ -92,18 +107,60 @@ const ListCourses=(props)=>{
     
     const [totalCourse,setTotalCourse]=useState(0);
     useEffect(()=>{
+        if(allCourse.length===0)
+        {
+
+            getAllCourse();
+        }
+        
+        if(props.route && props.route.params && props.route.params.type)
+        {
+            let type=props.route.params.type;
+            if(type==="new")
+            {
+                callApiTopNewCourse();
+            }
+            if(type==="sell")
+            {
+                callApiTopSellCourse();
+            }
+            if(type==="rate")
+            {
+                callApiTopRateCourse();
+            }
+
+        }
+        if(topNew.length>0 && DATA!==topNew)
+        {
+            setDATA(topNew);
+            setIsLoading(false);
+        }
+        if(topSell.length>0 && DATA!==topSell)
+        {
+            setDATA(topSell);
+            setIsLoading(false);
+        }
+        if(topRate.length>0 && DATA!==topRate)
+        {
+            setDATA(topRate);
+            setIsLoading(false);
+        }
         if(props.searchResult && DATA!==props.searchResult)
         {
            
             setDATA(props.searchResult);
             setIsLoading(false);
-            console.log("Check data after = search result");
-            console.log(DATA);
 
         }
-        if(props.instructor && instructor!==props.instructor)
+        if(props.instructor && instructor===null)
         {
             setInstructor(props.instructor);
+            
+        }
+        if(props.route&& props.route.params && props.route.params.instructor && instructor!==props.route.params.instructor)
+        {
+            setInstructor(props.route.params.instructor);
+
         }
         if(props.route && props.route.params && props.route.params.category)
         {
@@ -114,126 +171,16 @@ const ListCourses=(props)=>{
                 setIsLoading(false);
 
             }
-            if(category && DATA.length===0)
+            if(category)
             {
                 getAllCourseOfCategory();
 
             }
         }
-        else
-        {
-            
-            if(props.route && props.route.params && props.route.params.topRate===true)
-            {
-                if(topRate.length===0)
-                {
-                    callApiTopRateCourse();
-    
-                }
-                setDATA(topRate);
-                setIsLoading(false);
-    
-            }
-            else
-            {
-                if(totalCourse===0)
-                {
-                        const getTotal=async()=>{
-                            const res=await CourseApi.getTotalNumber();
-                            setTotalCourse(res.payload);
-                        }
-                        getTotal();
-                }
-                if(totalCourse>0&& DATA.length<totalCourse)
-                {
-                    if(topSell.length===0)
-                    {
-                        
-                        callApiTopSellCourse()
-                    }
-                    if(topNew.length===0)
-                    {
-                        
-                        callApiTopNewCourse()
-                    }
-                    if(topRate.length===0)
-                    {
-                        
-                        callApiTopRateCourse()
-                    }
-                    if(topSell.length>0)
-                    {
-                        topSell.map((item,i)=>{
-                            let isExisted=false;
-                            DATA.map((itemDATA,j)=>{
-                                if(itemDATA.id===item.id)
-                                {
-                                
-                                    isExisted=true;
-                                }
-                            })
-                            if(isExisted===false)
-                            {
-                                let temp=DATA;
-                                temp=temp.concat(item);
-                                setDATA(temp);
-                            }
-                            
-                        });
-                    }
-                    if(topNew.length>0)
-                    {
-                        topNew.map((item,i)=>{
-                            let isExisted=false;
-                            DATA.map((itemDATA,j)=>{
-                                if(itemDATA.id===item.id)
-                                {
-                                
-                                    isExisted=true;
-                                }
-                            })
-                            if(isExisted===false)
-                            {
-                                let temp=DATA;
-                                temp=temp.concat(item);
-                                setDATA(temp);
-                            }
-                            
-                        });
-                    }
-                    if(topRate.length>0)
-                    {
-                        topRate.map((item,i)=>{
-                            let isExisted=false;
-                            DATA.map((itemDATA,j)=>{
-                                if(itemDATA.id===item.id)
-                                {
-                                
-                                    isExisted=true;
-                                }
-                            })
-                            if(isExisted===false)
-                            {
-                                let temp=DATA;
-                                temp=temp.concat(item);
-                                setDATA(temp);
-                            }
-                            
-                        });
-                    }
-                }                    
-                setIsLoading(false);
-            }
-            if(props.route&& props.route.params && props.route.params.instructor && instructor===null)
-            {
-                if(instructor===null)
-                {
-                    setInstructor(props.route.params.instructor);
+      
 
-                }
-            }
+            setIsLoading(false);           
             
-        }
     });
 
     return(

@@ -37,15 +37,9 @@ const CourseStudy=(props)=>{
     }
     const getCourseSection=async()=>{
         const res=await CourseApi.courseDetail(item.id,item.instructorId);
-        console.log("Check course section detail by api in course study")
-        console.log(res.payload.section);
-        setCourseSection(res.payload.section);
-        console.log("Check courseSection after get courses");
-        consolelog(courseSection);
+        return res.payload.section;
         
     };
-    console.log("Check course section");
-    console.log(courseSection);
     useEffect(()=>{
         
         if(item===null)
@@ -63,8 +57,8 @@ const CourseStudy=(props)=>{
         }
         if(item!==null && courseSection===null)
         {
-            console.log("Chuan bi get course section");
-            getCourseSection();
+            let section=getCourseSection();
+            setCourseSection(section);
         }
     })
     return(

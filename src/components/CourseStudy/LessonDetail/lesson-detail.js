@@ -31,41 +31,91 @@ const LessonDetail=(props)=>{
     const [listLesson,setListLesson]=useState(null);
     const renderListLesson=()=>{
         return listLesson.map((item,i)=>{
-            return <Lesson navigation={props.navigation} item={item} listLesson={listLesson} stt={i+1}/>
+            console.log("CHeck lesson for videoUrl");
+            console.log(item);
+            return <Lesson navigation={props.navigation} item={item} listLesson={listLesson} stt={i+1} key={i}/>
         })
     }
+    const [urlSplit,seturlSplit]=useState(null);
+    const [url,setUrl]=useState(null);
     useEffect(()=>{
-        if(item===null)
+        console.log("Check route params lesson video url");
+        console.log(props.route.params.lesson.videoUrl);
+        if(item!==props.route.params.lesson)
         {
             setItem(props.route.params.lesson);
-           console.log("Check params list");
-           console.log(props.route.params.listLesson);
         }
-        if(listLesson===null)
+        if(listLesson!==props.route.params.listLesson)
         {
             setListLesson(props.route.params.listLesson);
-            console.log("CHeck list in lesson detail");
-            console.log(listLesson);
         }
-        if(item!==null && urlSplit===null)
+        if(item!==null && item.videoUrl && url!==item.videoUrl)
         {
-            seturlSplit(item.videoUrl.split("?v="));
-        }        
+            setUrl(item.videoUrl);
+        }
+        if(url!==null)
+        {
+            if(urlSplit!==null)
+            {
+                if(url.includes("?v="))
+                {
+                    let temp=url.split("?v=");
+                    if(temp[1]!==urlSplit[1])
+                    {
+                        seturlSplit(temp);
+                    }               
+                }
+                if(url.includes("embed/"))
+                {
+                    let temp=url.split("embed/");
+                    if(temp[1]!==urlSplit[1])
+                    {
+                        seturlSplit(temp);
+                    }                     
+                }
+                
+            }
+            else
+            {
+                if(url.includes("?v="))
+                {
+                    seturlSplit(url.split("?v="));
+           
+                }
+                if(url.includes("embed/"))
+                {
+                    seturlSplit(url.split("embed/"));
+           
+                }
+            }
+           
+        }
+        
+          
     })
-    const [urlSplit,seturlSplit]=useState(null);
     return(
 
         <ScrollView style={{backgroundColor:changeTheme.background,flex:1}}>
             <View style={{flex:1}}>
-                <SafeAreaView style={{ flex: 1 }}>
-                    <YoutubePlayer
+                {urlSplit ?
+                // <SafeAreaView >
+                //     <YoutubePlayer
+                        
+                //         height={height/3} 
+                //         videoId={urlSplit[1]}
+                //         play={false} 
+                        
+                //             />
+                // </SafeAreaView>
+                <YoutubePlayer
                         
                         height={height/3} 
                         videoId={urlSplit[1]}
                         play={false} 
-                        onReady={onPlayerReady}
-                            />
-                </SafeAreaView>
+                        
+                            />:<View></View> 
+                }                
+                
                 {item? 
                     <Text style={themeStyle.text}>{item.name}</Text> : 
                     <View></View>

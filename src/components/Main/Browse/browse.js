@@ -28,7 +28,7 @@ const Browse=(props)=>{
     }
     return(
             <ScrollView style={{backgroundColor:changeTheme.background}}>
-                <ImageButton navigation={props.navigation}  title="Recommend" styleImageButton={styles.imageButtonImageBackground}/>
+                <ImageButton navigation={props.navigation}  title="Recommend" topRate={true} styleImageButton={styles.imageButtonImageBackground}/>
                 <SectionCategories navigation={props.navigation}  title="Categories"/>
                 <SectionAuthors navigation={props.navigation}  title="Authors"/>
             </ScrollView>

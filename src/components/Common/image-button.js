@@ -18,9 +18,10 @@ const ImageButton=(props)=>{
         {
             if(props.topRate)
             {
+                let type="rate";
                 props.navigation.navigate(navigationName.ListCourses,{
                     message:"Change to list courses",
-                    topRate:true,
+                    type:type,
                 });
             }
             else

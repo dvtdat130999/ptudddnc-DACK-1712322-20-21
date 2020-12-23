@@ -6,8 +6,6 @@ const UserApi = {
        
         const response =  axiosClient.post(url, user);
         
-        console.log("Check register in api");
-        console.log(response);
         return response;
     },
     login: async(email,password)=>{
@@ -27,8 +25,20 @@ const UserApi = {
         const response=await axiosClient.get(url,{
             headers:{Authorization:`Bearer ${token}`}
         });
-        console.log("Check response in user api");
-        console.log(response);
+        return response;
+    },
+    likeCourse:async (token,courseId)=>{
+        const url="/user/like-course"
+        const response=await axiosClient.post(url,{courseId},{
+            headers:{Authorization:`Bearer ${token}`}
+        });
+        return response;
+    },
+    getCourseLikeStatus:async(token,courseId)=>{
+        const url=`/user/get-course-like-status/${courseId}`;
+        const response=await axiosClient.get(url,{
+            headers:{Authorization:`Bearer ${token}`}
+        });
         return response;
     },
     forgetPassword:async(email)=>{

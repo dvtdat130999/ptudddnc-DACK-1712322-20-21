@@ -36,8 +36,6 @@ const ListCourseSection=(props)=>{
 
     const [navigation,setNavigation]=useState(props.navigation);
     const renderItem=()=>{
-        console.log("Check data in list course section");
-        console.log(DATA);
         return DATA.map((item,i)=>{
 
             return <ListCourseSectionItem navigation={navigation} item={item} key={i} stt={i+1} DATA={DATA}/>
@@ -46,8 +44,6 @@ const ListCourseSection=(props)=>{
     }
     const getCourseSection=async()=>{
         const res=await CourseApi.courseDetail(props.courseId,props.instructorId);
-        console.log("Check course section detail by api in list course section")
-        console.log(res.payload.section);
         setDATA(res.payload.section);
         
         
