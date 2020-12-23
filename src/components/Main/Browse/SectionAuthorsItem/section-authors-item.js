@@ -22,7 +22,7 @@ const SectionAuthorsItem=(props)=>{
         themeStyle=LightStyles;
     }
     const onPress=()=>{
-        props.navigation.navigate(navigationName.ListCourses,{
+        props.navigation.navigate(navigationName.AuthorDetail,{
             instructor:props.item,
             navigation:props.navigation
 
@@ -31,8 +31,12 @@ const SectionAuthorsItem=(props)=>{
     return (
 
         <TouchableOpacity style={styles.sectionAuthorItem} onPress={onPress}>
+            {props.item["user.avatar"] ?
+            <Image source={{uri:props.item["user.avatar"]}} style={styles.imageAuthorHome}/>:
             <Image source={AuthorImage} style={styles.imageAuthorHome}/>
-            <AuthorReadInfo item={props.item}/>
+        
+            }
+            <Text style={themeStyle.text}>{props.item["user.name"]}</Text>
 
         </TouchableOpacity>
     );

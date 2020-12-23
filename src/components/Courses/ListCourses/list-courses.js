@@ -12,6 +12,7 @@ import LightStyles from "../../../globals/light-style";
 import {ThemeContext} from "../../../provider/theme-provider";
 import CourseApi from "../../../api/courseApi";
 const ListCourses=(props)=>{
+    
     const [DATA,setDATA]=useState([]);
     const [topNew,setTopNew]=useState([]);
     const [topSell,setTopSell]=useState([]);
@@ -91,22 +92,33 @@ const ListCourses=(props)=>{
     
     const [totalCourse,setTotalCourse]=useState(0);
     useEffect(()=>{
-        if(props.searchResult)
+        if(props.searchResult && DATA!==props.searchResult)
         {
+           
             setDATA(props.searchResult);
             setIsLoading(false);
+            console.log("Check data after = search result");
+            console.log(DATA);
 
+        }
+        if(props.instructor && instructor!==props.instructor)
+        {
+            setInstructor(props.instructor);
         }
         if(props.route && props.route.params && props.route.params.category)
         {
             setCategory(props.route.params.category);
             const getAllCourseOfCategory=async()=>{
-            const res=await CourseApi.searchByCategory(category.id);
-            setDATA(res.payload.rows);
-            setIsLoading(false);
+                const res=await CourseApi.searchByCategory(category.id);
+                setDATA(res.payload.rows);
+                setIsLoading(false);
 
             }
-            getAllCourseOfCategory();
+            if(category && DATA.length===0)
+            {
+                getAllCourseOfCategory();
+
+            }
         }
         else
         {
@@ -211,16 +223,18 @@ const ListCourses=(props)=>{
                     }
                 }                    
                 setIsLoading(false);
-
             }
-            if(props.route&& props.route.params && props.route.params.instructor)
+            if(props.route&& props.route.params && props.route.params.instructor && instructor===null)
             {
-                
-                setInstructor(props.route.params.instructor);
+                if(instructor===null)
+                {
+                    setInstructor(props.route.params.instructor);
+
+                }
             }
             
         }
-    },[DATA]);
+    });
 
     return(
         <ScrollView style={{backgroundColor:changeTheme.background,flex:1}}>

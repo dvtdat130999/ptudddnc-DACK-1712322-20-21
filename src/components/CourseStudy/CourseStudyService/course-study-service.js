@@ -161,7 +161,7 @@ const CourseStudyService=(props)=>{
                 </View>
             }
 
-            <View style={componentStyles.viewImage} >
+            {/* <View style={componentStyles.viewImage} >
                 <TouchableOpacity onPress={addToChannel} >
                         <Image
                             source={AddToChannelIcon}
@@ -172,7 +172,7 @@ const CourseStudyService=(props)=>{
                 <View>
                     <Text style={themeStyle.text}>Add to Channel</Text>
                 </View>
-            </View>
+            </View> */}
             <View style={componentStyles.viewImage} >
                 <TouchableOpacity onPress={download} >
                         <Image

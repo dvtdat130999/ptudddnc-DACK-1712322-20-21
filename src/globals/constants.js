@@ -19,4 +19,6 @@ export const navigationName={
     Theme:"Theme",
     RelatedPathsAndCourses:'RelatedPathsAndCourses',
     Categories:"Categories",
+    AuthorDetail:"AuthorDetail",
+    LessonDetail:"LessonDetail",
 }

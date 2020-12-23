@@ -18,8 +18,9 @@ import ListAuthors from "./src/components/Authors/ListAuthors/list-authors";
 import VideoPlayer from "./src/components/CourseStudy/VideoPlayer/video-player";
 import CourseStudy from "./src/components/CourseStudy/course-study";
 import CourseStudyService from "./src/components/CourseStudy/CourseStudyService/course-study-service";
-import Lesson from "./src/components/CourseStudy/ListOfLessons/Lesson/lesson";
-import ListLessons from "./src/components/CourseStudy/ListOfLessons/list-lessons";
+import Lesson from "./src/components/CourseStudy/Lesson/lesson";
+import LessonDetail from "./src/components/CourseStudy/LessonDetail/lesson-detail";
+
 import Account from "./src/components/AccountManagement/Account/account";
 import Setting from "./src/components/AccountManagement/Setting/setting";
 import ChangeThemes from "./src/components/AccountManagement/ChangeThemes/change-themes";
@@ -35,8 +36,7 @@ import {ThemeContext, ThemeProvider} from "./src/provider/theme-provider";
 import {UserProvider} from "./src/provider/users-provider";
 import ListCategories from "./src/components/Categories/ListCategories/list-categories";
 import ListPaths from "./src/components/Paths/ListPaths/list-paths";
-
-
+import AuthorDetail from "./src/components/Authors/AuthorDetail/author-detail";
 
 const MainStack = createStackNavigator();
 const AfterLoginStack = createStackNavigator();
@@ -71,6 +71,8 @@ const BrowseNavigation=()=>{
             <BrowseStack.Screen name={navigationName.Categories} component={ListCategories}  />
             <BrowseStack.Screen name={navigationName.Paths} component={ListPaths}  />
             <BrowseStack.Screen name={navigationName.Authors} component={ListAuthors}  />
+            <BrowseStack.Screen name={navigationName.AuthorDetail} component={AuthorDetail} options={{title:'Author'}}  />
+            <BrowseStack.Screen name={navigationName.LessonDetail} component={LessonDetail} options={{title:'Lesson'}}  />
 
         </BrowseStack.Navigator>
     );
@@ -88,6 +90,7 @@ const HomeNavigation=()=>{
             <HomeStack.Screen name={navigationName.Theme} component={ChangeThemes} />
             <HomeStack.Screen name={navigationName.RelatedPathsAndCourses} component={RelatedPathsAndCourses} options={{title:'Related'}}/>
             <HomeStack.Screen name={navigationName.ListCourses} component={ListCourses} />
+            <HomeStack.Screen name={navigationName.LessonDetail} component={LessonDetail} options={{title:'Lesson'}} />
 
         </HomeStack.Navigator>
     );

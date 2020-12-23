@@ -1,13 +1,12 @@
 import React, {Component, useContext} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,TouchableOpacity } from 'react-native';
 
-import styles from "../../../../globals/styles";
 import {navigationName} from "../../../../globals/constants";
 import {ThemeContext} from "../../../../provider/theme-provider";
 import {themes} from "../../../../globals/themes";
 import DarkStyles from "../../../../globals/dark-style";
 import LightStyles from "../../../../globals/light-style";
-const Lesson=(props)=>{
+const ListCourseSectionItem=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
 
@@ -20,44 +19,33 @@ const Lesson=(props)=>{
     {
         themeStyle=LightStyles;
     }
-    // let item;
-    // let data;
-    // let navigation=props.navigation;
-    // if(props.route)
-    // {
-    //     item=props.route.params.item;
-    //     data=props.route.params.data;
-    // }
-    // else
-    // {
-    //     item=props.item;
-    //     data=props.data;
-    // }
+    console.log("Check lesson in list course section item voi index =0");
+    console.log(props.item.lesson[0]);
+    const onPressSectionItem=()=>{
+        console.log("Press section item");
+        props.navigation.navigate(navigationName.LessonDetail,{
+            lesson:props.item.lesson[0],
+            listLesson:props.item.lesson,
+            navigation:props.navigation
+        });
 
-    // const chooseLesson=()=>{
-    //     console.log("Check navigation before change lesson");
-    //     console.log(props.navigation);
-    //     props.navigation.navigate(navigationName.CourseStudy,{
-    //         item:item,
-    //         data:data,
-    //     });
-    //     console.log("Choose lesson");
-    // }
+
+    }
 
     return(
-        <View style={{flexDirection:'row',marginTop:15,alignItems:'center'}} >
+        <TouchableOpacity style={{flexDirection:'row',marginTop:10,alignItems:'center'}} onPress={onPressSectionItem} >
             <View style={themeStyle.lessonItem}>
                 <Text style={themeStyle.text}>{props.stt}</Text>
             </View>
-            <Text style={themeStyle.titleSmall}>{props.item}</Text>
+            <Text style={themeStyle.titleSmall}>{props.item.name}</Text>
 
             {/* <View style={{flexDirection:'column',marginLeft:10}}>
                 <Text style={themeStyle.text}>{item.length}</Text>
 
             </View> */}
-        </View>
+        </TouchableOpacity>
 
     );
 }
 
-export default Lesson;
+export default ListCourseSectionItem;

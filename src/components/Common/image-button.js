@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,ImageBackground ,TouchableOpacity} from 'react-native';
 import { Card,Form,Row } from 'react-bootstrap';
 
@@ -35,6 +35,7 @@ const ImageButton=(props)=>{
 
 
     };
+    
     return(
         <ImageBackground source={{uri:'https://static.vecteezy.com/system/resources/previews/000/622/344/original/beautiful-background-of-lines-with-gradients-vector.jpg'}}
                          style={props.styleImageButton}

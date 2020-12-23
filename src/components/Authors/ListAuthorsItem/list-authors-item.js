@@ -9,7 +9,7 @@ import AuthorReadInfo from "../../Common/author-read-info";
 import {navigationName} from "../../../globals/constants";
 const ListAuthorsItem=(props)=>{
     const onPress=()=>{
-        props.navigation.navigate(navigationName.ListCourses,{
+        props.navigation.navigate(navigationName.AuthorDetail,{
             instructor:props.item,
             navigation:props.navigation
 
@@ -18,7 +18,11 @@ const ListAuthorsItem=(props)=>{
     return (
 
         <TouchableOpacity style={styles.listAuthorsItem} onPress={onPress}>
-            <Image source={AuthorImage} style={styles.imageAuthor}/>
+            {props.item["user.avatar"] ?
+            <Image source={{uri:props.item["user.avatar"]}} style={styles.imageAuthorHome}/>:
+            <Image source={AuthorImage} style={styles.imageAuthorHome}/>
+        
+            }
             <AuthorReadInfo item={props.item}/>
 
         </TouchableOpacity>

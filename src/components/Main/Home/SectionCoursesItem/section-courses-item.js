@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext,useState,useEffect} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions,ImageBackground,TouchableOpacity  } from 'react-native';
 import { Card,Form,Row } from 'react-bootstrap';
 
@@ -34,10 +34,29 @@ const SectionCoursesItem=(props)=>{
     {
         bookmarked=true;
     }
+
+    const [uri,setUri]=useState(null);
+    useEffect(()=>{
+        if(uri===null)
+        {
+            if(props.item.imageUrl)
+            {
+                setUri(props.item.imageUrl);
+            }
+            else{
+                setUri(OnlineCourse);
+            }
+        }
+    })
     return (
 
         <TouchableOpacity style={themeStyle.sectionCourseItem} onPress={onPress}>
+            {props.item.imageUrl ? 
+            <Image source={{uri:props.item.imageUrl}} style={{width:'100%',height:300}}/>:
             <Image source={OnlineCourse} style={{width:'100%',height:300}}/>
+
+            
+        }
             {/* {bookmarked ?
                 <CourseReadInfo item={props.item.course}/>
                 :

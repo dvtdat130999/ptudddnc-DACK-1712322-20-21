@@ -62,13 +62,13 @@ const CourseIntroduction=(props)=>{
             <View style={styles.space}/>
             <View style={styles.space}/>
 
-            <TouchableHighlight style={{marginTop:20}} onPress={related}>
+            {/* <TouchableHighlight style={{marginTop:20}} onPress={related}>
                 <View style={themeStyle.related}>
                     <Text style={themeStyle.text}>Related paths & courses</Text>
                 </View>
             </TouchableHighlight>
             <View style={styles.space}/>
-            <View style={styles.space}/>
+            <View style={styles.space}/> */}
 
             {/* <TouchableHighlight style={{marginTop:20}} onPress={takeCheck}>
                 <View style={themeStyle.related}>

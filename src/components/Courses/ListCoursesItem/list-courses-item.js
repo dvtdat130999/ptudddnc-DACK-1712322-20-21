@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions,ImageBackground,TouchableOpacity  } from 'react-native';
 import { Card,Form,Row } from 'react-bootstrap';
 
@@ -7,7 +7,7 @@ import OnlineCourse from "../../../../assets/online-course.jpg";
 import CourseReadInfo from "../../Common/course-read-info";
 import {navigationName} from "../../../globals/constants";
 const ListCoursesItem=(props)=>{
-
+    
     const onPressListCoursesItem=()=>{
         props.navigation.navigate(navigationName.CourseStudy,{
             item:props.item,
@@ -15,12 +15,17 @@ const ListCoursesItem=(props)=>{
         });
 
     }
+    
     return (
 
         <TouchableOpacity style={styles.listCoursesItem} onPress={()=>{
             props.onPressListCoursesItem(props.item,props.data,props.navigation,props.searchedCourse)
         }}>
+            {props.item.imageUrl ?             
+            <Image source={{uri:props.item.imageUrl}} style={{width:200,height:200}}/>:
             <Image source={OnlineCourse} style={{width:200,height:200}}/>
+
+            }
             {props.searchedCourse ? 
                 <CourseReadInfo item={props.item} searchedCourse={true}/>:
                 <CourseReadInfo item={props.item}/>

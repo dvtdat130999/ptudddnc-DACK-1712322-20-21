@@ -42,11 +42,13 @@ const CourseApi = {
         
         return response;
     },
-    courseDetailWithLesson:(courseId)=>{
-        const url=`/course/detail-with-lesson/${courseId}`;
-        const response =  axiosClient.get(url);
-        return response;
-    },
+    // courseDetailWithLesson:(courseId,token)=>{
+    //     const url=`/course/detail-with-lesson/${courseId}`;
+    //     const response=axiosClient.get(url,{
+    //         headers:{Authorization:`Bearer ${token}`}
+    //     });
+    //     return response;
+    // },
     searchByKeyword:(keyword)=>{
         const url='/course/search';
         const params={

@@ -103,7 +103,6 @@ const DarkStyles = StyleSheet.create({
     },
     author:{
         flexDirection:'column',
-        
     },
     authorText:{
         color:'white',

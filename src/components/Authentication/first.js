@@ -37,7 +37,14 @@ const First=(props)=>{
     const onPressRegister=()=>{
         props.navigation.navigate(navigationName.Register);
     }
-    
+    // useEffect(()=>{
+    //     const courseDetailWithLesson=async()=>{
+    //         const res=await CourseApi.courseDetail("5b69ea4b-ef3c-4ab5-b9fb-2ec50c03f849","3d3a9568-f032-492b-9ada-4d50b74e90db")
+    //         console.log("Check res payload section get detail");
+    //         console.log(res.payload.section[0]);
+    //     }
+    //     courseDetailWithLesson();
+    // })
     //test api
     // useEffect(()=>{
     //     const fetchInstructor=async()=>{

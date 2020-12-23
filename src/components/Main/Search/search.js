@@ -38,16 +38,7 @@ const Search=(props)=>{
     const [topNew,setTopNew]=useState([]);
     const [topSell,setTopSell]=useState([]);
     const [topRate,setTopRate]=useState([]);
-    const getCoursesByKeyword=async()=>{
-        const res=await CourseApi.searchByKeyword(searchContent);
-        setResultCoursesSearch(res.payload);
-        setResultAuthorsSearch(listAuthorsSearch(resultCoursesSearch));
-
-        console.log("Check result search");
-        console.log(resultCoursesSearch);
-        setIsClickSearch(false);
-
-    };
+    
     const getAllInstructor=async()=>{
         const res=await InstructorApi.getAll();
         setInstructors(res.payload);
@@ -205,8 +196,6 @@ const Search=(props)=>{
 
     const listCoursesSearch=()=>{
         let result=[];
-        console.log("Check list courses all ");
-        console.log(allCourses);
         allCourses.map((item,i)=>{
             let title=item.title;
             let searchContentFixed=searchContent.toLowerCase();
@@ -216,8 +205,6 @@ const Search=(props)=>{
                 result=result.concat(item);
             }
         });
-        console.log("Check search course in search");
-        console.log(result);
         setResultCoursesSearch(result);
 
     }
@@ -239,9 +226,14 @@ const Search=(props)=>{
         setResultAuthorsSearch(result);
     }
     const onPressSearch=()=>{
+        console.log("Check search content");
+        console.log(searchContent);
         setIsSearch(true);
         setIsClickSearch(true);
-
+        setResultAuthorsSearch([]);
+        setResultCoursesSearch([]);
+        console.log("CHeck set result author search after click search");
+        console.log(resultAuthorsSearch);
     };
 
 
