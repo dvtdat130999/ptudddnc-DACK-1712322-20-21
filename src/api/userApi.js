@@ -41,6 +41,13 @@ const UserApi = {
         });
         return response;
     },
+    getFavoriteCourses:async(token)=>{
+        const url="/user/get-favorite-courses";
+        const response=await axiosClient.get(url,{
+            headers:{Authorization:`Bearer ${token}`}
+        });    
+        return response;
+    },
     forgetPassword:async(email)=>{
         const url="/user/forget-pass/send-email";
         const response=await axiosClient.post(url,{email});

@@ -48,41 +48,59 @@ const Home=(props)=>{
     const {coursesBookmark,setCoursesBookmark}=useContext(BookmarkContext);
     const [first,setFirst]=useState(true);
     const [allCourses,setAllCourses]=useState([]);
-    const getCourseLikeStatus=async(courseId)=>{
-        const res=await UserApi.getCourseLikeStatus(authentication,courseId);
-        return res.likeStatus;
+    // const getCourseLikeStatus=async(courseId)=>{
+    //     const res=await UserApi.getCourseLikeStatus(authentication,courseId);
+    //     return res.likeStatus;
 
-    }
+    // }
     useEffect(()=>{
-        if(allCourses.length===0)
-        {
-            getAllCourse();
-        }
-        if(first && allCourses.length!==0)
-        {
-            allCourses.map((item,i)=>{
-                if(getCourseLikeStatus(item.id)===true)
-                {
-                    console.log("Xet course duoc vao book mark");
-                    console.log(item);
-                    let temp=coursesBookmark;
-                    console.log("Check before concat");
-                    console.log(temp);
-                    temp=temp.concat(item);
-                    console.log("Check after concat");
-                    console.log(temp);
-                    setCoursesBookmark(temp);
-                }
-            })
-            setFirst(false);
+        // if(allCourses.length===0)
+        // {
+        //     getAllCourse();
+        // }
+        // if(first===true && allCourses.length!==0)
+        // {
+        //     console.log("Den day roi ne");
+        //     setCoursesBookmark([]);
+        //     allCourses.map(async(item,i)=>{
+        //         console.log("Check get course like status in data map");
+        //         const status=await UserApi.getCourseLikeStatus(authentication,item.id);
+                
+        //         console.log(status);
+                
+        //         if(status.likeStatus===true)
+        //         {
+        //             console.log("Xet course duoc vao book mark");
+        //             console.log(item);
+        //             let existed=false;
+        //             coursesBookmark.map((course,index)=>{
+        //                 if(course===item)
+        //                 {
+        //                     existed=true;
+        //                 }
+        //             })
+        //             if(existed===false)
+        //             {
+        //                 let temp=coursesBookmark;
+        //                 console.log("Check before concat");
+        //                 console.log(temp);
+        //                 temp=temp.concat(item);
+        //                 console.log("Check after concat");
+        //                 console.log(temp);
+        //                 setCoursesBookmark(temp);
+        //             }
+                    
+        //         }
+        //     })
+        //     setFirst(false);
 
-        }
-        if(coursesBookmark.length>0)
-        {
-            console.log("Bookmark da co course roi");
-            console.log(coursesBookmark);
-        }
-     
+        // }
+        // if(coursesBookmark.length>0)
+        // {
+        //     console.log("Bookmark da co course roi");
+        //     console.log(coursesBookmark);
+        // }
+        
     })
     
     React.useLayoutEffect(() => {
