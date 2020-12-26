@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions  } from 'react-native';
+
+const {widthFull,heightFull}=Dimensions.get('window');
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -164,6 +166,7 @@ const styles = StyleSheet.create({
     },
     sectionAuthorItem:{
         justifyContent:'center',
+        width:150,
         marginLeft:5,
         marginRight:20,
     },
@@ -208,6 +211,8 @@ const styles = StyleSheet.create({
     },
     listCoursesItem:{
         flexDirection:'row',
+        width:250,
+
         marginTop:20,
         marginLeft:20,
         borderBottomColor:'white',

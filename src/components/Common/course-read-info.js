@@ -22,20 +22,7 @@ const CourseReadInfo=(props)=>{
     {
         themeStyle=LightStyles;
     }
-    /*console.log("Check props course read info");
-
-    console.log(props);
-    console.log("Check props.item course read info");
-    console.log(props.item);*/
-    // const [date,setDate]=useState(null);
-    // const [dateToFormat,setDateToFormat]=useState(null);
-    // useEffect(()=>{
-    //     if(date===null)
-    //     {
-    //         setDate(new Date(props.item.createdAt));
-    //         setDateToFormat(format(date,"dd/MM/yyyy"));
-    //     }
-    // })
+   
     let date=null;
     if(props.searchedCourse)
     {
@@ -50,7 +37,7 @@ const CourseReadInfo=(props)=>{
 
     return(
         <View style={{padding:5,height:250}}>
-            <Text style={themeStyle.textMedium}>{props.item.title}</Text>
+            <Text style={themeStyle.textBold}>{props.item.title}</Text>
             {props.searchedCourse ? 
                 <Text style={themeStyle.sectionCourseItemText}>{props.item.name}</Text>:
                 <Text style={themeStyle.sectionCourseItemText}>{props.item["instructor.user.name"]}</Text>

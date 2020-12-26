@@ -54,7 +54,7 @@ const SectionAuthors=(props)=>{
         }
     })
     return(
-        <View style={{marginTop:60}}>
+        <View style={{marginTop:60,flexDirection:'column'}}>
             { isLoading && <ActivityIndicator size="large" color="red"/> }
 
             <View style={{

@@ -21,9 +21,9 @@ const ListCoursesItem=(props)=>{
         <TouchableOpacity style={styles.listCoursesItem} onPress={()=>{
             props.onPressListCoursesItem(props.item,props.data,props.navigation,props.searchedCourse)
         }}>
-            {props.item.imageUrl ?             
-            <Image source={{uri:props.item.imageUrl}} style={{width:200,height:200}}/>:
-            <Image source={OnlineCourse} style={{width:200,height:200}}/>
+            {props.item.imageUrl!==null ?             
+            <Image source={{uri:props.item.imageUrl}} style={{width:150,height:150}}/>:
+            <Image source={OnlineCourse} style={{width:150,height:150}}/>
 
             }
             {props.searchedCourse ? 

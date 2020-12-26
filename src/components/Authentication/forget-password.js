@@ -24,7 +24,7 @@ const ForgetPassword=(props)=>{
         props.navigation.navigate(navigationName.Login)
     }
     return(
-        <View style={{...styles.container,backgroundColor:changeTheme.background}}>
+        <View style={{backgroundColor:changeTheme.background,marginTop:20,flex:1}}>
             <View style={{flex: 2}}>
 
                 <View style={componentStyle.titleView}>

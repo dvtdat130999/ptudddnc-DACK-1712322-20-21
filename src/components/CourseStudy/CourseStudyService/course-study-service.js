@@ -1,12 +1,15 @@
 import React, {Component, useContext, useEffect, useState} from 'react';
-import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,TouchableOpacity } from 'react-native';
+import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,
+    Dimensions ,SectionList,FlatList,TouchableOpacity ,Alert} from 'react-native';
 
 import styles from "../../../globals/styles";
 import BookmarkIcon from "../../../../assets/bookmarkicon.png"
+import BuyIcon from "../../../../assets/buy.png"
 import AddToChannelIcon from"../../../../assets/add-to-channel.png"
 import DownloadIcon from "../../../../assets/downloadicon.jpg"
 import {AuthenticationContext} from "../../../provider/authentication-provider";
 import {BookmarkContext} from "../../../provider/bookmark-provider";
+import {MyCoursesContext} from "../../../provider/mycourses-provider";
 import {ThemeContext} from "../../../provider/theme-provider";
 import {themes} from "../../../globals/themes";
 import DarkStyles from "../../../globals/dark-style";
@@ -14,6 +17,7 @@ import LightStyles from "../../../globals/light-style";
 
 import ListAuthorsItem from "../../Authors/ListAuthorsItem/list-authors-item";
 import UserApi from "../../../api/userApi";
+import PaymentApi from "../../../api/paymentApi";
 const CourseStudyService=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
@@ -29,6 +33,7 @@ const CourseStudyService=(props)=>{
     }
     const {coursesBookmark,setCoursesBookmark}=useContext(BookmarkContext);
     const {authentication}=useContext(AuthenticationContext);
+    const {myCourses,setMyCourses}=useContext(MyCoursesContext);
     const bookmark=async ()=>{
         const res=await UserApi.likeCourse(authentication,props.item.id);
         setBookmarkStatus(res.likeStatus);
@@ -56,31 +61,58 @@ const CourseStudyService=(props)=>{
     const addToChannel=()=>{
         console.log("Press add to channel")
     };
-    const download=()=>{
-        console.log("Press download")
+
+    const buy=async()=>{
+        const res=await PaymentApi.getFree(props.item.id,authentication);
+        console.log("Check res after buy");
+        console.log(res);
+        if(res.message==="OK")
+        {
+            setPaymentStatus(true);
+            let temp=myCourses;
+            temp=temp.concat(props.item);
+            setMyCourses(temp);
+        }
+        else
+        {
+            console.log("Khong cho mua");
+            Alert.alert("This course is not free");
+        }
+        
+    };
+    const bought=()=>{
+
+        console.log("Press bought")
     };
     const [bookmarkStatus,setBookmarkStatus]=useState(null);
-
+    const [paymentStatus,setPaymentStatus]=useState(null);
     const getCourseLikeStatus=async()=>{
         const res=await UserApi.getCourseLikeStatus(authentication,props.item.id);
         
         setBookmarkStatus(res.likeStatus);
     }
-
+    const getCoursePaymentStatus=async()=>{
+        const res=await PaymentApi.getCourseInfo(props.item.id,authentication);
+        setPaymentStatus(res.didUserBuyCourse);
+    }
     useEffect(()=>{
         if(bookmarkStatus===null)
         {
             getCourseLikeStatus();
 
         }
-        
+        if(paymentStatus===null)
+        {
+            getCoursePaymentStatus();
+        }
+
         
 
     });
 
     return(
         <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-            {bookmarkStatus ? 
+            {bookmarkStatus===true ? 
                 <View style={componentStyles.viewImage} >
                     <TouchableOpacity onPress={unbookmark} >
                         <Image
@@ -107,19 +139,35 @@ const CourseStudyService=(props)=>{
             }
           
 
-           
+            {paymentStatus===false ?
             <View style={componentStyles.viewImage} >
-                <TouchableOpacity onPress={download} >
+                <TouchableOpacity onPress={buy} >
                         <Image
-                            source={DownloadIcon}
+                            source={BuyIcon}
                             style={componentStyles.image}
                         />
 
                 </TouchableOpacity>
                 <View>
-                    <Text style={themeStyle.text}>Download</Text>
+                    <Text style={themeStyle.text}>Buy</Text>
                 </View>
             </View>
+            :
+            <View style={componentStyles.viewImage} >
+                <TouchableOpacity onPress={bought} >
+                        <Image
+                            source={BuyIcon}
+                            style={componentStyles.image}
+                        />
+
+                </TouchableOpacity>
+                <View>
+                    <Text style={themeStyle.text}>Bought</Text>
+                </View>
+            </View>
+            
+            }
+            
         </View>
     );
 }
@@ -128,15 +176,13 @@ const componentStyles = StyleSheet.create({
         width:50,
         height:50,
         borderRadius:50,
-        marginLeft:20,
-        marginTop:20,
-        marginBottom:20,
+        
         backgroundColor:'white'
     },
     viewImage:{
-        marginRight:10,
-        alignItems:'center',
-        justifyContent:'center'
+        marginRight:30,
+        justifyContent:'center',
+        alignItems:'center'
 
 
     },

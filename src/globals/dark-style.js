@@ -25,6 +25,10 @@ const DarkStyles = StyleSheet.create({
     text:{
         color:'white',
     },
+    textBold:{
+        color:'white',
+        fontWeight:'bold'
+    },
     textError:{
         color:'red',
         fontWeight: "bold",
@@ -94,7 +98,7 @@ const DarkStyles = StyleSheet.create({
         marginTop:10,
         marginLeft:30,
         marginRight:30,
-        width:350,
+        width:300,
         backgroundColor:'lightslategrey',
     },
     sectionCourseItemText:{

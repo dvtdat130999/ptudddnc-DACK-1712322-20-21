@@ -1,7 +1,13 @@
-import 'react-native-gesture-handler';
 import { NavigationContainer, DefaultTheme  } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import { MaterialIcons,Feather,FontAwesome,AntDesign  } from '@expo/vector-icons'; 
+import HomeIcon from "./assets/home.png";
+import BrowseIcon from "./assets/browse.png";
+import MyCoursesIcon from "./assets/my-course.png";
+import SearchIcon from "./assets/search.png";
 import {themes} from "./src/globals/themes"
 import React, {useContext, useState,useEffect} from 'react';
 import { StyleSheet, Text, View,Image,Button } from 'react-native';
@@ -27,12 +33,14 @@ import ChangeThemes from "./src/components/AccountManagement/ChangeThemes/change
 import {navigationName} from "./src/globals/constants"
 import ForgetPassword from "./src/components/Authentication/forget-password";
 import Download from "./src/components/Main/Download/list-download";
+import MyCourses from "./src/components/Main/MyCourses/my-courses";
 import Search from "./src/components/Main/Search/search";
 import {AuthenticationContext, AuthenticationProvider} from "./src/provider/authentication-provider";
 import {CoursesProvider} from "./src/provider/courses-provider";
 import RelatedPathsAndCourses from "./src/components/CourseStudy/RelatedPathsAndCourses/related-paths-courses";
 import {BookmarkContext, BookmarkProvider} from "./src/provider/bookmark-provider";
 import {ThemeContext, ThemeProvider} from "./src/provider/theme-provider";
+import {MyCoursesContext,MyCoursesProvider} from "./src/provider/mycourses-provider";
 import {UserProvider} from "./src/provider/users-provider";
 import ListCategories from "./src/components/Categories/ListCategories/list-categories";
 import ListPaths from "./src/components/Paths/ListPaths/list-paths";
@@ -41,7 +49,7 @@ import CourseApi from "./src/api/courseApi";
 import UserApi from "./src/api/userApi";
 const MainStack = createStackNavigator();
 const AfterLoginStack = createStackNavigator();
-const DownloadStack=createStackNavigator();
+const MyCoursesStack=createStackNavigator();
 const FirstStack = createStackNavigator();
 
 
@@ -98,17 +106,15 @@ const HomeNavigation=()=>{
         </HomeStack.Navigator>
     );
 }
-const ListDownloadStack=()=>{
+const MyCoursesNavigation=()=>{
     return(
-        <DownloadStack.Navigator>
+        <MyCoursesStack.Navigator>
 
 
-            <DownloadStack.Screen name={navigationName.ListCourses} component={Download} options={{title:'Downloads',headerShown: false}}/>
-            <DownloadStack.Screen name={navigationName.CourseStudy} component={CourseStudy} />
-            <DownloadStack.Screen name={navigationName.RelatedPathsAndCourses} component={RelatedPathsAndCourses} options={{title:'Related'}} />
-            <DownloadStack.Screen name={navigationName.LessonDetail} component={LessonDetail} options={{title:'Lesson'}} />
+            <MyCoursesStack.Screen name={navigationName.MyCourses} component={MyCourses} options={{title:'My Courses'}}/>
+            <MyCoursesStack.Screen name={navigationName.CourseStudy} component={CourseStudy} />
 
-        </DownloadStack.Navigator>
+        </MyCoursesStack.Navigator>
     );
 }
 const ListCoursesStack=()=>{
@@ -138,12 +144,43 @@ const AfterLogin=()=>{
     
 
     return(
-        <BottomTab.Navigator  >
+        <BottomTab.Navigator tabBarOptions={{activeTintColor: 'blue'}}>
 
-            <BottomTab.Screen name={navigationName.Home} component={HomeNavigation}/>
-            <BottomTab.Screen name={navigationName.Browse} component={BrowseNavigation}/>
-            <BottomTab.Screen name={navigationName.ListDownload} component={ListDownloadStack} />
-            <BottomTab.Screen name={navigationName.Search} component={SearchNavigation}/>
+            <BottomTab.Screen name={navigationName.Home} component={HomeNavigation} 
+                                options={{
+                                    tabBarLabel:"Home",
+                                    tabBarIcon:({color,size})=>{
+                                        return <FontAwesome name="home" color={color} size={size} />
+                                    }
+                                }}/>
+            <BottomTab.Screen name={navigationName.Browse} component={BrowseNavigation}
+                                options={{
+                                    tabBarLabel:"Browse",
+                                    tabBarIcon:({color,size})=>{
+                                        return <AntDesign  name="folderopen" color={color} size={size} />
+                                     
+                                    }
+                                }}
+            />
+            <BottomTab.Screen name={navigationName.MyCourses} component={MyCoursesNavigation} 
+                                options={{
+                                    tabBarLabel:"My Courses",
+                                    
+                                    tabBarIcon:({color,size})=>{
+                                        return <AntDesign  name="file1" color={color} size={size} />
+                                   
+                                    }
+                                }}
+            />
+            <BottomTab.Screen name={navigationName.Search} component={SearchNavigation}
+                                options={{
+                                    tabBarLabel:"Search",
+                                    tabBarIcon:({color,size})=>{
+                                        return <Feather  name="search" color={color} size={size} />
+                                    
+                                    }
+                                }}
+            />
 
         </BottomTab.Navigator>
     );
@@ -166,27 +203,25 @@ export default function App() {
 
   return (
     <AuthenticationProvider>
-        <BookmarkProvider>
-            <ThemeProvider>
-                <CoursesProvider>
-                        <UserProvider>
-                            <NavigationContainer  >
-                                <MainStackApp/>
+        <MyCoursesProvider>
+            <BookmarkProvider>
+                <ThemeProvider>
+                    <CoursesProvider>
+                            <UserProvider>
+                                <NavigationContainer  >
+                                    <MainStackApp/>
 
-                            </NavigationContainer>
-                        </UserProvider>
-                </CoursesProvider>
-            </ThemeProvider>
+                                </NavigationContainer>
+                            </UserProvider>
+                    </CoursesProvider>
+                </ThemeProvider>
 
-        </BookmarkProvider>
+            </BookmarkProvider>
+        </MyCoursesProvider>
       </AuthenticationProvider>
 
 
 
-      /*<View style={styles.container}>
-            <Download/>
-
-      </View>*/
   );
 }
 

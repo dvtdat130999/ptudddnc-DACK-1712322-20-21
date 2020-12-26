@@ -17,8 +17,7 @@ const SectionCategoriesItem=(props)=>{
 
         })
     }*/
-    console.log("Check props item of section category");
-    console.log(props.item);
+   
     return (
        <View style={styles.sectionCategoriesItem} >
 

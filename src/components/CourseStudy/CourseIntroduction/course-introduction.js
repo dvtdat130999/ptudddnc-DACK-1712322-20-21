@@ -75,11 +75,12 @@ const CourseIntroduction=(props)=>{
                     <Text style={themeStyle.text}>Take a learning check</Text>
                 </View>
             </TouchableHighlight> */}
-            <CourseStudyService item={props.item}/>
-            <View style={styles.space}/>
-            <View style={styles.space}/>
+            
 
             <Text style={themeStyle.text}>{props.item.description}</Text>
+            <View style={styles.space}/>
+            <View style={styles.space}/>
+            <CourseStudyService item={props.item}/>
 
         </View>
     );

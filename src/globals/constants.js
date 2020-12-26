@@ -21,4 +21,5 @@ export const navigationName={
     Categories:"Categories",
     AuthorDetail:"AuthorDetail",
     LessonDetail:"LessonDetail",
+    MyCourses:"MyCourses",
 }

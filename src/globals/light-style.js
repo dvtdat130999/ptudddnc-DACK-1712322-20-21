@@ -27,6 +27,10 @@ const LightStyles = StyleSheet.create({
     text:{
         color:'black',
     },
+    textBold:{
+        color:'black',
+        fontWeight:'bold'
+    },
     textError:{
         color:'red',
         fontWeight: "bold",
@@ -96,7 +100,7 @@ const LightStyles = StyleSheet.create({
         marginTop:10,
         marginLeft:30,
         marginRight:30,
-        width:350,
+        width:300,
         backgroundColor:'white',
     },
     sectionCourseItemText:{

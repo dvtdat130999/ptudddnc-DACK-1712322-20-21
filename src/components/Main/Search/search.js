@@ -241,7 +241,7 @@ const Search=(props)=>{
     return(
         <ScrollView style={{backgroundColor:changeTheme.background,flex:1}} >
             <View style={{flex:1}}>
-                <View style={{fontColor:'white',flexDirection:'row',marginTop:20}}>
+                <View style={{fontColor:'white',flexDirection:'row',marginTop:35}}>
                     {changeTheme===themes.dark ?
                         <TextInput style={{flex:1, height: 40, borderColor: 'gray', borderWidth: 1,borderRadius:30,color:'white',marginLeft:10 }}
                                    onChangeText={text=>setSearchContent(text)}
