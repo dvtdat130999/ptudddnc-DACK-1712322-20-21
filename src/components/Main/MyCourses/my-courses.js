@@ -17,22 +17,7 @@ import UserApi from "../../../api/userApi";
 import MyCoursesItem from "./my-courses-item";
 const MyCourses=(props)=>{
     const {authentication}=useContext(AuthenticationContext);
-    const {myCourses,setMyCourses}=useContext(MyCoursesContext);
-    const params={
-        limit:20,
-        page:1
-    };
-    const getAllCourse=async()=>{
-        const response=await CourseApi.topSell(params);
-         setAllCourse(response.payload);
-         setIsLoading(false);
-    }
-    const [allCourse,setAllCourse]=useState([]);
-    //const [myCourses,setMyCourses]=useState([]);
-    // const [DATA,setDATA]=useState([]);
-    // const [topNew,setTopNew]=useState([]);
-    // const [topSell,setTopSell]=useState([]);
-    // const [topRate,setTopRate]=useState([]);
+    
     const [isLoading,setIsLoading]=useState(true);
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
@@ -59,8 +44,7 @@ const MyCourses=(props)=>{
     const renderItem=()=>{
         
         return DATA.map((item,i)=>{
-            //console.log("Check item");
-            //console.log(item);
+            
           
             
             return <MyCoursesItem navigation={props.navigation} item={item} key={i} 
@@ -73,7 +57,6 @@ const MyCourses=(props)=>{
     
         
     
-    const [first,setFirst]=useState(true);
     useEffect(()=>{
         if(processCourses.length===0)
         {
@@ -88,35 +71,8 @@ const MyCourses=(props)=>{
         if(DATA!==processCourses)
         {
             setDATA(processCourses);
-            // let promises=allCourse.map(async(item,i)=>{
-            //     const res=await PaymentApi.getCourseInfo(item.id,authentication);
-            //     if(res.didUserBuyCourse===true)
-            //     {
-            //         let existed=false;
-            //         if(DATA.map((dataItem,j)=>{
-            //             if(dataItem===item)
-            //             {
-            //                 existed=true;
-            //             }
-            //         }))
-            //         if(existed===false)
-            //         {
-            //             return item;
-            //         }
-            //         else
-            //         {
-            //             return null;
-            //         }
-
-            //     }
-            // })
-            
-            // Promise.all(promises)
-            // .then(res=>{
-               
-            //     setDATA(res);
-                
-            // })
+           
+         
             
            
             
