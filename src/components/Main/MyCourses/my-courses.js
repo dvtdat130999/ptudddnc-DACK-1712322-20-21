@@ -38,8 +38,6 @@ const MyCourses=(props)=>{
 
     }
     const [DATA,setDATA]=useState([]);
-    const [totalCourseBought,setTotalCourseBought]=useState([]);
-    const [status,setStatus]=useState(false);
     const [processCourses,setProcessCourses]=useState([]);
     const renderItem=()=>{
         
@@ -58,26 +56,22 @@ const MyCourses=(props)=>{
         
     
     useEffect(()=>{
-        if(processCourses.length===0)
-        {
+        // if(processCourses.length===0)
+        // {
 
-            const getProcessCourses=async()=>{
-                const res=await UserApi.getProcessCourses(authentication);
-                setProcessCourses(res.payload);
-                setIsLoading(false);
-            };
-            getProcessCourses();
-        }
-        if(DATA!==processCourses)
-        {
-            setDATA(processCourses);
-           
-         
             
-           
-            
-        }
-  
+        // }
+        // if(DATA!==processCourses)
+        // {
+        //     setDATA(processCourses);
+        
+        // }
+        const getProcessCourses=async()=>{
+            const res=await UserApi.getProcessCourses(authentication);
+            setDATA(res.payload);
+            setIsLoading(false);
+        };
+        getProcessCourses();
     });
 
     return(

@@ -33,7 +33,6 @@ const CourseStudyService=(props)=>{
     }
     const {coursesBookmark,setCoursesBookmark}=useContext(BookmarkContext);
     const {authentication}=useContext(AuthenticationContext);
-    const {myCourses,setMyCourses}=useContext(MyCoursesContext);
     const bookmark=async ()=>{
         const res=await UserApi.likeCourse(authentication,props.item.id);
         setBookmarkStatus(res.likeStatus);
@@ -65,16 +64,15 @@ const CourseStudyService=(props)=>{
     const buy=async()=>{
         const res=await PaymentApi.getFree(props.item.id,authentication);
         console.log("Check res after buy");
-        let resolve=Promise.resolve(res).then(value=>{
-            console.log(value.message);
-        })
-        if(res.message==="OK")
+        const res2=await PaymentApi.getCourseInfo(props.item.id,authentication);
+        if(res2.didUserBuyCourse===true)
         {
             setPaymentStatus(true);
             
-            let temp=myCourses;
-            temp=temp.concat(props.item);
-            setMyCourses(temp);
+            
+        }
+        else{
+            Alert.alert("This course is not free");
         }
         // if(res.message!=="OK")
         // {
