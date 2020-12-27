@@ -68,5 +68,12 @@ const UserApi = {
        
         return response;
     },
+    getProcessCourses:async(token)=>{
+        const url="user/get-process-courses";
+        const response=await axiosClient.get(url,{
+            headers:{Authorization:`Bearer ${token}`}
+        });
+        return response;
+    }
 };
 export default UserApi;

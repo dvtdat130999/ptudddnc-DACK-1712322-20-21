@@ -65,19 +65,26 @@ const CourseStudyService=(props)=>{
     const buy=async()=>{
         const res=await PaymentApi.getFree(props.item.id,authentication);
         console.log("Check res after buy");
-        console.log(res);
+        let resolve=Promise.resolve(res).then(value=>{
+            console.log(value.message);
+        })
         if(res.message==="OK")
         {
             setPaymentStatus(true);
+            
             let temp=myCourses;
             temp=temp.concat(props.item);
             setMyCourses(temp);
         }
-        else
-        {
-            console.log("Khong cho mua");
-            Alert.alert("This course is not free");
-        }
+        // if(res.message!=="OK")
+        // {
+        //     Alert.alert("This course is not free");
+        // }
+        // else
+        // {
+        //     console.log("Khong cho mua");
+        //     Alert.alert("This course is not free");
+        // }
         
     };
     const bought=()=>{

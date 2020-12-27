@@ -13,6 +13,8 @@ import {ThemeContext} from "../../../provider/theme-provider";
 import {MyCoursesContext} from "../../../provider/mycourses-provider";
 import PaymentApi from "../../../api/paymentApi";
 import CourseApi from "../../../api/courseApi";
+import UserApi from "../../../api/userApi";
+import MyCoursesItem from "./my-courses-item";
 const MyCourses=(props)=>{
     const {authentication}=useContext(AuthenticationContext);
     const {myCourses,setMyCourses}=useContext(MyCoursesContext);
@@ -53,24 +55,16 @@ const MyCourses=(props)=>{
     const [DATA,setDATA]=useState([]);
     const [totalCourseBought,setTotalCourseBought]=useState([]);
     const [status,setStatus]=useState(false);
-    
+    const [processCourses,setProcessCourses]=useState([]);
     const renderItem=()=>{
         
         return DATA.map((item,i)=>{
             //console.log("Check item");
             //console.log(item);
+          
             
-            //return <View key={i}></View>
-            
-            if(item && item!==null)
-            {
-                return <ListCoursesItem navigation={props.navigation} item={item} key={i} 
-                data={allCourse} onPressListCoursesItem={onPressListCoursesItem}
-            />
-            }
-            else{
-                return <View key={i}></View>
-            }
+            return <MyCoursesItem navigation={props.navigation} item={item} key={i} 
+                onPressListCoursesItem={onPressListCoursesItem}/>
             
             
         })
@@ -81,63 +75,50 @@ const MyCourses=(props)=>{
     
     const [first,setFirst]=useState(true);
     useEffect(()=>{
-        if(allCourse.length===0)
+        if(processCourses.length===0)
         {
 
-            getAllCourse();
+            const getProcessCourses=async()=>{
+                const res=await UserApi.getProcessCourses(authentication);
+                setProcessCourses(res.payload);
+                setIsLoading(false);
+            };
+            getProcessCourses();
         }
-        if(allCourse.length>0)
+        if(DATA!==processCourses)
         {
-
-            let promises=allCourse.map(async(item,i)=>{
-                const res=await PaymentApi.getCourseInfo(item.id,authentication);
-                if(res.didUserBuyCourse===true)
-                {
-                    let existed=false;
-                    if(DATA.map((dataItem,j)=>{
-                        if(dataItem===item)
-                        {
-                            existed=true;
-                        }
-                    }))
-                    if(existed===false)
-                    {
-                        return item;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-
-                }
-            })
-            
-            Promise.all(promises)
-            .then(res=>{
-               
-                setDATA(res);
-            })
-            
+            setDATA(processCourses);
             // let promises=allCourse.map(async(item,i)=>{
             //     const res=await PaymentApi.getCourseInfo(item.id,authentication);
             //     if(res.didUserBuyCourse===true)
             //     {
             //         let existed=false;
-            //         DATA.map((dataItem,j)=>{
+            //         if(DATA.map((dataItem,j)=>{
             //             if(dataItem===item)
             //             {
             //                 existed=true;
             //             }
-                    
-            //         })
+            //         }))
             //         if(existed===false)
             //         {
-            //             setDATA(DATA.concat(item));
-                        
+            //             return item;
+            //         }
+            //         else
+            //         {
+            //             return null;
             //         }
 
             //     }
-            // });
+            // })
+            
+            // Promise.all(promises)
+            // .then(res=>{
+               
+            //     setDATA(res);
+                
+            // })
+            
+           
             
         }
   

@@ -61,7 +61,9 @@ const CourseIntroduction=(props)=>{
             <Text style={themeStyle.text}>{dateToFormat} . {props.item.totalHours}</Text>
             <View style={styles.space}/>
             <View style={styles.space}/>
-
+            <Text style={themeStyle.sectionCourseItemText}>{`Price: ${props.item.price}`}</Text>
+            <View style={styles.space}/>
+            <View style={styles.space}/>
             {/* <TouchableHighlight style={{marginTop:20}} onPress={related}>
                 <View style={themeStyle.related}>
                     <Text style={themeStyle.text}>Related paths & courses</Text>

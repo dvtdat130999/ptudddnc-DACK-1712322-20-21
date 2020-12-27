@@ -51,6 +51,7 @@ const Home=(props)=>{
     const [allCourses,setAllCourses]=useState([]);
     const {myCourses,setMyCourses}=useContext(MyCoursesContext);
     useEffect(()=>{
+        
         // if(allCourses.length===0)
         // {
         //     getAllCourse();
