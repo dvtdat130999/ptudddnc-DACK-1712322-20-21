@@ -22,6 +22,7 @@ const ListCourses=(props)=>{
     const [topSell,setTopSell]=useState([]);
     const [topRate,setTopRate]=useState([]);
     const [isLoading,setIsLoading]=useState(true);
+    const [itemToRender,setItemToRender]=useState(10);
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
     
@@ -48,37 +49,46 @@ const ListCourses=(props)=>{
         if(DATA.length>0)
         {
             return DATA.map((item,i)=>{
-                if(category!==null)
+                if(i<itemToRender)
                 {
-                    return <ListCoursesItem navigation={props.navigation} item={item} key={i} 
-                                            data={DATA} onPressListCoursesItem={onPressListCoursesItem}
-                                            searchedCourse={true}/>
-    
-                }
-                else
-                {
-                    return <ListCoursesItem navigation={props.navigation} item={item} key={i} data={DATA} 
-                    onPressListCoursesItem={onPressListCoursesItem}/>
-    
-                }
-            })
-        }
-        else{
-            return allCourse.map((item,i)=>{
-                if(instructor)
-                {
-                    
-                    if(item.instructorId===instructor.id)
+                    if(category!==null)
                     {
-    
-                        return <ListCoursesItem navigation={props.navigation} item={item} key={i} data={DATA} onPressListCoursesItem={onPressListCoursesItem}/>
-    
+                        return <ListCoursesItem navigation={props.navigation} item={item} key={i} 
+                                                data={DATA} onPressListCoursesItem={onPressListCoursesItem}
+                                                searchedCourse={true}/>
+        
                     }
                     else
                     {
-                        return <View key={i}></View>
+                        return <ListCoursesItem navigation={props.navigation} item={item} key={i} data={DATA} 
+                        onPressListCoursesItem={onPressListCoursesItem}/>
+        
                     }
                 }
+                
+            })
+        }
+        else{
+
+            return allCourse.map((item,i)=>{
+                if(i<itemToRender)
+                {
+                    if(instructor)
+                    {
+                        
+                        if(item.instructorId===instructor.id)
+                        {
+        
+                            return <ListCoursesItem navigation={props.navigation} item={item} key={i} data={DATA} onPressListCoursesItem={onPressListCoursesItem}/>
+        
+                        }
+                        else
+                        {
+                            return <View key={i}></View>
+                        }
+                    }
+                }
+                
             })
         }
 
@@ -184,7 +194,21 @@ const ListCourses=(props)=>{
     });
 
     return(
-        <ScrollView style={{backgroundColor:changeTheme.background,flex:1}}>
+        <ScrollView style={{
+                            backgroundColor:changeTheme.background,
+                            flex:1
+                            }}
+                    onMomentumScrollEnd={(e)=>{
+                        const scrollPosition=e.nativeEvent.contentOffset.y;
+                        const scrollViewHeight=e.nativeEvent.layoutMeasurement.height;
+                        const contentHeight=e.nativeEvent.contentSize.height;
+                        const isScrolledToBottom=scrollViewHeight+scrollPosition;
+                        if(isScrolledToBottom>=(contentHeight-50)&& 
+                            (itemToRender<=DATA.length || itemToRender<=allCourse.length))
+                            {
+                                setItemToRender(itemToRender+10);
+                            }
+                    }}>
             { isLoading && <ActivityIndicator size="large" color="red"/> }
 
             <View style={{marginTop:60,flex:1}}>

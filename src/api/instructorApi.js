@@ -2,19 +2,19 @@
 import axiosClient from "./axiosClient";
 
 const InstructorApi = {
-    getAll: ()  => {
+    getAll: async()  => {
         const url='/instructor';
 
-        const response =  axiosClient.get(url);
+        const response =await  axiosClient.get(url);
         
 
         return response;
     },
-    get: (id)=>{
+    get: async(id)=>{
         const url=`/instructor/detail/${id}`;
         console.log("Check url");
         console.log(url);
-        const response=axiosClient.get(url);
+        const response=await axiosClient.get(url);
         return response;
     }
 

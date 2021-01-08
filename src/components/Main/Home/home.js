@@ -47,51 +47,50 @@ const Home=(props)=>{
     }
     const {authentication}=useContext(AuthenticationContext);
     const {coursesBookmark,setCoursesBookmark}=useContext(BookmarkContext);
-    const [first,setFirst]=useState(true);
     const [allCourses,setAllCourses]=useState([]);
     const {myCourses,setMyCourses}=useContext(MyCoursesContext);
+    const [detail,setDetail]=useState(null);
+    const [search,setSearch]=useState([]);
+    const [beforeDetail,setBeforeDetail]=useState([]);
+    const [first,setFirst]=useState(true);
     useEffect(()=>{
-        
-        // if(allCourses.length===0)
-        // {
-        //     getAllCourse();
-        // }
-        // if(myCourses.length===0 && allCourses.length>0)
-        // {
-        //     allCourses.map((item,i)=>{
-        //         const getMyCourses=async()=>{
-        //             const res=await PaymentApi.getCourseInfo(item.id,authentication);
-        //             if(res.didUserBuyCourse===true)
-        //             {
-        //                 let temp=myCourses;
-        //                 temp=temp.concat(item);
-        //                 setMyCourses(temp);
-        //                 // let existed=false;
-        //                 // DATA.map((dataItem,j)=>{
-        //                 //     if(dataItem===item)
-        //                 //     {
-        //                 //         existed=true;
-        //                 //     }
-        //                 // })
-        //                 // if(existed===false)
-        //                 // {
-        //                 //     let temp=DATA;
-        //                 //     temp=temp.concat(item);
-        //                 //     setDATA(temp);
-        //                 // }
-                        
-        //                 // setTotalCourseBought(totalCourseBought+1);   
-        //                 // console.log("this is after set length total");
-        //                 // console.log(totalCourseBought);                     
-        //             }
-        //         }
-        //         getMyCourses();
-        //     })
+        if(search.length!==0)
+        {
+            console.log("After detail:");
+            console.log(search);
+            setFirst(false);
+        }
+        if(beforeDetail.length===0)
+        {
+            const getSearchResult=async()=>{
+                const res=await CourseApi.searchByKeyword("java");
+                
+                setBeforeDetail(res.payload.rows);
+            }
+            getSearchResult();
+
+        }
+        if(search.length===0 && beforeDetail.length!==0)
+        {
+            const getDetail=async()=>{
+                for(let i=0;i<beforeDetail.length;i++)
+                {
+                    let course=beforeDetail[i];
+                    const detail=await CourseApi.courseDetailWithLesson(course.id,authentication);
+                    console.log("Check detail in loop:",detail);
+                    let temp=search;
+                    temp=temp.concat(detail.payload);
+                    setSearch(search.concat(detail.payload));
+
+                }
+            }
+            getDetail();
+
+           
             
-        // }
-        // console.log("Check my courses in home")
-        //     console.log(myCourses);
-  
+        }
+        
+        
     })
     
     React.useLayoutEffect(() => {

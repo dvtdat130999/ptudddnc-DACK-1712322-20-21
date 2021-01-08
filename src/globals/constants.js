@@ -22,4 +22,6 @@ export const navigationName={
     AuthorDetail:"AuthorDetail",
     LessonDetail:"LessonDetail",
     MyCourses:"MyCourses",
+    ListRecommendCourse:"RecommendCourses",
+    ListCoursesBookmark:"ListCoursesBookmark",
 }

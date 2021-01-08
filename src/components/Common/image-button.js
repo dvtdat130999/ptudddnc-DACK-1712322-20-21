@@ -6,6 +6,13 @@ import styles from "../../globals/styles"
 import {navigationName} from "../../globals/constants";
 const ImageButton=(props)=>{
     const onPress=()=>{
+        if(props.title==="Recommend")
+        {
+            props.navigation.navigate(navigationName.ListRecommendCourse,{
+                navigation:props.navigation,
+                message:"From recommend to list course recommend",
+            })
+        }
         if(props.category)
         {
             props.navigation.navigate(navigationName.ListCourses,{

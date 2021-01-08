@@ -54,8 +54,15 @@ const SectionCourses=(props)=>{
     const renderItem=()=>{
         
         return DATA.map((item,i)=>{
-            return <SectionCoursesItem navigation={props.navigation} item={item} key={i} data={DATA}/>
+            if(i<10)
+            {
+                return <SectionCoursesItem navigation={props.navigation} item={item} key={i} data={DATA}/>
 
+            }
+            else
+            {
+                <View key={i}></View>
+            }
         })
         //return <Text >This is for test</Text>
 

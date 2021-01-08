@@ -15,8 +15,10 @@ import {ThemeContext} from "../../../provider/theme-provider";
 import CourseApi from "../../../api/courseApi";
 import InstructorApi from "../../../api/instructorApi";
 import {CoursesContext} from "../../../provider/courses-provider";
+import {SearchHistoryContext} from "../../../provider/search-history-provider";
 const Search=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
+    let {searchHistory,setSearchHistory}=useContext(SearchHistoryContext);
     let themeStyle;
 
     if(changeTheme===themes.dark)
@@ -38,6 +40,10 @@ const Search=(props)=>{
     const [topNew,setTopNew]=useState([]);
     const [topSell,setTopSell]=useState([]);
     const [topRate,setTopRate]=useState([]);
+    const [totalCourse,setTotalCourse]=useState(0);
+    const [isEmpty,setIsEmpty]=useState(false);
+    const [emptySearchMessage,setEmptySearchMessage]=useState(null);
+    const [isHidden,setIsHidden]=useState(false);
     
     const getAllInstructor=async()=>{
         const res=await InstructorApi.getAll();
@@ -64,8 +70,7 @@ const Search=(props)=>{
         setTopRate(response.payload);
 
     }
-    const [totalCourse,setTotalCourse]=useState(0);
-
+    
     useEffect(()=>{
         //get all courses
         if(totalCourse===0)
@@ -167,6 +172,12 @@ const Search=(props)=>{
 
             }
         }
+        if(resultCoursesSearch.length===0 && isEmpty===true)
+        {
+            setIsClickSearch(false);
+            setIsEmpty(false);
+            setEmptySearchMessage("Can't find course with that keyword.");
+        }
         if(resultAuthorsSearch.length===0 && resultCoursesSearch.length>0)
         {
             if(isClickSearch)
@@ -176,6 +187,7 @@ const Search=(props)=>{
         }
         if(resultAuthorsSearch.length!==0 && resultCoursesSearch.length!==0)
         {
+            setEmptySearchMessage(null);
             setIsClickSearch(false);
         }
         
@@ -205,7 +217,15 @@ const Search=(props)=>{
                 result=result.concat(item);
             }
         });
-        setResultCoursesSearch(result);
+        if(result.length!==0)
+        {
+            setResultCoursesSearch(result);
+
+        }
+        else
+        {
+            setIsEmpty(true);
+        }
 
     }
     const listAuthorsSearch=(courses)=>{
@@ -225,9 +245,40 @@ const Search=(props)=>{
 
         setResultAuthorsSearch(result);
     }
+    const isExistedInHistory=(searchKeyWord)=>{
+        console.log("Check list history:",searchHistory);
+        let result=null;
+        searchHistory.map((item,i)=>{
+            console.log("Check item:",item);
+            console.log("Check keyword:",searchKeyWord);
+
+            if(item===searchKeyWord)
+            {
+                result=i;
+            }
+        });
+        return result;
+    }
     const onPressSearch=()=>{
+        console.log("Check history:",searchHistory);
         console.log("Check search content");
         console.log(searchContent);
+        let existed=isExistedInHistory(searchContent);
+        if(existed===null)
+        {
+            console.log("Chuan bi them vao history");
+            let temp=searchHistory;
+            temp=temp.concat(searchContent);
+            setSearchHistory(temp);
+        }
+        else
+        {
+            //delete search content in index
+            searchHistory.splice(existed,1);
+            let temp=searchHistory;
+            temp=temp.concat(searchContent);
+            setSearchHistory(temp);
+        }
         setIsSearch(true);
         setIsClickSearch(true);
         setResultAuthorsSearch([]);
@@ -235,13 +286,41 @@ const Search=(props)=>{
         console.log("CHeck set result author search after click search");
         console.log(resultAuthorsSearch);
     };
+    const changeIsHidden=()=>{
+        setIsHidden(!isHidden);
 
+    }
+    const deleteHistorySearch=()=>{
+        setSearchHistory([]);
+        console.log("Delete history search");
+    }
+
+    const renderHistory=()=>{
+        
+        return searchHistory.reverse().map((item,i)=>{
+            if(i<5)
+            {
+                return <TouchableHighlight key={i} style={{marginTop:10,marginLeft:10}} onPress={()=>setSearchContent(item)}>
+                            <Text style={themeStyle.text}>
+                                {item}
+                            </Text>
+                        </TouchableHighlight>
+            }
+            else
+            {
+                return <View key={i}></View>
+            }
+            
+        })
+       
+        
+    }
 
 
     return(
         <ScrollView style={{backgroundColor:changeTheme.background,flex:1}} >
             <View style={{flex:1}}>
-                <View style={{fontColor:'white',flexDirection:'row',marginTop:35}}>
+                <View style={{fontColor:'white',flexDirection:'row',justifyContent:'space-between',marginTop:35}}>
                     {changeTheme===themes.dark ?
                         <TextInput style={{flex:1, height: 40, borderColor: 'gray', borderWidth: 1,borderRadius:30,color:'white',marginLeft:10 }}
                                    onChangeText={text=>setSearchContent(text)}
@@ -263,9 +342,57 @@ const Search=(props)=>{
                         </View>
                     </TouchableHighlight>
                 </View>
+                <View style={styles.space}></View>
+                <View style={{
+                    flexDirection:'row',
+                    justifyContent:'space-between'
+                }}>
+                    <View style={{marginLeft:10}}>
+                        <Text style={themeStyle.text}>Recent search</Text>
+                    </View>
+                    <View style={{
+                        flexDirection:'row',
+                        marginRight:10
+                        }}>
+                        {isHidden===true ?
+                            <TouchableHighlight onPress={changeIsHidden}>
+                                <Text style={{color:'aqua'}}>Show</Text>
+                            </TouchableHighlight>
+                            :
+                            <TouchableHighlight onPress={changeIsHidden}>
+                                <Text style={{color:'aqua'}}>Hide</Text>
+                            </TouchableHighlight>
 
+                        }
+                        <Text>   </Text>
+                        <TouchableHighlight onPress={deleteHistorySearch}>
+                            <Text style={{color:'aqua'}}>Delete</Text>
+                        </TouchableHighlight>    
+                    </View>
+                                    
 
-                {isSearch  ? <SearchTab.Navigator>
+                </View>
+                {isHidden===false ?
+                    <View>
+                        {renderHistory()}
+
+                    </View>
+                    :
+                    <View></View>
+                }
+                <View style={styles.space}></View>
+
+                {emptySearchMessage!==null?
+                    <View>
+                        <Text style={themeStyle.textError}>{emptySearchMessage}</Text>
+                        <View style={styles.space}></View>
+                    </View>
+                    :
+                    <View></View>
+                }
+                <View style={styles.space}></View>
+            
+                {isSearch===true  ? <SearchTab.Navigator>
                     <SearchTab.Screen name="All"
 
                     >

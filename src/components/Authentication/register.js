@@ -14,6 +14,7 @@ const Register=(props)=>{
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const [phone,setPhone]=useState("");
+    const [rePassword,setRePassword]=useState("");
     const [message,setMessage]=useState("");
     const renderMessage=(message)=>{
         if(!message){
@@ -26,6 +27,7 @@ const Register=(props)=>{
             }
             else 
             {
+                console.log("Vao duoc day roi ne");
                 return <Text style={themeStyle.textError}>{message}</Text>
 
             }    
@@ -44,7 +46,7 @@ const Register=(props)=>{
     const onChangePhone=(e)=>{
         setPhone(e.target.value);
     }
-
+    
     let themeStyle;
 
     if(changeTheme===themes.dark)
@@ -66,6 +68,8 @@ const Register=(props)=>{
         }
         else 
         {
+            console.log("Validate dang ky that bai");
+
             setMessage("Email or phone is existed");
 
         }
@@ -73,29 +77,38 @@ const Register=(props)=>{
 
     }
     const onPressRegister= async () => {
-        let user = {
-            username: username,
-            phone: phone,
-            email: email,
-            password: password,
-
-        };
-        const response = await UserApi.register(user);
-        console.log(response);
-        if(response.message)
+        if(rePassword!==password)
         {
-            if(validateRegister(response.message))
-            {
-                props.navigation.navigate(navigationName.Login);
-
-            }
+            setMessage("You must re-type password correctly.");
         }
         else
         {
-            console.log("Vao day")
-            setMessage("Email or phone is existed");
+            let user = {
+                username: username,
+                phone: phone,
+                email: email,
+                password: password,
+    
+            };
+            const response = await UserApi.register(user);
+            console.log(response);
+            if(response.message)
+            {
+                if(validateRegister(response.message))
+                {
+                    props.navigation.navigate(navigationName.Login);
 
+                }
+            }
+            else
+            {
+                console.log("Vao day")
+                setMessage("Email or phone is existed");
+
+            }
         }
+        
+        
         
         /*let users=userList;
         users=users.concat(user);
@@ -127,6 +140,10 @@ const Register=(props)=>{
 
                 <Text style={themeStyle.textMedium}>Password</Text>
                 <TextInput secureTextEntry={true} style={styles.input} defaultValue={password} onChangeText={text=>{setPassword(text)}}></TextInput>
+                
+                <View style={styles.space}/>
+                <Text style={themeStyle.textMedium}>Re-type password</Text>
+                <TextInput secureTextEntry={true} style={styles.input} defaultValue={rePassword} onChangeText={text=>{setRePassword(text)}}></TextInput>
 
                 <View style={styles.space}/>
                 <Text style={themeStyle.textMedium}>Email</Text>
@@ -140,6 +157,16 @@ const Register=(props)=>{
 
                 <View style={styles.space}/>
                 <View style={styles.space}/>
+                {message==="Register is success"
+                ?
+                <Text style={themeStyle.textSuccess}>{message}</Text>
+                : <View></View>
+                }
+                {message!=="Register is success"
+                ?
+                <Text style={themeStyle.textError}>{message}</Text>
+                : <View></View>
+                }
                 {renderMessage()}
 
                 <TouchableHighlight onPress={onPressRegister}>

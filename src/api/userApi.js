@@ -1,10 +1,10 @@
 import axiosClient from "./axiosClient";
 
 const UserApi = {
-    register: (user)  => {
+    register: async (user)  => {
         const url='/user/register';
        
-        const response =  axiosClient.post(url, user);
+        const response =await  axiosClient.post(url, user);
         
         return response;
     },
@@ -73,6 +73,14 @@ const UserApi = {
         const response=await axiosClient.get(url,{
             headers:{Authorization:`Bearer ${token}`}
         });
+        return response;
+    },
+    getRecommendCourse:async(userId)=>{
+        console.log("Vao trong api user recommend")
+        const limit=20;
+        const offset=1;
+        const url=`/user/recommend-course/${userId}/${limit}/${offset}`;
+        const response=await axiosClient.get(url);
         return response;
     }
 };

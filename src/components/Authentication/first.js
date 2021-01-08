@@ -18,7 +18,7 @@ const First=(props)=>{
     const {listCourses}=useContext(CoursesContext);
     const [user,setUser]=useState(null);
     const [favoriteCategories,setFavoritesCategories]=useState([]);
-   
+    const {authentication}=useContext(AuthenticationContext);
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
     if(changeTheme===themes.dark)
@@ -39,7 +39,7 @@ const First=(props)=>{
     }
    
            
-   
+    
    
     return(
         <ScrollView style={{backgroundColor:changeTheme.background,flex:1}}>

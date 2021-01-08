@@ -13,6 +13,8 @@ import LightStyles from "../../../../globals/light-style";
 import CourseApi from "../../../../api/courseApi";
 import UserApi from "../../../../api/userApi";
 import {BookmarkContext} from "../../../../provider/bookmark-provider";
+import {navigationName} from "../../../../globals/constants";
+
 const SectionCoursesBookmark=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
@@ -73,11 +75,27 @@ const SectionCoursesBookmark=(props)=>{
             
         })
     };
+
+    const seeAll=()=>{
+        props.navigation.navigate(navigationName.ListCoursesBookmark,{
+            message:"This is from section course bookmark, we want to see all courses we bookmarked",
+        })
+    }
     return(
         <View style={{marginTop:60}}>
             {DATA.length>0 ?
                 <View>
-                    <Text style={themeStyle.title}>{props.title}</Text>
+                    <View style={{
+
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        }}>
+                        <Text style={themeStyle.title}>{props.title}</Text>
+                        <TouchableHighlight style={{marginRight:20}} onPress={seeAll}>
+                            <Text style={themeStyle.textMedium}>See all</Text>
+
+                        </TouchableHighlight>
+                    </View>
                     <ScrollView horizontal={true} showHorizontalScrollIndicator={false}>
                         {renderItem()}
                     </ScrollView>

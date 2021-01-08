@@ -1,82 +1,81 @@
 import axiosClient from "./axiosClient";
 
 const CourseApi = {
-    getTotalNumber:()=>{
+    getTotalNumber:async()=>{
         const url='/course/total-number';
-        const response =  axiosClient.get(url);
+        const response =  await axiosClient.get(url);
         
         return response;
     },
-    topSell: (params)  => {
+    topSell: async(params)  => {
         const url='/course/top-sell';
 
-        const response =  axiosClient.post(url,params);
+        const response =await  axiosClient.post(url,params);
         
         return response;
     },
-    topNew: (params)  => {
+    topNew: async(params)  => {
         const url='/course/top-new';
 
-        const response =  axiosClient.post(url,params);
+        const response =await  axiosClient.post(url,params);
         
         return response;
     },
-    topRate: (params)  => {
+    topRate:async (params)  => {
         const url='/course/top-rate';
 
-        const response =  axiosClient.post(url,params);
+        const response =await  axiosClient.post(url,params);
         
         return response;
     },
-    courseInfo: (id)  => {
+    courseInfo: async(id)  => {
         const url=`/course/get-course-info?id=${id}`;
 
-        const response =  axiosClient.get(url);
+        const response =await  axiosClient.get(url);
         
         return response;
     },
-    courseDetail: (courseId,userId)  => {
+    courseDetail:async (courseId,userId)  => {
         const url=`/course/get-course-detail/${courseId}/${userId}`;
 
-        const response =  axiosClient.get(url);
+        const response = await axiosClient.get(url);
         
         return response;
     },
-    // courseDetailWithLesson:(courseId,token)=>{
-    //     const url=`/course/detail-with-lesson/${courseId}`;
-    //     const response=axiosClient.get(url,{
-    //         headers:{Authorization:`Bearer ${token}`}
-    //     });
-    //     return response;
-    // },
-    searchByKeyword:(keyword)=>{
+    courseDetailWithLesson:async(courseId,token)=>{
+        const url=`/course/detail-with-lesson/${courseId}`;
+        const response=await axiosClient.get(url,{
+            headers:{Authorization:`Bearer ${token}`}
+
+        });
+        return response;
+    },
+    searchByKeyword:async (keyword)=>{
         const url='/course/search';
         const params={
             keyword:keyword,
-            //opt:{
-                // sort:{
-                //     attribute:'price',
-                //     rule:'DESC',
-                // },
-                // category:[],
-                // time:[{min:0}],
-                // price:[
-                //     {
-                //         min:0,
-                //     },
-                // ],
+            // opt:{
+            //     sort:{
+            //         attribute:'price',
+            //         rule:'DESC',
+            //     },
+            //     category:[],
+            //     time:[{min:0}],
+            //     price:[
+            //         {
+            //             min:0,
+            //         },
+            //     ],
 
-            //},
-            //limit:10,
-            //offset:1,
+            // },
+            // limit:20,
+            // offset:1,
         };
-        const response =  axiosClient.post(url,params);
-        console.log("Check search in api");
-        console.log(response);
+        const response = await axiosClient.post(url,params);
         return response;
 
     },
-    searchByCategory:(categoryId)=>{
+    searchByCategory:async(categoryId)=>{
         const url='/course/search';
         const params={
             keyword:"",
@@ -97,11 +96,10 @@ const CourseApi = {
             limit:10,
             offset:1,
         };
-        const response =  axiosClient.post(url,params);
-        console.log("Check search in api by category");
-        console.log(response);
+        const response = await axiosClient.post(url,params);
         return response;
 
     },
+    
 };
 export default CourseApi;

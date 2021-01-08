@@ -26,7 +26,8 @@ import CourseStudy from "./src/components/CourseStudy/course-study";
 import CourseStudyService from "./src/components/CourseStudy/CourseStudyService/course-study-service";
 import Lesson from "./src/components/CourseStudy/Lesson/lesson";
 import LessonDetail from "./src/components/CourseStudy/LessonDetail/lesson-detail";
-
+import ListRecommendCourse from "./src/components/Main/Browse/ListRecommendCourse/list-recommend-course";
+import ListCoursesBookmark from "./src/components/Main/Home/ListCoursesBookmark/list-courses-bookmark";
 import Account from "./src/components/AccountManagement/Account/account";
 import Setting from "./src/components/AccountManagement/Setting/setting";
 import ChangeThemes from "./src/components/AccountManagement/ChangeThemes/change-themes";
@@ -36,6 +37,7 @@ import Download from "./src/components/Main/Download/list-download";
 import MyCourses from "./src/components/Main/MyCourses/my-courses";
 import Search from "./src/components/Main/Search/search";
 import {AuthenticationContext, AuthenticationProvider} from "./src/provider/authentication-provider";
+import {SearchHistoryProvider} from "./src/provider/search-history-provider";
 import {CoursesProvider} from "./src/provider/courses-provider";
 import RelatedPathsAndCourses from "./src/components/CourseStudy/RelatedPathsAndCourses/related-paths-courses";
 import {BookmarkContext, BookmarkProvider} from "./src/provider/bookmark-provider";
@@ -84,6 +86,7 @@ const BrowseNavigation=()=>{
             <BrowseStack.Screen name={navigationName.Authors} component={ListAuthors}  />
             <BrowseStack.Screen name={navigationName.AuthorDetail} component={AuthorDetail} options={{title:'Author'}}  />
             <BrowseStack.Screen name={navigationName.LessonDetail} component={LessonDetail} options={{title:'Lesson'}}  />
+            <BrowseStack.Screen name={navigationName.ListRecommendCourse} component={ListRecommendCourse} options={{title:'Recommend'}}  />
 
         </BrowseStack.Navigator>
     );
@@ -102,6 +105,7 @@ const HomeNavigation=()=>{
             <HomeStack.Screen name={navigationName.RelatedPathsAndCourses} component={RelatedPathsAndCourses} options={{title:'Related'}}/>
             <HomeStack.Screen name={navigationName.ListCourses} component={ListCourses} />
             <HomeStack.Screen name={navigationName.LessonDetail} component={LessonDetail} options={{title:'Lesson'}} />
+            <HomeStack.Screen name={navigationName.ListCoursesBookmark} component={ListCoursesBookmark} options={{title:'Bookmark'}} />
 
         </HomeStack.Navigator>
     );
@@ -202,24 +206,27 @@ const MainStackApp=()=>{
 export default function App() {
 
   return (
-    <AuthenticationProvider>
-        <MyCoursesProvider>
-            <BookmarkProvider>
-                <ThemeProvider>
-                    <CoursesProvider>
-                            <UserProvider>
-                                <NavigationContainer  >
-                                    <MainStackApp/>
+    <SearchHistoryProvider>
+        <AuthenticationProvider>
+            <MyCoursesProvider>
+                <BookmarkProvider>
+                    <ThemeProvider>
+                        <CoursesProvider>
+                                <UserProvider>
+                                    <NavigationContainer  >
+                                        <MainStackApp/>
 
-                                </NavigationContainer>
-                            </UserProvider>
-                    </CoursesProvider>
-                </ThemeProvider>
+                                    </NavigationContainer>
+                                </UserProvider>
+                        </CoursesProvider>
+                    </ThemeProvider>
 
-            </BookmarkProvider>
-        </MyCoursesProvider>
-      </AuthenticationProvider>
+                </BookmarkProvider>
+            </MyCoursesProvider>
+        </AuthenticationProvider>
 
+    </SearchHistoryProvider>
+   
 
 
   );
