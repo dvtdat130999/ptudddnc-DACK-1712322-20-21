@@ -49,6 +49,10 @@ const DarkStyles = StyleSheet.create({
         color:'white',
         fontSize:20,
     },
+    textButtonSmall:{
+        color:'white',
+        fontSize:13,
+    },
     textButton:{
         color:'white',
         fontSize:20,
@@ -63,6 +67,13 @@ const DarkStyles = StyleSheet.create({
         ,fontWeight:'bold'
         ,fontSize:20
         ,color:'white'
+    },
+    buttonSmall: {
+        backgroundColor: "dodgerblue",
+        borderColor:'blue',
+        alignItems: "center",
+        padding: 10,
+
     },
     button: {
         backgroundColor: "dodgerblue",

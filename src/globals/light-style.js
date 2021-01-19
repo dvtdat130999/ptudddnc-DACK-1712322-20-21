@@ -51,6 +51,10 @@ const LightStyles = StyleSheet.create({
         color:'black',
         fontSize:20,
     },
+    textButtonSmall:{
+        color:'black',
+        fontSize:13,
+    },
     textButton:{
         color:'black',
         fontSize:20,
@@ -65,6 +69,13 @@ const LightStyles = StyleSheet.create({
         ,fontWeight:'bold'
         ,fontSize:20
         ,color:'black'
+    },
+    buttonSmall: {
+        backgroundColor: "dodgerblue",
+        borderColor:'blue',
+        alignItems: "center",
+        padding: 10,
+
     },
     button: {
         backgroundColor: "dodgerblue",

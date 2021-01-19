@@ -1,5 +1,6 @@
 import React, {Component, useContext,useState} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions  } from 'react-native';
+
 import styles from "../../globals/styles";
 import {ThemeContext} from "../../provider/theme-provider";
 import DarkStyles from "../../globals/dark-style";
@@ -153,7 +154,7 @@ const Register=(props)=>{
                 <View style={styles.space}/>
                 <Text style={themeStyle.textMedium}>Phone</Text>
 
-                <TextInput style={styles.input} defaultValue={phone} onChangeText={text=>{setPhone(text)}}></TextInput>
+                <TextInput style={styles.input} keyboardType='numeric' defaultValue={phone} onChangeText={text=>{setPhone(text)}}></TextInput>
 
                 <View style={styles.space}/>
                 <View style={styles.space}/>

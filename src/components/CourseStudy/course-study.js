@@ -153,8 +153,11 @@ const CourseStudy=(props)=>{
                     </CourseStudyTab.Screen>
                     <CourseStudyTab.Screen
                         name="Rating"
-                        component={Rating}
-                    />
+                        
+                    >
+                        {()=><Rating item={item} 
+                                                />}
+                    </CourseStudyTab.Screen>
                 </CourseStudyTab.Navigator>
                 {/* <Text style={themeStyle.textMedium}>Section</Text>
                 <ListCourseSection navigation={navigation} courseId={item.id} instructorId={item.instructorId}/>
