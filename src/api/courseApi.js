@@ -100,6 +100,28 @@ const CourseApi = {
         return response;
 
     },
+    getRating:async(token,courseId)=>{
+        const url=`/course/get-rating/${courseId}`;
+        const response=await axiosClient.get(url,{
+            headers:{Authorization:`Bearer ${token}`}
+
+        });
+        return response;
+    },
+    ratingCourse:async(token,courseId,formalityPoint,contentPoint,presentationPoint,content)=>{
+        const url="/course/rating-course";
+        const payload={
+            courseId:courseId,
+            formalityPoint:formalityPoint,
+            contentPoint:contentPoint,
+            presentationPoint:presentationPoint,
+            content:content,
+        }
+        const response=await axiosClient.post(url,payload,{
+            headers:{Authorization:`Bearer ${token}`}
+        });
+        return response;
+    }
     
 };
 export default CourseApi;

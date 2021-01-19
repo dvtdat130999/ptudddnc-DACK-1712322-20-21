@@ -1,4 +1,4 @@
-import React, {Component, useContext} from 'react';
+import React, {Component, useContext,useState,useEffect} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList } from 'react-native';
 
 import styles from "../../../globals/styles";
@@ -12,7 +12,7 @@ import DarkStyles from "../../../globals/dark-style";
 import LightStyles from "../../../globals/light-style";
 import moment from 'moment';
 import { format } from "date-fns";
-
+import CourseApi from "../../../api/courseApi";
 const CourseIntroduction=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
@@ -48,7 +48,19 @@ const CourseIntroduction=(props)=>{
 
     }
     let dateToFormat=format(date,"dd/MM/yyyy");
-
+    const [averagePoint,setAveragePoint]=useState(null);
+    useEffect(()=>{
+        if(averagePoint===null)
+        {
+            console.log("Check props.item:",props.item);
+            const getDetail=async()=>{
+                const res=await CourseApi.courseDetail(props.item.id,null);
+                console.log("Check res in introduction:",res.payload.averagePoint);
+                setAveragePoint(Math.round(res.payload.averagePoint));
+            }
+            getDetail();
+        }
+    })
     return(
         <View>
             <Text style={themeStyle.titleSmall}>{props.item.title}</Text>
@@ -60,6 +72,12 @@ const CourseIntroduction=(props)=>{
             <View style={styles.space}/>
             <Text style={themeStyle.text}>{dateToFormat} . {props.item.totalHours}</Text>
             <View style={styles.space}/>
+            {averagePoint!==null?
+                <Text style={themeStyle.text}>{`Average point: ${averagePoint}`}</Text>
+                :
+                <View></View>
+            }
+
             <View style={styles.space}/>
             <Text style={themeStyle.sectionCourseItemText}>{`Price: ${props.item.price}`}</Text>
             <View style={styles.space}/>

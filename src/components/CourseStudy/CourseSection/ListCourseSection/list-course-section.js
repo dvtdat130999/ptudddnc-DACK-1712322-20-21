@@ -22,18 +22,7 @@ const ListCourseSection=(props)=>{
     }
     const [DATA,setDATA]=useState([]);
     
-    //let path=props.item.path;
-    // if(path!=='')
-    // {
-    //     courses.map((item,i)=>{
-    //         if(item.path===path)
-    //         {
-    //             data=data.concat(item);
-    //         }
-
-    //     })
-    // }
-
+    
     const [navigation,setNavigation]=useState(props.navigation);
     const renderItem=()=>{
         return DATA.map((item,i)=>{
@@ -56,12 +45,11 @@ const ListCourseSection=(props)=>{
         
     })
     return(
-        <View style={{backgroundColor:changeTheme.background}}>
-            <Text style={themeStyle.title}>{props.title}</Text>
+        <ScrollView style={{backgroundColor:changeTheme.background}}>
             {renderItem()}
 
-        </View>
+        </ScrollView>
     );
 }
 
-export default ListCourseSection
+export default ListCourseSection;

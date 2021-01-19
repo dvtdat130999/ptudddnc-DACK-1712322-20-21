@@ -22,16 +22,7 @@ const Setting=(props)=>{
         themeStyle=LightStyles;
     }
     console.log(changeTheme);
-    const light=(props)=>{
-
-        setChangeTheme(themes.light);
-        console.log("Theme light");
-    }
-    const dark=(props)=>{
-        setChangeTheme(themes.dark);
-
-        console.log("Theme dark");
-    }
+   
     console.log(props);
     let navigation=props.route.params.navigation;
     const {setAuthentication}=useContext(AuthenticationContext);
@@ -48,24 +39,8 @@ const Setting=(props)=>{
         });
         console.log('account');
     }
-    const subcription=(props)=>{
-        console.log("Subcription")
-    }
-    const communication=(props)=>{
-        console.log("communication")
-    }
-    const requireWiFiStreaming=(props)=>{
-        console.log("Require wifi for streaming")
-    }
-    const requireWiFiDownload=(props)=>{
-        console.log("Require wifi for downloading")
-    }
-    const sendFeedback=(props)=>{
-        console.log("Send Feedback")
-    }
-    const support=(props)=>{
-        console.log("Support")
-    }
+    
+    
     const theme=(props)=>{
         navigation.navigate(navigationName.Theme,{
             navigation:navigation,

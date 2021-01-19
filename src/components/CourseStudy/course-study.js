@@ -1,7 +1,7 @@
 import React, {Component, useContext,useState,useEffect} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,Button } from 'react-native';
 import { Video } from 'expo-av';
-
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import CourseIntroduction from "./CourseIntroduction/course-introduction";
 import {themes} from "../../globals/themes";
 import DarkStyles from "../../globals/dark-style";
@@ -10,12 +10,13 @@ import styles from "../../globals/styles";
 import {ThemeContext} from "../../provider/theme-provider";
 import CourseApi from "../../api/courseApi";
 import ListCourseSection from "./CourseSection/ListCourseSection/list-course-section";
-
+import ListComment from "../CourseStudy/Comment/list-comment";
+import Rating from "../CourseStudy/Rating/rating";
 const {width,height}=Dimensions.get('window');
-
+const CourseStudyTab=createMaterialTopTabNavigator();
 const CourseStudy=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
-    let themeStyle;
+    let themeStyle=null;
 
     if(changeTheme===themes.dark)
     {
@@ -34,6 +35,8 @@ const CourseStudy=(props)=>{
     const [courseSection,setCourseSection]=useState(null);
     const [isYoutube,setIsYoutube]=useState(false);
     const [isMp4,setIsMp4]=useState(false);
+    const [tabBarBackground,setTabBarBackground]=useState(null);
+    const [tabBarLabelColor,setTabBarLabelColor]=useState(null);
     props.navigation.setOptions({title:item.title});
 
     const renderLearning=()=>{
@@ -47,7 +50,32 @@ const CourseStudy=(props)=>{
         
     };
     useEffect(()=>{
-        
+        if(tabBarBackground===null)
+        {
+            if(themeStyle===DarkStyles)
+            {
+                setTabBarBackground("black");
+
+            }
+            if(themeStyle===LightStyles)
+            {
+                setTabBarBackground("white");
+
+            }
+        }
+        if(tabBarLabelColor===null)
+        {
+            if(themeStyle===DarkStyles)
+            {
+                setTabBarLabelColor("white");
+
+            }
+            if(themeStyle===LightStyles)
+            {
+                setTabBarLabelColor("black");
+
+            }
+        }
         if(item===null)
         {
             setItem(props.route.params.item);
@@ -98,8 +126,40 @@ const CourseStudy=(props)=>{
                 {renderLearning()}
                 <View style={styles.space}/>
                 <View style={styles.space}/>
-                <Text style={themeStyle.textMedium}>Section</Text>
+                <CourseStudyTab.Navigator
+                    tabBarOptions={{
+                        labelStyle: { fontSize: 12,
+                                        color: tabBarLabelColor
+                        },
+
+                        style: { 
+                            backgroundColor: tabBarBackground ,
+                        },
+                    }}
+                >
+                    <CourseStudyTab.Screen name="Section" 
+                    >
+                        {()=><ListCourseSection navigation={navigation} 
+                                                courseId={item.id} 
+                                                instructorId={item.instructorId}/>}
+                    </CourseStudyTab.Screen>
+                    
+                    <CourseStudyTab.Screen
+                        name="Comment"
+                    >
+                        {()=><ListComment navigation={navigation} 
+                                                item={item} 
+                                                />}
+                    </CourseStudyTab.Screen>
+                    <CourseStudyTab.Screen
+                        name="Rating"
+                        component={Rating}
+                    />
+                </CourseStudyTab.Navigator>
+                {/* <Text style={themeStyle.textMedium}>Section</Text>
                 <ListCourseSection navigation={navigation} courseId={item.id} instructorId={item.instructorId}/>
+                 */}
+                
                 {/* <ListLessons navigation={navigation} item={item}/> */}
 
             </View>

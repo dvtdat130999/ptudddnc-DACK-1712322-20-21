@@ -9,7 +9,7 @@ import {ThemeContext} from "../../provider/theme-provider";
 import {themes} from "../../globals/themes";
 import DarkStyles from "../../globals/dark-style";
 import LightStyles from "../../globals/light-style";
-
+import CourseApi from "../../api/courseApi";
 const CourseReadInfo=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
@@ -34,7 +34,17 @@ const CourseReadInfo=(props)=>{
 
     }
     let dateToFormat=format(date,"dd/MM/yyyy");
-
+    const [averagePoint,setAveragePoint]=useState(null);
+    useEffect(()=>{
+        if(averagePoint===null)
+        {
+            const getDetail=async()=>{
+                const res=await CourseApi.courseDetail(props.item.id,null);
+                setAveragePoint(Math.round(res.payload.averagePoint));
+            }
+            getDetail();
+        }
+    })
     return(
         <View style={{padding:5,height:250}}>
             <Text style={themeStyle.textBold}>{props.item.title}</Text>
@@ -48,6 +58,8 @@ const CourseReadInfo=(props)=>{
 
 
             <Text style={themeStyle.sectionCourseItemText}>{`Total hours: ${props.item.totalHours}`}</Text>
+            <Text style={themeStyle.sectionCourseItemText}>{`Average point: ${averagePoint}`}</Text>
+
         </View>
     );
 }

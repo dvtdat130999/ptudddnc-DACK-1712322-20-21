@@ -51,12 +51,30 @@ const Home=(props)=>{
     useEffect(()=>{
         if(first===true)
         {
-            const update=async()=>{
-                const avatar="https://c7.uihere.com/files/592/884/975/programmer-computer-programming-computer-software-computer-icons-programming-language-avatar.jpg";
-                const res=await UserApi.updateProfile(authentication,"Doan Vu Tien Dat",avatar,"012386313231");
-                console.log("Check res update profile:",res);
+            // const rating=async()=>{
+            //     const courseId="7844e73e-f61b-4f1b-82ce-f98f120a7c46";
+            //     const formalityPoint=4;
+            //     const contentPoint=5;
+            //     const presentationPoint=4.8;
+            //     const content="Hay";
+            //     const res=await CourseApi.ratingCourse(authentication,courseId,formalityPoint,contentPoint,presentationPoint,content);
+            //     console.log("Check res rating course:",res);
+            //     const res=await CourseApi.courseInfo(courseId);
+            //     console.log("Check res get course info:",res);
+            // }
+            // rating();
+
+
+            const getDetail=async()=>{
+                const courseId="7844e73e-f61b-4f1b-82ce-f98f120a7c46";
+                const res=await CourseApi.courseDetail(courseId,null);
+
+                res.payload.ratings.ratingList.map((item,i)=>{
+                    console.log("Check item detail:",item);
+                })
+
             }
-            update();
+            getDetail();
             setFirst(false);
         }    
         
