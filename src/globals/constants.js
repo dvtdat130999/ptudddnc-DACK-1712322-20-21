@@ -24,4 +24,6 @@ export const navigationName={
     MyCourses:"MyCourses",
     ListRecommendCourse:"RecommendCourses",
     ListCoursesBookmark:"ListCoursesBookmark",
+    VideoDownload:"VideoDownload",
+    ListDownload:"ListDownload",
 }

@@ -52,6 +52,7 @@ const Account=(props)=>{
         const res=await UserApi.getUser(authentication);
         
         setUser(res.payload);
+        console.log("Check user account:",res.payload);
         setIsLoading(false);
     }
     const getCategory=async(id)=>{
@@ -59,6 +60,9 @@ const Account=(props)=>{
         console.log("Check category payload");
         console.log(response.payload);
         setCategory(response.payload);
+    }
+    const updateProfile=()=>{
+        console.log("Update profile")
     }
     useEffect(()=>{
         if(user===null)
@@ -84,10 +88,15 @@ const Account=(props)=>{
         <ScrollView style={{flex:1,backgroundColor:changeTheme.background}}>
             { isLoading && <ActivityIndicator size="large" color="red"/> }
             
-            <View  style={{marginLeft:10,marginTop:10,flex:1}}>
+            <View  style={{marginLeft:10,marginTop:10}}>
 
                 <View styles={{justifyContent:'center',alignItems:'center',flexDirection:'column',flex:1}}>
-                    <Image source={UserImage} style={{height:200,width:200}}/>
+                    {user && user.avatar ?
+                        <Image source={{uri:user.avatar}} style={{height:200,width:200}}/>
+                        :
+                        <Image source={UserImage} style={{height:200,width:200}}/>
+
+                    }
                     {user && user.email ? 
                         <Text style={themeStyle.text}>{`Email: ${user.email}`}</Text>
                         :
@@ -113,6 +122,11 @@ const Account=(props)=>{
                 
         
             </View>
+            <TouchableHighlight onPress={updateProfile}>
+                <View style={themeStyle.button}>
+                    <Text style={themeStyle.textButton}>Update</Text>
+                </View>
+            </TouchableHighlight>
         </ScrollView>
     );
    

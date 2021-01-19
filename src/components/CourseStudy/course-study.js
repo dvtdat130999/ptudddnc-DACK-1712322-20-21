@@ -1,5 +1,6 @@
 import React, {Component, useContext,useState,useEffect} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,Button } from 'react-native';
+import { Video } from 'expo-av';
 
 import CourseIntroduction from "./CourseIntroduction/course-introduction";
 import {themes} from "../../globals/themes";
@@ -9,6 +10,9 @@ import styles from "../../globals/styles";
 import {ThemeContext} from "../../provider/theme-provider";
 import CourseApi from "../../api/courseApi";
 import ListCourseSection from "./CourseSection/ListCourseSection/list-course-section";
+
+const {width,height}=Dimensions.get('window');
+
 const CourseStudy=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
@@ -28,6 +32,8 @@ const CourseStudy=(props)=>{
     const [navigation,setNavigation]=useState(props.route.params.navigation);
     const [learning,setLearning]=useState([]);
     const [courseSection,setCourseSection]=useState(null);
+    const [isYoutube,setIsYoutube]=useState(false);
+    const [isMp4,setIsMp4]=useState(false);
     props.navigation.setOptions({title:item.title});
 
     const renderLearning=()=>{
@@ -45,6 +51,7 @@ const CourseStudy=(props)=>{
         if(item===null)
         {
             setItem(props.route.params.item);
+            console.log("Check course:",props.route.params.item);
         }
         if(navigation===null)
         {
@@ -64,7 +71,22 @@ const CourseStudy=(props)=>{
     return(
         <ScrollView>
             <View style={{backgroundColor:changeTheme.background}}>
+                {item.promoVidUrl!==null && item.promoVidUrl.includes(".mp4")===true?
+                <Video
+                    source={{ uri: item.promoVidUrl }}
+                    rate={1.0}
+                    volume={1.0}
+                    isMuted={false}
+                    resizeMode="cover"
+                    useNativeControls
+                    shouldPlay={false}
+                    isLooping={false}
+                    style={{ width: width, height: height/3 }}
+                />
+                :
                 <Image source={{uri:item.imageUrl}} style={{height:400,width:'100%'}}/>
+
+                }
                 {props.route.params.searchedCourse ? 
                     <CourseIntroduction item={item} navigation={props.navigation} searchedCourse={true}/>:
                     <CourseIntroduction item={item} navigation={props.navigation} />

@@ -14,10 +14,14 @@ import UserApi from "../../api/userApi";
 import axios from "axios";
 import {AuthenticationContext} from "../../provider/authentication-provider";
 import {CoursesContext} from "../../provider/courses-provider";
+
+import * as Permissions from 'expo-permissions';
+import * as MediaLibrary from 'expo-media-library';
 const First=(props)=>{
     const {listCourses}=useContext(CoursesContext);
     const [user,setUser]=useState(null);
     const [favoriteCategories,setFavoritesCategories]=useState([]);
+    const [downloadList,setDownloadList]=useState([]);
     const {authentication}=useContext(AuthenticationContext);
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
@@ -38,8 +42,30 @@ const First=(props)=>{
         props.navigation.navigate(navigationName.Register);
     }
    
-           
     
+    // useEffect(()=>{
+    //     if(downloadList.length!==0)
+    //     {
+    //         console.log("Check length download list:",downloadList.length);
+    //         console.log("Check download list:",downloadList);
+    //     }
+    //     if(downloadList.length===0)
+    //     {
+    //         const onCheck=async()=>{
+    //             const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    //             if(status==='granted')
+    //             {
+    //                 const res=await MediaLibrary.getAssetsAsync({
+    //                     mediaType:MediaLibrary.MediaType.video
+    //                   });
+    //                   setDownloadList(res.assets);
+    //                   console.log("Check res");
+    //             }
+                
+    //         }
+    //         onCheck();
+    //     }
+    // })
    
     return(
         <ScrollView style={{backgroundColor:changeTheme.background,flex:1}}>

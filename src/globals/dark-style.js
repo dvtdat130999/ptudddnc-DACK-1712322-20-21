@@ -25,6 +25,10 @@ const DarkStyles = StyleSheet.create({
     text:{
         color:'white',
     },
+    textSmall:{
+        color:'white',
+        fontSize:10
+    },
     textBold:{
         color:'white',
         fontWeight:'bold'

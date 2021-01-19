@@ -49,6 +49,8 @@ import ListPaths from "./src/components/Paths/ListPaths/list-paths";
 import AuthorDetail from "./src/components/Authors/AuthorDetail/author-detail";
 import CourseApi from "./src/api/courseApi";
 import UserApi from "./src/api/userApi";
+import ListDownloadItemVideo from "./src/components/Main/Download/list-download-item-video";
+import ListDownload from "./src/components/Main/Download/list-download";
 const MainStack = createStackNavigator();
 const AfterLoginStack = createStackNavigator();
 const MyCoursesStack=createStackNavigator();
@@ -117,6 +119,8 @@ const MyCoursesNavigation=()=>{
 
             <MyCoursesStack.Screen name={navigationName.MyCourses} component={MyCourses} options={{title:'My Courses'}}/>
             <MyCoursesStack.Screen name={navigationName.CourseStudy} component={CourseStudy} />
+            <MyCoursesStack.Screen name={navigationName.VideoDownload} component={ListDownloadItemVideo} />
+            <MyCoursesStack.Screen name={navigationName.ListDownload} component={ListDownload} />
 
         </MyCoursesStack.Navigator>
     );

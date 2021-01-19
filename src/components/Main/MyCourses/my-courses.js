@@ -15,6 +15,11 @@ import PaymentApi from "../../../api/paymentApi";
 import CourseApi from "../../../api/courseApi";
 import UserApi from "../../../api/userApi";
 import MyCoursesItem from "./my-courses-item";
+import PaymentCourses from "./PaymentCourses/payment-courses";
+import ListDownload from "../Download/list-download";
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+
+const MyCoursesTab = createMaterialTopTabNavigator();
 const MyCourses=(props)=>{
     const {authentication}=useContext(AuthenticationContext);
     
@@ -76,12 +81,26 @@ const MyCourses=(props)=>{
 
     return(
         <ScrollView style={{backgroundColor:changeTheme.background,flex:1}}>
-            { isLoading && <ActivityIndicator size="large" color="red"/> }
+            <MyCoursesTab.Navigator style={{flex:1}}>
+                   
+                    <MyCoursesTab.Screen name={navigationName.ListCourses} options={{title:'Payment'}}
+                    >
+                        {()=><PaymentCourses navigation={props.navigation}/>}
+
+                    </MyCoursesTab.Screen>
+                    
+                    <MyCoursesTab.Screen name={navigationName.Authors} options={{title:'Download'}}
+                    >
+                        {()=><ListDownload navigation={props.navigation}/>}
+                    </MyCoursesTab.Screen>
+
+                </MyCoursesTab.Navigator>
+            {/* { isLoading && <ActivityIndicator size="large" color="red"/> }
 
             <View style={{marginTop:60,flex:1}}>
                     <Text style={themeStyle.sectionTitle}>{props.title}</Text>
                     {renderItem()}
-            </View>
+            </View> */}
         </ScrollView>
 
     );

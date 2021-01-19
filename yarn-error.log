@@ -1,20 +1,20 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\ASUS\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add react-native-reanimated@~1.13.0 react-native-gesture-handler@~1.7.0 react-native-screens@~2.10.1 react-native-safe-area-context@3.1.4 @react-native-community/masked-view@0.1.10
+  C:\Program Files\nodejs\node.exe C:\Users\ASUS\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add expo-permissions@~9.3.0
 
 PATH: 
-  C:\Program Files\Java\jdk1.8.0_221\bin;C:\Program Files\Java\jdk-14.0.1\bin;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\150\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ManagementStudio\;C:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files\Java\jdk1.8.0_221\bin;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\ASUS\AppData\Local\Microsoft\WindowsApps;F:\Bai hoc\VSCode\Microsoft VS Code\bin;C:\Users\ASUS\AppData\Local\GitHubDesktop\bin;C:\Users\ASUS\AppData\Roaming\npm;C:\Users\ASUS\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\WebStorm 2019.2.4\bin;;C:\Program Files\heroku\bin;F:\SDKFOLDER\Android\Sdk\platform-tools;F:\SDKFOLDER\Android\Sdk\emulator;F:\SDKFOLDER\Android\Sdk\tools;
+  C:\Program Files\Java\jdk1.8.0_221\bin;C:\Program Files\Java\jdk-14.0.1\bin;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\150\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ManagementStudio\;C:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files\Java\jdk1.8.0_221\bin;C:\Program Files\Git\cmd;C:\webdrivers;C:\Program Files\nodejs;C:\Program Files\nodejs\;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\ASUS\AppData\Local\Microsoft\WindowsApps;F:\Bai hoc\VSCode\Microsoft VS Code\bin;C:\Users\ASUS\AppData\Local\GitHubDesktop\bin;C:\Users\ASUS\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\WebStorm 2019.2.4\bin;;C:\Program Files\heroku\bin;F:\SDKFOLDER\Android\Sdk\platform-tools;F:\SDKFOLDER\Android\Sdk\emulator;F:\SDKFOLDER\Android\Sdk\tools;C:\Users\ASUS\AppData\Roaming\npm
 
 Yarn version: 
   1.22.10
 
 Node version: 
-  12.13.0
+  14.15.1
 
 Platform: 
   win32 x64
 
 Trace: 
-  Error: ENOENT: no such file or directory, copyfile 'C:\Users\ASUS\AppData\Local\Yarn\Cache\v6\npm-hoist-non-react-statics-3.3.2-ece0acaf71d62c2969c2ec59feff42a4b1a85b45-integrity\node_modules\hoist-non-react-statics\CHANGELOG.md' -> 'F:\react-native\test\DACK\node_modules\react-navigation-tabs\node_modules\hoist-non-react-statics\CHANGELOG.md'
+  Error: EPERM: operation not permitted, open 'F:\react-native\test\DACK\node_modules\.bin\sane.cmd'
 
 npm manifest: 
   {
@@ -28,27 +28,42 @@ npm manifest:
     },
     "dependencies": {
       "@react-native-community/masked-view": "^0.1.10",
+      "@react-navigation/bottom-tabs": "^5.11.2",
       "@react-navigation/material-bottom-tabs": "^5.3.10",
+      "@react-navigation/material-top-tabs": "^5.3.10",
       "@react-navigation/native": "^5.8.10",
+      "@react-navigation/stack": "^5.12.8",
       "bootstrap": "^4.5.3",
+      "date-fns": "^2.16.1",
       "expo": "~39.0.2",
+      "expo-av": "~8.6.0",
+      "expo-file-system": "~9.2.0",
       "expo-status-bar": "~1.0.2",
+      "moment": "^2.29.1",
       "native-base": "^2.13.14",
+      "query-string": "latest",
       "react": "16.13.1",
       "react-bootstrap": "^1.4.0",
       "react-dom": "16.13.1",
+      "react-moment": "^1.0.0",
       "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",
       "react-native-gesture-handler": "^1.9.0",
       "react-native-paper": "^4.4.0",
       "react-native-reanimated": "^1.13.2",
       "react-native-safe-area-context": "^3.1.9",
       "react-native-screens": "^2.15.0",
+      "react-native-tab-view": "^2.15.2",
+      "react-native-vector-icons": "^7.1.0",
+      "react-native-video": "^5.1.0-alpha8",
       "react-native-web": "~0.13.12",
+      "react-native-webview": "10.7.0",
+      "react-native-youtube-iframe": "^1.4.0",
       "react-navigation-material-bottom-tabs": "^2.3.3",
       "react-navigation-tabs": "^2.10.1"
     },
     "devDependencies": {
-      "@babel/core": "~7.9.0"
+      "@babel/core": "~7.9.0",
+      "axios": "^0.21.0"
     },
     "private": true
   }
@@ -1330,6 +1345,14 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.10.tgz#5dda643e19e587793bc2034dd9bf7398ad43d401"
     integrity sha512-rk4sWFsmtOw8oyx8SD3KSvawwaK7gRBSEIy2TAwURyGt+3TizssXP1r8nx3zY+R7v2vYYHXZ+k2/GULAT/bcaQ==
   
+  "@react-navigation/bottom-tabs@^5.11.2":
+    version "5.11.2"
+    resolved "https://registry.yarnpkg.com/@react-navigation/bottom-tabs/-/bottom-tabs-5.11.2.tgz#5b541612fcecdea2a5024a4028da35e4a727bde6"
+    integrity sha512-7+hH00N9Ze74VcX8uYWVyXFXZ0Fwid+lG+SSLtmnJjk1Y6oIQpQ17EPqKO0UZlKKjhsvMlAnL5fdgFtoqnSjcA==
+    dependencies:
+      color "^3.1.3"
+      react-native-iphone-x-helper "^1.3.0"
+  
   "@react-navigation/core@^5.14.4":
     version "5.14.4"
     resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-5.14.4.tgz#f63a2cd214bddbd25e1181f9335c32dfc3b6460f"
@@ -1346,6 +1369,13 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@react-navigation/material-bottom-tabs/-/material-bottom-tabs-5.3.10.tgz#046b6aecd18c4b71114148afbfc9a5a9ac264275"
     integrity sha512-XngPas8XAjR2QuFzzED1qoaxAM69gLPqC69xTkqSWeUYbsorX+kgl7z3AZocDglp4bLylYIVOa+fBHhfhUjqqQ==
   
+  "@react-navigation/material-top-tabs@^5.3.10":
+    version "5.3.10"
+    resolved "https://registry.yarnpkg.com/@react-navigation/material-top-tabs/-/material-top-tabs-5.3.10.tgz#158b694e87bff2eb9577e8142415de8ac3547412"
+    integrity sha512-mmQYEBhcLp1DwvuD8+HiFtYPk5zP43272C/38iX2T8AblcwRdoJejuO/GUzQcEPrmZHjeAnA5GDaMiXQM4EXLQ==
+    dependencies:
+      color "^3.1.3"
+  
   "@react-navigation/native@^5.8.10":
     version "5.8.10"
     resolved "https://registry.yarnpkg.com/@react-navigation/native/-/native-5.8.10.tgz#3fe806abff9efb085bcf595212803dd05a1347ca"
@@ -1361,6 +1391,14 @@ Lockfile:
     integrity sha512-XBcDKXS5s4MaHFufN44LtbXqFDH/nUHfHjbwG85fP3k772oRyPRgbnUb2mbw5MFGqORla9T7uymR6Gh6uwIwVw==
     dependencies:
       nanoid "^3.1.15"
+  
+  "@react-navigation/stack@^5.12.8":
+    version "5.12.8"
+    resolved "https://registry.yarnpkg.com/@react-navigation/stack/-/stack-5.12.8.tgz#31e54e05d8a3ffaaa3e39a1a9b7969f8316a35bf"
+    integrity sha512-wUJFbU0v606RBXOUxHToCXJNmiwxtFYhN2TFvjxCZ3PJU+OWWx8HTmn99pT3rVH4Ax2cfO5BDUy9v+r74ZrIWw==
+    dependencies:
+      color "^3.1.3"
+      react-native-iphone-x-helper "^1.3.0"
   
   "@restart/context@^2.1.4":
     version "2.1.4"
@@ -1713,6 +1751,13 @@ Lockfile:
     integrity sha512-XWX3OX8Onv97LMk/ftVyBibpGwY5a8SmuxZPzeOxqmuEqUCOM9ZE+uIaD1VNJ5QnvU2UQusvmKbuM1FR8QWGfQ==
     dependencies:
       array-filter "^1.0.0"
+  
+  axios@^0.21.0:
+    version "0.21.0"
+    resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.0.tgz#26df088803a2350dff2c27f96fef99fe49442aca"
+    integrity sha512-fmkJBknJKoZwem3/IKSSLpkdNXZeBu5Q7GA/aRsr2btgrptmSCxi2oFjZHqGdK9DoTil9PIHlPIZw2EcRJXRvw==
+    dependencies:
+      follow-redirects "^1.10.0"
   
   babel-plugin-dynamic-import-node@^2.3.3:
     version "2.3.3"
@@ -2132,7 +2177,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/color-support/-/color-support-1.1.3.tgz#93834379a1cc9a0c61f82f52f0d04322251bd5a2"
     integrity sha512-qiBjkpbMLO/HL68y+lh4q0/O1MZFj2RX6X/KmMa3+gJD3z+WwI1ZzDHysvqHGS3mP6mznPckpXmw1nI9cJjyRg==
   
-  color@^3.1.2, color@~3.1.2:
+  color@^3.1.2, color@^3.1.3, color@~3.1.2:
     version "3.1.3"
     resolved "https://registry.yarnpkg.com/color/-/color-3.1.3.tgz#ca67fb4e7b97d611dcde39eceed422067d91596e"
     integrity sha512-xgXAcTHa2HeFCGLE9Xs/R82hujGtu9Jd9x4NW3T34+OMs7VoPsjwzRczKHvTAHeJwWFwX5j15+MgAppE8ztObQ==
@@ -2323,6 +2368,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.5.tgz#7fdec6a28a67ae18647c51668a9ff95bb2fa7bb8"
     integrity sha512-uVDi8LpBUKQj6sdxNaTetL6FpeCqTjOvAQuQUa/qAqq8oOd4ivkbhgnqayl0dnPal8Tb/yB1tF+gOvCBiicaiQ==
   
+  date-fns@^2.16.1:
+    version "2.16.1"
+    resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.16.1.tgz#05775792c3f3331da812af253e1a935851d3834b"
+    integrity sha512-sAJVKx/FqrLYHAQeN7VpJrPhagZc9R4ImZIWYRFZaaohR3KzmuK88touwsSwSVT8Qcbd4zoDsnGfX4GFB4imyQ==
+  
   dayjs@^1.8.15:
     version "1.9.6"
     resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.9.6.tgz#6f0c77d76ac1ff63720dd1197e5cb87b67943d70"
@@ -2453,6 +2503,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.603.tgz#1b71bec27fb940eccd79245f6824c63d5f7e8abf"
     integrity sha512-J8OHxOeJkoSLgBXfV9BHgKccgfLMHh+CoeRo6wJsi6m0k3otaxS/5vrHpMNSEYY4MISwewqanPOuhAtuE8riQQ==
   
+  eme-encryption-scheme-polyfill@^2.0.1:
+    version "2.0.1"
+    resolved "https://registry.yarnpkg.com/eme-encryption-scheme-polyfill/-/eme-encryption-scheme-polyfill-2.0.1.tgz#b080b01bffd74c75c9cf8044c1cabedf3b83954f"
+    integrity sha512-Wz+Ro1c0/2Wsx2RLFvTOO0m4LvYn+7cSnq3XOvRvLLBq8jbvUACH/zpU9s0/5+mQa5oaelkU69x+q0z/iWYrFA==
+  
   emoji-regex@^7.0.1:
     version "7.0.3"
     resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-7.0.3.tgz#933a04052860c85e83c122479c4748a8e4c72156"
@@ -2570,15 +2625,15 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
     integrity sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=
   
+  escape-string-regexp@2.0.0, escape-string-regexp@^2.0.0:
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-2.0.0.tgz#a30304e99daa32e23b2fd20f51babd07cffca344"
+    integrity sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w==
+  
   escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
     version "1.0.5"
     resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
     integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
-  
-  escape-string-regexp@^2.0.0:
-    version "2.0.0"
-    resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-2.0.0.tgz#a30304e99daa32e23b2fd20f51babd07cffca344"
-    integrity sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w==
   
   escape-string-regexp@^4.0.0:
     version "4.0.0"
@@ -2616,6 +2671,11 @@ Lockfile:
     version "3.1.2"
     resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.1.2.tgz#2d3d48f9c346698fce83a85d7d664e98535df6e7"
     integrity sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==
+  
+  events@^3.2.0:
+    version "3.2.0"
+    resolved "https://registry.yarnpkg.com/events/-/events-3.2.0.tgz#93b87c18f8efcd4202a461aec4dfc0556b639379"
+    integrity sha512-/46HWwbfCX2xTawVfkKLGxMifJYQBWMwY1mjywRtb4c9x8l5NP3KoJtnIOiL1hfdRkIuYhETxQlo62IF8tcnlg==
   
   exec-sh@^0.3.2:
     version "0.3.4"
@@ -2658,6 +2718,14 @@ Lockfile:
       md5-file "^3.2.3"
       path-browserify "^1.0.0"
       url-parse "^1.4.4"
+  
+  expo-av@~8.6.0:
+    version "8.6.0"
+    resolved "https://registry.yarnpkg.com/expo-av/-/expo-av-8.6.0.tgz#ab434c05241c1dcdca0edd57acb03aa21a3e46cc"
+    integrity sha512-ZZJtCLCDigeDMu2fyv76Kyifu2quhTn6ViYjM2ku/HvFSvUxlb5kK9imuLog3kR+LRxeIiVS9F29r3PCOqI+rQ==
+    dependencies:
+      lodash "^4.17.15"
+      nullthrows "^1.1.0"
   
   expo-constants@~9.2.0:
     version "9.2.0"
@@ -2987,6 +3055,11 @@ Lockfile:
       locate-path "^5.0.0"
       path-exists "^4.0.0"
   
+  follow-redirects@^1.10.0:
+    version "1.13.1"
+    resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.1.tgz#5f69b813376cee4fd0474a3aba835df04ab763b7"
+    integrity sha512-SSG5xmZh1mkPGyKzjZP8zLjltIfpW32Y5QpdNJyjcfGxK3qo3NDDkZOZSFiGn1A6SclQxY9GzEwAHQ3dmYRWpg==
+  
   fontfaceobserver@^2.1.0:
     version "2.1.0"
     resolved "https://registry.yarnpkg.com/fontfaceobserver/-/fontfaceobserver-2.1.0.tgz#e2705d293e2c585a6531c2a722905657317a2991"
@@ -3308,7 +3381,7 @@ Lockfile:
       strip-ansi "^4.0.0"
       through "^2.3.6"
   
-  invariant@^2.2.2, invariant@^2.2.4:
+  invariant@2.2.4, invariant@^2.2.2, invariant@^2.2.4:
     version "2.2.4"
     resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
     integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
@@ -3752,6 +3825,11 @@ Lockfile:
     version "0.0.0"
     resolved "https://registry.yarnpkg.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
     integrity sha1-LHS27kHZPKUbe1qu6PUDYx0lKnM=
+  
+  keymirror@^0.1.1:
+    version "0.1.1"
+    resolved "https://registry.yarnpkg.com/keymirror/-/keymirror-0.1.1.tgz#918889ea13f8d0a42e7c557250eee713adc95c35"
+    integrity sha1-kYiJ6hP40KQufFVyUO7nE63JXDU=
   
   kind-of@^1.1.0:
     version "1.1.0"
@@ -4366,6 +4444,11 @@ Lockfile:
     dependencies:
       minimist "^1.2.5"
   
+  moment@^2.29.1:
+    version "2.29.1"
+    resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
+    integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
+  
   ms@2.0.0:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -4907,7 +4990,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.4.tgz#9090b290d1f91728d3c22e54843ca44aea5ab687"
     integrity sha512-A1kFqHekCTM7cz0udomYUoYNWjBebHm/5wzU/XqrBRBNWectVH0QIiN+NEcZ0Dte5hvzHwbr8+XQmguPhJ6WdQ==
   
-  query-string@^6.13.6:
+  query-string@^6.13.6, query-string@latest:
     version "6.13.7"
     resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.13.7.tgz#af53802ff6ed56f3345f92d40a056f93681026ee"
     integrity sha512-CsGs8ZYb39zu0WLkeOhe0NMePqgYdAuCqxOYKDR5LVCytDZYMGx3Bb+xypvQvPHVPijRXB0HZNFllCzHRe4gEA==
@@ -4985,6 +5068,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
     integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
   
+  react-moment@^1.0.0:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/react-moment/-/react-moment-1.0.0.tgz#aedac867cd08739065799de9452c898d954ba6d7"
+    integrity sha512-J4iIiwUT4oZcL7cp2U7naQKbQtqvmzGXXBMg/DLj+Pi7n9EW0VhBRx/1aJ1Tp2poCqTCAPoadLEoUIkReGnNNg==
+  
   react-native-drawer@2.5.1:
     version "2.5.1"
     resolved "https://registry.yarnpkg.com/react-native-drawer/-/react-native-drawer-2.5.1.tgz#08b9314184f48c724f1b467f8859797369798654"
@@ -5059,7 +5147,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-2.15.2.tgz#4bc7832d33a119306614efee667509672a7ee64e"
     integrity sha512-2hxLkBnZtEKFDyfvNO5EUywhy3f/EiLOBO8SWqKj4BMBTO0QwnybaPE5MVF00Fhz+VA4+h/iI40Dkrrtq70dGg==
   
-  react-native-vector-icons@^7.0.0:
+  react-native-vector-icons@^7.0.0, react-native-vector-icons@^7.1.0:
     version "7.1.0"
     resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-7.1.0.tgz#145487d617b2a81d395d2cf64e6e065fcab3a454"
     integrity sha512-V2a1zJ4i+kS8O4j183gIwX14St9AxxXabxwYpFBgRhvr2NDXyFcjHDEAgrOYYlt2W57e20aN1tBDU/I+wn9WtQ==
@@ -5072,6 +5160,15 @@ Lockfile:
       lodash.template "^4.5.0"
       prop-types "^15.7.2"
       yargs "^15.0.2"
+  
+  react-native-video@^5.1.0-alpha8:
+    version "5.1.0-alpha8"
+    resolved "https://registry.yarnpkg.com/react-native-video/-/react-native-video-5.1.0-alpha8.tgz#f0cb4cb2d74154b7916e68bef0f9b9cdcfe5f568"
+    integrity sha512-RRDSxqKe2F4OtiDWKCQlwVzvcsZ/TcWQdRxeAE3wsGBmFpAYFyhCz52QkFXgQQgYUuIK6Wd+j2lVxUoLp4+R2w==
+    dependencies:
+      keymirror "^0.1.1"
+      prop-types "^15.7.2"
+      shaka-player "^2.5.9"
   
   react-native-web@~0.13.12:
     version "0.13.18"
@@ -5087,6 +5184,21 @@ Lockfile:
       normalize-css-color "^1.0.2"
       prop-types "^15.6.0"
       react-timer-mixin "^0.13.4"
+  
+  react-native-webview@10.7.0:
+    version "10.7.0"
+    resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-10.7.0.tgz#b96e152ffdae4eeffaa74f43671a35733885b52d"
+    integrity sha512-4TSYwJqMBUTKB9+xqGbPwx+eLXbp6RRD7lQ2BumT8eSTfuuqr2rXNqcrlKU1VRla7QGGYowmYmxl2aXIx5k9wA==
+    dependencies:
+      escape-string-regexp "2.0.0"
+      invariant "2.2.4"
+  
+  react-native-youtube-iframe@^1.4.0:
+    version "1.4.0"
+    resolved "https://registry.yarnpkg.com/react-native-youtube-iframe/-/react-native-youtube-iframe-1.4.0.tgz#aa29d84ec1aa06b9700286f4360c8aef7ac40863"
+    integrity sha512-k6T5GT2EO+T5al165x+T5TVWSJ6/sF2iJPTOpxjgwpBNobYOIHq4/pJK08qYhTQIA4F+BSj7ElM6BQ2REjy5EQ==
+    dependencies:
+      events "^3.2.0"
   
   "react-native@https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz":
     version "0.63.2"
@@ -5488,6 +5600,13 @@ Lockfile:
     version "1.1.1"
     resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.1.1.tgz#7e95acb24aa92f5885e0abef5ba131330d4ae683"
     integrity sha512-JvdAWfbXeIGaZ9cILp38HntZSFSo3mWg6xGcJJsd+d4aRMOqauag1C63dJfDw7OaMYwEbHMOxEZ1lqVRYP2OAw==
+  
+  shaka-player@^2.5.9:
+    version "2.5.18"
+    resolved "https://registry.yarnpkg.com/shaka-player/-/shaka-player-2.5.18.tgz#5382d0b879ade01dc7cea5115d311d2168b7428a"
+    integrity sha512-kW6sNMl36E4ookOcAo7//D/+sNkKNw7kBCR58AAC0eYw+fpVXwUbFoN/aqsj5nhACZ00QGQQajTZXZyK1s8Dow==
+    dependencies:
+      eme-encryption-scheme-polyfill "^2.0.1"
   
   shebang-command@^1.2.0:
     version "1.2.0"

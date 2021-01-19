@@ -18,6 +18,10 @@ import LightStyles from "../../../globals/light-style";
 import ListAuthorsItem from "../../Authors/ListAuthorsItem/list-authors-item";
 import UserApi from "../../../api/userApi";
 import PaymentApi from "../../../api/paymentApi";
+
+import * as FileSystem from 'expo-file-system';
+import * as Permissions from 'expo-permissions';
+import * as MediaLibrary from 'expo-media-library';
 const CourseStudyService=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
@@ -31,8 +35,63 @@ const CourseStudyService=(props)=>{
     {
         themeStyle=LightStyles;
     }
+    console.log("Check in service props:",props.item);
     const {coursesBookmark,setCoursesBookmark}=useContext(BookmarkContext);
     const {authentication}=useContext(AuthenticationContext);
+
+    const [isMp4,setIsMp4]=useState(null);
+    const [iconDownloadTitle,setIconDownloadTitle]=useState("Download");
+    const [downloadProgress,setDownloadProgress]=useState(0);
+    const [isDownloaded,setIsDownloaded]=useState(false);
+    const [totalSize,setTotalSize]=useState(0);
+
+    const formatBytes=(bytes,decimals=2)=>{
+        if(bytes===0)
+        {
+            return '0 bytes';
+        }
+        const k=1024;
+        const dm=decimals<0?0:decimals;
+        const sizes=['Bytes','KB','MB','GB','TB','PB','EB','ZB','YB'];
+        const i=Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes/Math.pow(k,i)).toFixed(dm))+" "+sizes[i];
+    }
+    const saveFile = async (fileUri) => {
+        const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        if (status === "granted") {
+            const asset = await MediaLibrary.createAssetAsync(fileUri)
+            await MediaLibrary.createAlbumAsync("Download", asset, false)
+        }
+    } 
+    const download=async()=>{
+        setIconDownloadTitle("Downloading");
+        setIsDownloaded(true);
+        const callback = downloadProgress => {
+            setTotalSize(formatBytes(downloadProgress.totalBytesExpectedToWrite));
+            let progress = downloadProgress.totalBytesWritten / downloadProgress.totalBytesExpectedToWrite;
+            progress=progress.toFixed(2)*100;
+            setDownloadProgress(progress.toFixed(0));
+            
+        };
+          
+        const downloadResumable = FileSystem.createDownloadResumable(
+            props.item.promoVidUrl,
+            FileSystem.documentDirectory +"plsDDNC1712322_"+"Course_"+ props.item.id+"_"+props.item.title+".mp4",
+            {},
+            callback
+        ); 
+        try {
+            const { uri } = await downloadResumable.downloadAsync();
+
+            console.log('Finished downloading to ', uri);
+            saveFile(uri);
+            setIconDownloadTitle("Downloaded");
+            setIsDownloaded(false);
+          } catch (e) {
+            console.error(e);
+          } 
+                       
+    }
     const bookmark=async ()=>{
         const res=await UserApi.likeCourse(authentication,props.item.id);
         setBookmarkStatus(res.likeStatus);
@@ -100,7 +159,18 @@ const CourseStudyService=(props)=>{
         const res=await PaymentApi.getCourseInfo(props.item.id,authentication);
         setPaymentStatus(res.didUserBuyCourse);
     }
+
+    
     useEffect(()=>{
+        if(props.item.promoVidUrl!==null && props.item.promoVidUrl.includes(".mp4"))
+        {
+            setIsMp4(true);
+            console.log("Service check true mp4");
+        }
+        if(props.item.promoVidUrl!==null && !props.item.promoVidUrl.includes(".mp4"))
+        {
+            setIsMp4(false);
+        }
         if(bookmarkStatus===null)
         {
             getCourseLikeStatus();
@@ -126,7 +196,7 @@ const CourseStudyService=(props)=>{
                         />
                     </TouchableOpacity>
                     <View>
-                        <Text style={themeStyle.text}>Unbookmark</Text>
+                        <Text style={themeStyle.textSmall}>Unbookmark</Text>
                     </View>
                 </View>:
                 <View style={componentStyles.viewImage} >
@@ -137,7 +207,7 @@ const CourseStudyService=(props)=>{
                         />
                     </TouchableOpacity>
                     <View>
-                        <Text style={themeStyle.text}>Bookmark</Text>
+                        <Text style={themeStyle.textSmall}>Bookmark</Text>
                     </View>
                 </View>
 
@@ -154,7 +224,7 @@ const CourseStudyService=(props)=>{
 
                 </TouchableOpacity>
                 <View>
-                    <Text style={themeStyle.text}>Buy</Text>
+                    <Text style={themeStyle.textSmall}>Buy</Text>
                 </View>
             </View>
             :
@@ -167,10 +237,32 @@ const CourseStudyService=(props)=>{
 
                 </TouchableOpacity>
                 <View>
-                    <Text style={themeStyle.text}>Bought</Text>
+                    <Text style={themeStyle.textSmall}>Bought</Text>
                 </View>
             </View>
             
+            }
+            {isMp4===true?
+                <View style={componentStyles.viewImage} >
+                    <TouchableOpacity onPress={download} >
+                            <Image
+                                source={BuyIcon}
+                                style={componentStyles.image}
+                            />
+                    </TouchableOpacity>
+                    <View>
+                        {isDownloaded===true?
+                            <Text style={themeStyle.textSmall}>{`${iconDownloadTitle} ${downloadProgress}%`}</Text>
+                            :
+                            <Text style={themeStyle.textSmall}>{iconDownloadTitle}</Text>
+
+                        }
+                        
+                    </View>
+                </View>
+                :
+                <View></View>
+
             }
             
         </View>

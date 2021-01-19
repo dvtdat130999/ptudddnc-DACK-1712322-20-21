@@ -27,6 +27,10 @@ const LightStyles = StyleSheet.create({
     text:{
         color:'black',
     },
+    textSmall:{
+        color:'black',
+        fontSize:10
+    },
     textBold:{
         color:'black',
         fontWeight:'bold'
