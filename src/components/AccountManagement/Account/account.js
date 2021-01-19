@@ -1,6 +1,7 @@
 import React, {Component, useContext,useState,useEffect} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,
     TouchableHighlight,Dimensions ,SectionList,FlatList,TouchableOpacity,ActivityIndicator } from 'react-native';
+import {navigationName} from "../../../globals/constants";
 
 import styles from "../../../globals/styles"
 import {ThemeContext} from "../../../provider/theme-provider";
@@ -62,6 +63,12 @@ const Account=(props)=>{
         setCategory(response.payload);
     }
     const updateProfile=()=>{
+        props.navigation.navigate(navigationName.UpdateProfile,{
+            user:user,
+            navigation:props.navigation
+
+        })
+
         console.log("Update profile")
     }
     useEffect(()=>{
@@ -107,7 +114,11 @@ const Account=(props)=>{
                         :
                         <View></View>                   
                     }
-                    
+                    {user && user.phone ? 
+                        <Text style={themeStyle.text}>{`Phone: ${user.phone}`}</Text>
+                        :
+                        <View></View>                   
+                    }
                 </View>
                 <View style={styles.space}/>
                 <View>

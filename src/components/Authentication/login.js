@@ -189,20 +189,7 @@ const Login=(props)=>{
                         </View>
                     </TouchableHighlight>
                     <View style={styles.space}/>
-                    <TouchableHighlight >
-                        <View style={themeStyle.buttonLight}>
-                            <Text  style={themeStyle.textLightButton}>Need help?</Text>
-                        </View>
-                    </TouchableHighlight>
-
-                    <View style={styles.space}/>
-
-                    <TouchableHighlight >
-                        <View style={themeStyle.buttonLight}>
-                            <Text style={themeStyle.textLightButton}>Use Single Sign-On(SSO)</Text>
-                        </View>
-                    </TouchableHighlight>
-                    <View style={styles.space}/>
+                    
 
 
 

@@ -86,26 +86,8 @@ const Setting=(props)=>{
                   </View>
               </TouchableOpacity>
 
-              <TouchableOpacity
-                  style={{borderBottomColor: 'gray',
-                      borderBottomWidth: 1,}}
-                  onPress={subcription}
-              >
-                  <View style={{marginTop:10,marginBottom:10}}>
-                      <Text style={themeStyle.textMedium}>Subcription</Text>
-
-                  </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                  style={{borderBottomColor: 'gray',
-                      borderBottomWidth: 1,}}
-                  onPress={communication}
-              >
-                  <View style={{marginTop:10,marginBottom:10}}>
-                      <Text style={themeStyle.textMedium}>Communication Preferences</Text>
-
-                  </View>
-              </TouchableOpacity>
+              
+              
               <TouchableOpacity
                   style={{borderBottomColor: 'gray',
                       borderBottomWidth: 1,}}
@@ -116,49 +98,10 @@ const Setting=(props)=>{
 
                   </View>
               </TouchableOpacity>
-              <TouchableOpacity
-                  style={{borderBottomColor: 'gray',
-                      borderBottomWidth: 1,}}
-                  onPress={requireWiFiStreaming}
-
-              >
-                  <View style={{marginTop:10,marginBottom:10}}>
-                      <Text style={themeStyle.textMedium}>Require Wi-Fi for streaming</Text>
-
-                  </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                  style={{borderBottomColor: 'gray',
-                      borderBottomWidth: 1,}}
-                  onPress={requireWiFiDownload}
-
-              >
-                  <View style={{marginTop:10,marginBottom:10}}>
-                      <Text style={themeStyle.textMedium}>Require Wi-Fi for downloading</Text>
-
-                  </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                  style={{borderBottomColor: 'gray',
-                      borderBottomWidth: 1,}}
-                  onPress={sendFeedback}
-
-              >
-                  <View style={{marginTop:10,marginBottom:10}}>
-                      <Text style={themeStyle.textMedium}>Send feedback</Text>
-
-                  </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                  style={{borderBottomColor: 'gray',
-                      borderBottomWidth: 1,}}
-                  onPress={support}
-
-              >
-                  <View style={{marginTop:10,marginBottom:10}}>
-                      <Text style={themeStyle.textMedium}>Contact support</Text>
-                  </View>
-              </TouchableOpacity>
+              
+              
+              
+              
 
 
               <TouchableHighlight style={{marginTop:40}} onPress={signOut} >

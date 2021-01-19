@@ -51,6 +51,7 @@ import CourseApi from "./src/api/courseApi";
 import UserApi from "./src/api/userApi";
 import ListDownloadItemVideo from "./src/components/Main/Download/list-download-item-video";
 import ListDownload from "./src/components/Main/Download/list-download";
+import UpdateProfile from "./src/components/AccountManagement/UpdateProfile/update-profile";
 const MainStack = createStackNavigator();
 const AfterLoginStack = createStackNavigator();
 const MyCoursesStack=createStackNavigator();
@@ -102,6 +103,8 @@ const HomeNavigation=()=>{
 
             <HomeStack.Screen name={navigationName.CourseStudy} component={CourseStudy} />
             <HomeStack.Screen name={navigationName.Setting} component={Setting} />
+            <HomeStack.Screen name={navigationName.UpdateProfile} component={UpdateProfile} />
+
             <HomeStack.Screen name={navigationName.Account} component={Account} />
             <HomeStack.Screen name={navigationName.Theme} component={ChangeThemes} />
             <HomeStack.Screen name={navigationName.RelatedPathsAndCourses} component={RelatedPathsAndCourses} options={{title:'Related'}}/>

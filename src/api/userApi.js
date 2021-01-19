@@ -82,6 +82,18 @@ const UserApi = {
         const url=`/user/recommend-course/${userId}/${limit}/${offset}`;
         const response=await axiosClient.get(url);
         return response;
+    },
+    updateProfile:async(token,name,avatar,phone)=>{
+        const url="user/update-profile";
+        const payload={
+            name:name,
+            avatar:avatar,
+            phone:phone
+        }
+        const response=await axiosClient.put(url,payload,{
+            headers:{Authorization:`Bearer ${token}`}
+        });
+        return response;
     }
 };
 export default UserApi;

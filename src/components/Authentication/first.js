@@ -91,17 +91,7 @@ const First=(props)=>{
                 </View>
             </TouchableHighlight>
             <View style={styles.space} />
-            <TouchableHighlight >
-                <View style={themeStyle.buttonLight}>
-                    <Text style={themeStyle.textLightButton}>Subscribe to Pluralsight</Text>
-                </View>
-            </TouchableHighlight>
-            <View style={styles.space} />
-            <TouchableHighlight >
-                <View style={themeStyle.buttonLight}>
-                    <Text style={themeStyle.textLightButton}>Explore without a subscription</Text>
-                </View>
-            </TouchableHighlight>
+            
         </View>
         </ScrollView>
     );

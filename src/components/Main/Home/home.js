@@ -36,15 +36,9 @@ const Home=(props)=>{
             navigation:props.navigation,
         });
     }
-    const params={
-        limit:20,
-        page:1
-    };
+    
      
-    const getAllCourse=async()=>{
-        const res=await CourseApi.topSell(params);
-        setAllCourses(res.payload);
-    }
+    
     const {authentication}=useContext(AuthenticationContext);
     const {coursesBookmark,setCoursesBookmark}=useContext(BookmarkContext);
     const [allCourses,setAllCourses]=useState([]);
@@ -53,42 +47,18 @@ const Home=(props)=>{
     const [search,setSearch]=useState([]);
     const [beforeDetail,setBeforeDetail]=useState([]);
     const [first,setFirst]=useState(true);
+    
     useEffect(()=>{
-        if(search.length!==0)
+        if(first===true)
         {
-            console.log("After detail:");
-            console.log(search);
+            const update=async()=>{
+                const avatar="https://c7.uihere.com/files/592/884/975/programmer-computer-programming-computer-software-computer-icons-programming-language-avatar.jpg";
+                const res=await UserApi.updateProfile(authentication,"Doan Vu Tien Dat",avatar,"012386313231");
+                console.log("Check res update profile:",res);
+            }
+            update();
             setFirst(false);
-        }
-        if(beforeDetail.length===0)
-        {
-            const getSearchResult=async()=>{
-                const res=await CourseApi.searchByKeyword("java");
-                
-                setBeforeDetail(res.payload.rows);
-            }
-            getSearchResult();
-
-        }
-        if(search.length===0 && beforeDetail.length!==0)
-        {
-            const getDetail=async()=>{
-                for(let i=0;i<beforeDetail.length;i++)
-                {
-                    let course=beforeDetail[i];
-                    const detail=await CourseApi.courseDetailWithLesson(course.id,authentication);
-                    console.log("Check detail in loop:",detail);
-                    let temp=search;
-                    temp=temp.concat(detail.payload);
-                    setSearch(search.concat(detail.payload));
-
-                }
-            }
-            getDetail();
-
-           
-            
-        }
+        }    
         
         
     })
