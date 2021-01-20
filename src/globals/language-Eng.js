@@ -59,5 +59,7 @@ export const languageEng={
     Delete:"Delete",
     Course:"Course",
     CourseStudy:"Detail course",
+    CopyToClipboard:"Copy to Clipboard",
+    CopyToClipboardSuccess:"Copy to Clipboard successfully",
     
 }

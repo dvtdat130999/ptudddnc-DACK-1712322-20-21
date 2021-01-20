@@ -46,12 +46,7 @@ const SectionCourses=(props)=>{
         })
     };
     const [DATA,setDATA]=useState([]);
-    // if(props.data)
-    // {
-    //     console.log("Data received from home");
-    //     console.log(DATA);
-    //     DATA=props.data;
-    // }
+    
     
     
     

@@ -43,19 +43,7 @@ const SectionCoursesBookmarkItem=(props)=>{
         }
     })
 
-    // const [uri,setUri]=useState(null);
-    // useEffect(()=>{
-    //     if(uri===null)
-    //     {
-    //         if(props.item.imageUrl)
-    //         {
-    //             setUri(props.item.imageUrl);
-    //         }
-    //         else{
-    //             setUri(OnlineCourse);
-    //         }
-    //     }
-    // })
+  
     return (
 
         <TouchableOpacity style={themeStyle.sectionCourseItem} onPress={onPress}>
@@ -65,13 +53,7 @@ const SectionCoursesBookmarkItem=(props)=>{
 
             
         }
-            {/* {bookmarked ?
-                <CourseReadInfo item={props.item.course}/>
-                :
-                <CourseReadInfo item={props.item}/>
-
-
-            } */}
+            
             <Text style={themeStyle.text}>{props.item.courseTitle}</Text>
             <Text style={themeStyle.text}>{props.item.instructorName}</Text>
 

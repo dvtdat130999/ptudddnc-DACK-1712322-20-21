@@ -60,5 +60,7 @@ export const languageViet={
     Delete:"Xóa",
     Course:"Khóa học",
     CourseStudy:"Chi tiết khóa học",
+    CopyToClipboard:"Copy to Clipboard",
+    CopyToClipboardSuccess:"Copy to Clipboard thành công",
 
 }

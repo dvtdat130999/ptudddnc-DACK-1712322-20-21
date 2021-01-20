@@ -20,24 +20,7 @@ const AuthorDetailInfo=(props)=>{
     {
         themeStyle=LightStyles;
     }
-    // const [item,setItem]=useState(null);
-    // const [navigation,setNavigation]=useState(null);
-    // useEffect(()=>{
-    //     if(item===null)
-    //     {
-    //         if(props.route.params.instructor)
-    //         {
-    //             setItem(props.route.params.instructor);
-    //         }
-    //     }
-    //     if(navigation===null)
-    //     {
-    //         if(props.route.params.navigation)
-    //         {
-    //             setNavigation(props.route.params.navigation);
-    //         }
-    //     }
-    // })
+    
     return(
         <View style={themeStyle.author}>
             <Image source={{uri:props.item["user.avatar"]}} style={{height:400,width:'100%'}}/>

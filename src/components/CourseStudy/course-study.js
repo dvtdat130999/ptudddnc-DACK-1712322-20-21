@@ -1,6 +1,9 @@
 import React, {Component, useContext,useState,useEffect} from 'react';
-import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,Button } from 'react-native';
+import { StyleSheet,View, Text, Image, ScrollView, 
+    TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,Button,TouchableOpacity } from 'react-native';
 // import { Video } from 'expo-av';
+import Clipboard from 'expo-clipboard';
+
 import { Video } from 'expo-video'; 
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import CourseIntroduction from "./CourseIntroduction/course-introduction";
@@ -55,7 +58,12 @@ const CourseStudy=(props)=>{
         
     };
 
-    
+    const copyToClipboard=()=>{
+        const averagePoint=Math.round((item.formalityPoint + item.presentationPoint + item.contentPoint)/3);
+        let courseInfo=`Course name: ${item.title}\nInstructor: ${item["instructor.user.name"]}\nTotal hours: ${item.totalHours}\nContent: ${item.description}\nAverage point: ${averagePoint}`;
+        Clipboard.setString(courseInfo);
+        alert(changeLanguage.CopyToClipboardSuccess);
+    }
     useEffect(()=>{
         console.log("Check course:",props.route.params.item);
 
@@ -137,6 +145,13 @@ const CourseStudy=(props)=>{
 
                 <Text style={themeStyle.textMedium}>{changeLanguage.Contents}</Text>
                 {renderLearning()}
+                <View style={styles.space}/>
+                <View style={styles.space}/>
+                <TouchableOpacity style={themeStyle.related} onPress={copyToClipboard}>
+                    <Text style={themeStyle.text}>
+                        {changeLanguage.CopyToClipboard}
+                    </Text>
+                </TouchableOpacity>
                 <View style={styles.space}/>
                 <View style={styles.space}/>
                 <CourseStudyTab.Navigator

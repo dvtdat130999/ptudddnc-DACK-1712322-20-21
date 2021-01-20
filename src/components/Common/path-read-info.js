@@ -20,11 +20,7 @@ const PathReadInfo=(props)=>{
     {
         themeStyle=LightStyles;
     }
-    /*console.log("Check props course read info");
-
-    console.log(props);
-    console.log("Check props.item course read info");
-    console.log(props.item);*/
+   
 
 
     return(

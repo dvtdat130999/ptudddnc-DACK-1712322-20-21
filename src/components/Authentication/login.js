@@ -66,22 +66,7 @@ const Login=(props)=>{
 
     const {userList,setUserList}=useContext(UserContext);
     const validateUser=(message)=>{
-        // if(username===user)
-        // {
-        //     if(password===pass)
-        //     {
-        //         setMessage("Login is success");
-        //         return true;
-        //     }
-        //     else
-        //     {
-        //         setMessage("Password is not correct");
-        //         return false;
-        //     }
-        // }
-        // setMessage("Username is not existed");
-
-        // return false;
+        
         if(message==="OK")
         {
             setMessage(changeLanguage.LoginSuccess);
@@ -112,17 +97,7 @@ const Login=(props)=>{
             }
     }
     const onPressLogin=async()=>{
-        //setStatus(login(username,password));
-        //setTimeout(()=>{console.log("Check is success");},100);
-        //console.log(isSuccess);
-        // userList.map((item,i)=>{
-        //     if(validateUser(item.username,item.password))
-        //     {
-        //         setAuthentication(item);
-        //         props.navigation.navigate(navigationName.AfterLogin)
-
-        //     }
-        // })
+        
         const res=await UserApi.login(email,password);
         console.log("Check res");
         console.log(res.message);

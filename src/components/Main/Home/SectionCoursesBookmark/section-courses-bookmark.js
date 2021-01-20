@@ -39,12 +39,7 @@ const SectionCoursesBookmark=(props)=>{
     const {coursesBookmark}=useContext(BookmarkContext);
     
     useEffect(()=>{
-        // if(DATA!==coursesBookmark)
-        // {
-        //     setDATA(coursesBookmark);
-        //     console.log("Check courses bookmark in section courses bookmark");
-        //     console.log(coursesBookmark);
-        // }
+        
         const getFavoriteCoursesUser=async()=>{
             const res=await UserApi.getFavoriteCourses(authentication);
             

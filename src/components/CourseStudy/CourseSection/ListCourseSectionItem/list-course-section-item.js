@@ -36,10 +36,7 @@ const ListCourseSectionItem=(props)=>{
             </View>
             <Text style={themeStyle.titleSmall}>{props.item.name}</Text>
 
-            {/* <View style={{flexDirection:'column',marginLeft:10}}>
-                <Text style={themeStyle.text}>{item.length}</Text>
-
-            </View> */}
+           
         </TouchableOpacity>
 
     );

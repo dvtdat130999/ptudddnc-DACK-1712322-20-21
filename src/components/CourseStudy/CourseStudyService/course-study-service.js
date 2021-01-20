@@ -133,15 +133,7 @@ const CourseStudyService=(props)=>{
         else{
             Alert.alert("This course is not free");
         }
-        // if(res.message!=="OK")
-        // {
-        //     Alert.alert("This course is not free");
-        // }
-        // else
-        // {
-        //     console.log("Khong cho mua");
-        //     Alert.alert("This course is not free");
-        // }
+        
         
     };
     const bought=()=>{

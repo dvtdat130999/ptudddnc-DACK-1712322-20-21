@@ -57,13 +57,7 @@ const SectionCoursesItem=(props)=>{
 
             
         }
-            {/* {bookmarked ?
-                <CourseReadInfo item={props.item.course}/>
-                :
-                <CourseReadInfo item={props.item}/>
-
-
-            } */}
+           
                 <CourseReadInfo item={props.item}/>
 
         </TouchableOpacity>

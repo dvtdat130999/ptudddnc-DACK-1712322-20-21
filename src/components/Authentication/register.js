@@ -127,10 +127,6 @@ const Register=(props)=>{
         
         
         
-        /*let users=userList;
-        users=users.concat(user);
-        setUserList(users);
-        props.navigation.navigate(navigationName.Login)*/
     };
     const onPressLogin=()=>{
         props.navigation.navigate(navigationName.Login)

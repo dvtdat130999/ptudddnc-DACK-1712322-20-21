@@ -8,16 +8,7 @@ import {navigationName} from "../../../../globals/constants";
 import PathReadInfo from "../../../Common/path-read-info";
 import ImageButton from "../../../Common/image-button";
 const SectionCategoriesItem=(props)=>{
-    /*const onPress=()=>{
-        props.navigation.navigate(navigationName.ListCourses,{
-            category:props.item,
-            navigation:props.navigation,
-            message:"Message from section category to list courses",
-
-
-        })
-    }*/
-   
+    
     return (
        <View style={styles.sectionCategoriesItem} >
 
@@ -26,17 +17,7 @@ const SectionCategoriesItem=(props)=>{
 
 
         </View>
-        /*<ImageBackground source={{uri:'https://static.vecteezy.com/system/resources/previews/000/622/344/original/beautiful-background-of-lines-with-gradients-vector.jpg'}}
-                         style={styles.sectionCategoriesItem}
-        >
-            <TouchableOpacity style={styles.imageButtonTouch}
-                                  onPress={onPress}
-                >
-                    <Text style={styles.imageButtonText}>
-                        {props.item.name}
-                    </Text>
-                </TouchableOpacity>
-        </ImageBackground>*/
+        
     );
 }
 

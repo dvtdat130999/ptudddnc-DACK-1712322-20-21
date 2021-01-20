@@ -7,16 +7,11 @@ import LightStyles from "../../globals/light-style";
 import {navigationName} from "../../globals/constants";
 import {ThemeContext} from "../../provider/theme-provider";
 import {themes} from "../../globals/themes";
-import InstructorApi from "../../api/instructorApi";
-import CourseApi from "../../api/courseApi";
-import CategoryApi from "../../api/categoryApi";
-import UserApi from "../../api/userApi";
-import axios from "axios";
+
 import {AuthenticationContext} from "../../provider/authentication-provider";
 import {CoursesContext} from "../../provider/courses-provider";
 import {LanguageContext} from "../../provider/language-provider";
-import * as Permissions from 'expo-permissions';
-import * as MediaLibrary from 'expo-media-library';
+
 const First=(props)=>{
     const {listCourses}=useContext(CoursesContext);
     const {changeLanguage}=useContext(LanguageContext);
@@ -44,29 +39,6 @@ const First=(props)=>{
     }
    
     
-    // useEffect(()=>{
-    //     if(downloadList.length!==0)
-    //     {
-    //         console.log("Check length download list:",downloadList.length);
-    //         console.log("Check download list:",downloadList);
-    //     }
-    //     if(downloadList.length===0)
-    //     {
-    //         const onCheck=async()=>{
-    //             const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    //             if(status==='granted')
-    //             {
-    //                 const res=await MediaLibrary.getAssetsAsync({
-    //                     mediaType:MediaLibrary.MediaType.video
-    //                   });
-    //                   setDownloadList(res.assets);
-    //                   console.log("Check res");
-    //             }
-                
-    //         }
-    //         onCheck();
-    //     }
-    // })
    
     return(
         <ScrollView style={{backgroundColor:changeTheme.background,flex:1}}>
