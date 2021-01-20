@@ -1,6 +1,7 @@
 import React, {Component, useContext,useState,useEffect} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,Button } from 'react-native';
-import { Video } from 'expo-av';
+// import { Video } from 'expo-av';
+import { Video } from 'expo-video'; 
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import CourseIntroduction from "./CourseIntroduction/course-introduction";
 import {themes} from "../../globals/themes";
@@ -8,6 +9,8 @@ import DarkStyles from "../../globals/dark-style";
 import LightStyles from "../../globals/light-style";
 import styles from "../../globals/styles";
 import {ThemeContext} from "../../provider/theme-provider";
+import {LanguageContext} from "../../provider/language-provider";
+
 import CourseApi from "../../api/courseApi";
 import ListCourseSection from "./CourseSection/ListCourseSection/list-course-section";
 import ListComment from "../CourseStudy/Comment/list-comment";
@@ -17,6 +20,7 @@ const CourseStudyTab=createMaterialTopTabNavigator();
 const CourseStudy=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle=null;
+    let {changeLanguage}=useContext(LanguageContext);
 
     if(changeTheme===themes.dark)
     {
@@ -27,14 +31,15 @@ const CourseStudy=(props)=>{
     {
         themeStyle=LightStyles;
     }
-  
-
+    
+    // const videoRef = useRef(Video)(null);
     const [item,setItem]=useState(props.route.params.item);
     const [navigation,setNavigation]=useState(props.route.params.navigation);
     const [learning,setLearning]=useState([]);
     const [courseSection,setCourseSection]=useState(null);
     const [isYoutube,setIsYoutube]=useState(false);
     const [isMp4,setIsMp4]=useState(false);
+    const [videoProgress,setVideoProgress]=useState(0);
     const [tabBarBackground,setTabBarBackground]=useState(null);
     const [tabBarLabelColor,setTabBarLabelColor]=useState(null);
     props.navigation.setOptions({title:item.title});
@@ -49,7 +54,11 @@ const CourseStudy=(props)=>{
         return res.payload.section;
         
     };
+
+    
     useEffect(()=>{
+        console.log("Check course:",props.route.params.item);
+
         if(tabBarBackground===null)
         {
             if(themeStyle===DarkStyles)
@@ -79,7 +88,6 @@ const CourseStudy=(props)=>{
         if(item===null)
         {
             setItem(props.route.params.item);
-            console.log("Check course:",props.route.params.item);
         }
         if(navigation===null)
         {
@@ -95,6 +103,8 @@ const CourseStudy=(props)=>{
             let section=getCourseSection();
             setCourseSection(section);
         }
+
+       
     })
     return(
         <ScrollView>
@@ -109,6 +119,9 @@ const CourseStudy=(props)=>{
                     useNativeControls
                     shouldPlay={false}
                     isLooping={false}
+                    // onProgress={onProgress}
+                    // ref={videoRef}
+                    // positionMillis={6000}
                     style={{ width: width, height: height/3 }}
                 />
                 :
@@ -122,7 +135,7 @@ const CourseStudy=(props)=>{
                 <View style={styles.space}/>
                 <View style={styles.space}/>
 
-                <Text style={themeStyle.textMedium}>Contents</Text>
+                <Text style={themeStyle.textMedium}>{changeLanguage.Contents}</Text>
                 {renderLearning()}
                 <View style={styles.space}/>
                 <View style={styles.space}/>
@@ -159,11 +172,7 @@ const CourseStudy=(props)=>{
                                                 />}
                     </CourseStudyTab.Screen>
                 </CourseStudyTab.Navigator>
-                {/* <Text style={themeStyle.textMedium}>Section</Text>
-                <ListCourseSection navigation={navigation} courseId={item.id} instructorId={item.instructorId}/>
-                 */}
                 
-                {/* <ListLessons navigation={navigation} item={item}/> */}
 
             </View>
         </ScrollView>

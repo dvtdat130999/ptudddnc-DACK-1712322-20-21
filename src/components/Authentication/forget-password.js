@@ -3,14 +3,18 @@ import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,
 
 import styles from "../../globals/styles";
 import {ThemeContext} from "../../provider/theme-provider";
+import {LanguageContext} from "../../provider/language-provider";
+
 import DarkStyles from "../../globals/dark-style";
 import LightStyles from "../../globals/light-style";
 import {themes} from "../../globals/themes";
 import {navigationName} from "../../globals/constants";
+
 import UserApi from "../../api/userApi";
 const ForgetPassword=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
+    const {changeLanguage}=useContext(LanguageContext);
 
     if(changeTheme===themes.dark)
     {
@@ -47,14 +51,14 @@ const ForgetPassword=(props)=>{
 
                 <View style={componentStyle.titleView}>
                     <Text style={themeStyle.title} >
-                        Forget Password
+                        {changeLanguage.ForgetPassword}
                     </Text>
                 </View>
 
 
             </View>
             <View style={{flex: 10}}>
-                <Text style={themeStyle.textMedium}>Email</Text>
+                <Text style={themeStyle.textMedium}>{changeLanguage.Email}</Text>
 
                 <TextInput style={styles.input} defaultValue="" onChangeText={text=>{setEmail(text)}}></TextInput>
 
@@ -74,7 +78,7 @@ const ForgetPassword=(props)=>{
                 <TouchableHighlight onPress={sendMail} >
 
                     <View style={themeStyle.button}>
-                        <Text style={themeStyle.textButton}>Send new password</Text>
+                        <Text style={themeStyle.textButton}>{changeLanguage.SendNewPassword}</Text>
                     </View>
                 </TouchableHighlight>
                 <View style={styles.space}/>
@@ -82,7 +86,7 @@ const ForgetPassword=(props)=>{
                 <TouchableHighlight onPress={onPressLogin}>
                     <View style={{alignItems:'center'}}>
                         <Text style={{color:'dodgerblue'}}>
-                            Login
+                            {changeLanguage.Login}
                         </Text>
                     </View>
                 </TouchableHighlight>

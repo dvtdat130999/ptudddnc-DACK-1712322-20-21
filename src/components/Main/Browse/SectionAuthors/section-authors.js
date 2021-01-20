@@ -5,6 +5,8 @@ import {authors} from"../../../../data/authors"
 import styles from "../../../../globals/styles";
 import SectionAuthorsItem from "../SectionAuthorsItem/section-authors-item";
 import {ThemeContext} from "../../../../provider/theme-provider";
+import {LanguageContext} from "../../../../provider/language-provider";
+
 import {themes} from "../../../../globals/themes";
 import DarkStyles from "../../../../globals/dark-style";
 import LightStyles from "../../../../globals/light-style";
@@ -12,6 +14,8 @@ import {navigationName} from "../../../../globals/constants";
 import InstructorApi from "../../../../api/instructorApi";
 const SectionAuthors=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
+    let {changeLanguage}=useContext(LanguageContext);
+
     let themeStyle;
     const [isLoading,setIsLoading]=useState(true);
 
@@ -64,7 +68,7 @@ const SectionAuthors=(props)=>{
             }}>
                 <Text style={themeStyle.title}>{props.title}</Text>
                 <TouchableHighlight style={{marginRight:20}} onPress={seeAll}>
-                    <Text style={themeStyle.textMedium}>See all</Text>
+                    <Text style={themeStyle.text}>{changeLanguage.SeeAll}</Text>
 
                 </TouchableHighlight>
             </View>

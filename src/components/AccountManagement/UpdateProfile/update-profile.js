@@ -11,10 +11,13 @@ import {themes} from "../../../globals/themes";
 import {navigationName} from "../../../globals/constants";
 import UserApi from "../../../api/userApi";
 import axios from "axios";
+import {LanguageContext} from "../../../provider/language-provider";
+
 const UpdateProfile=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     const {authentication}=useContext(AuthenticationContext);
     let themeStyle;
+    const {changeLanguage}=useContext(LanguageContext);
 
     if(changeTheme===themes.dark)
     {
@@ -143,7 +146,7 @@ const UpdateProfile=(props)=>{
 
             <View style={componentStyle.titleView}>
                 <Text style={themeStyle.title} >
-                    Update Profile
+                    {changeLanguage.UpdateProfile}
                 </Text>
             </View>
 
@@ -156,19 +159,19 @@ const UpdateProfile=(props)=>{
                     <Image source={{uri:avatar}} style={{height:200,width:200}}/>
 
                 }
-                <Text style={themeStyle.text}>Click to choose your new avatar</Text>
+                <Text style={themeStyle.text}>{changeLanguage.ChooseAvatar}</Text>
 
             </TouchableOpacity>
             <View style={{marginTop:20}}>
                 <View>
-                    <Text style={themeStyle.textMedium}>Name</Text>
+                    <Text style={themeStyle.textMedium}>{changeLanguage.Name}</Text>
 
                     <TextInput style={styles.input} defaultValue={name} onChangeText={text=>{setName(text)}}></TextInput>
 
                 </View>
                 
                 <View style={{marginTop:20}}>
-                    <Text style={themeStyle.textMedium}>Phone</Text>
+                    <Text style={themeStyle.textMedium}>{changeLanguage.Phone}</Text>
 
                     <TextInput style={styles.input} defaultValue={phone} onChangeText={text=>{setPhone(text)}}></TextInput>
 
@@ -177,7 +180,7 @@ const UpdateProfile=(props)=>{
                 <TouchableHighlight onPress={updateProfile} style={{marginTop:30}} >
 
                     <View style={themeStyle.button}>
-                        <Text style={themeStyle.textButton}>Update</Text>
+                        <Text style={themeStyle.textButton}>{changeLanguage.Update}</Text>
                     </View>
                 </TouchableHighlight>
                 <View style={styles.space}/>

@@ -6,6 +6,7 @@ import styles from "../../../globals/styles";
 
 import {ThemeContext} from "../../../provider/theme-provider";
 import {AuthenticationContext} from "../../../provider/authentication-provider";
+import {LanguageContext} from "../../../provider/language-provider";
 
 import {themes} from "../../../globals/themes";
 import DarkStyles from "../../../globals/dark-style";
@@ -15,7 +16,7 @@ const Rating=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
     const {authentication}=useContext(AuthenticationContext);
-
+    const {changeLanguage}=useContext(LanguageContext);
     if(changeTheme===themes.dark)
     {
 
@@ -50,19 +51,19 @@ const Rating=(props)=>{
     return(
         <ScrollView style={{backgroundColor:changeTheme.background}}>
             { isLoading && <ActivityIndicator size="large" color="red"/> }
-            <Text style={themeStyle.textBold}>Comment</Text>
+            <Text style={themeStyle.textBold}>{changeLanguage.Comment}</Text>
             <TextInput style={styles.input} defaultValue={comment} onChangeText={text=>{setComment(text)}}></TextInput>
             <View style={styles.space}/>
 
-            <Text style={themeStyle.textBold}>Formality Point</Text>
+            <Text style={themeStyle.textBold}>{changeLanguage.FormalityPoint}</Text>
             <TextInput style={styles.input} keyboardType='numeric' defaultValue={formalityPoint} onChangeText={text=>{setFormalityPoint(text)}}></TextInput>
             <View style={styles.space}/>
 
-            <Text style={themeStyle.textBold}>Presentation Point</Text>
+            <Text style={themeStyle.textBold}>{changeLanguage.PresentationPoint}</Text>
             <TextInput style={styles.input} keyboardType='numeric' defaultValue={presentationPoint} onChangeText={text=>{setPresentationPoint(text)}}></TextInput>
             <View style={styles.space}/>
 
-            <Text style={themeStyle.textBold}>Content Point</Text>
+            <Text style={themeStyle.textBold}>{changeLanguage.ContentPoint}</Text>
             <TextInput style={styles.input} keyboardType='numeric' defaultValue={contentPoint} onChangeText={text=>{setContentPoint(text)}}></TextInput>
             <View style={styles.space}/>
             <View style={styles.space}/>
@@ -70,7 +71,7 @@ const Rating=(props)=>{
             <TouchableHighlight onPress={rating}>
 
                 <View style={themeStyle.buttonSmall}>
-                    <Text style={themeStyle.textButtonSmall}>Rating</Text>
+                    <Text style={themeStyle.textButtonSmall}>{changeLanguage.Rating}</Text>
                 </View>
             </TouchableHighlight>
             

@@ -9,14 +9,18 @@ import {navigationName} from "../../globals/constants";
 import {themes} from "../../globals/themes";
 import {UserContext} from "../../provider/users-provider";
 import UserApi from "../../api/userApi";
+import {LanguageContext} from "../../provider/language-provider";
+
 const Register=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
-    const [username,setUsername]=useState("");
-    const [email,setEmail]=useState("");
-    const [password,setPassword]=useState("");
-    const [phone,setPhone]=useState("");
-    const [rePassword,setRePassword]=useState("");
-    const [message,setMessage]=useState("");
+    const {changeLanguage}=useContext(LanguageContext);
+
+    const [username,setUsername]=useState(null);
+    const [email,setEmail]=useState(null);
+    const [password,setPassword]=useState(null);
+    const [phone,setPhone]=useState(null);
+    const [rePassword,setRePassword]=useState(null);
+    const [message,setMessage]=useState(null);
     const renderMessage=(message)=>{
         if(!message){
             return <View/>
@@ -64,50 +68,62 @@ const Register=(props)=>{
         console.log("Dang validate register");
         if(message==="OK")
         {
-            setMessage("Register is success");
+            setMessage(changeLanguage.RegisterSuccess);
             return true;
         }
         else 
         {
             console.log("Validate dang ky that bai");
 
-            setMessage("Email or phone is existed");
+            setMessage(changeLanguage.RegisterFailed);
 
         }
         return false;
 
     }
     const onPressRegister= async () => {
-        if(rePassword!==password)
-        {
-            setMessage("You must re-type password correctly.");
-        }
+        if(username===null ||
+            password===null ||
+            rePassword===null ||
+            phone===null ||
+            email===null)
+            {
+                setMessage(changeLanguage.RegisterRequest)
+            }
         else
         {
-            let user = {
-                username: username,
-                phone: phone,
-                email: email,
-                password: password,
-    
-            };
-            const response = await UserApi.register(user);
-            console.log(response);
-            if(response.message)
+            if(rePassword!==password)
             {
-                if(validateRegister(response.message))
-                {
-                    props.navigation.navigate(navigationName.Login);
-
-                }
+                setMessage(changeLanguage.RegisterFailedRepassword);
             }
             else
             {
-                console.log("Vao day")
-                setMessage("Email or phone is existed");
-
+                let user = {
+                    username: username,
+                    phone: phone,
+                    email: email,
+                    password: password,
+        
+                };
+                const response = await UserApi.register(user);
+                console.log(response);
+                if(response.message)
+                {
+                    if(validateRegister(response.message))
+                    {
+                        props.navigation.navigate(navigationName.Login);
+    
+                    }
+                }
+                else
+                {
+                    console.log("Vao day")
+                    setMessage(changeLanguage.RegisterFailed);
+    
+                }
             }
         }
+        
         
         
         
@@ -125,45 +141,45 @@ const Register=(props)=>{
 
                 <View style={componentStyle.titleView}>
                     <Text style={themeStyle.title} >
-                        Register
+                        {changeLanguage.Register}
                     </Text>
                 </View>
 
 
             </View>
             <View style={{flex: 18, backgroundColor: ''}}>
-                <Text style={themeStyle.textMedium}>Username</Text>
+                <Text style={themeStyle.textMedium}>{changeLanguage.Username}</Text>
 
                 <TextInput style={styles.input} defaultValue={username} onChangeText={text=>{setUsername(text)}}></TextInput>
 
                 <View style={styles.space}/>
 
 
-                <Text style={themeStyle.textMedium}>Password</Text>
+                <Text style={themeStyle.textMedium}>{changeLanguage.Password}</Text>
                 <TextInput secureTextEntry={true} style={styles.input} defaultValue={password} onChangeText={text=>{setPassword(text)}}></TextInput>
                 
                 <View style={styles.space}/>
-                <Text style={themeStyle.textMedium}>Re-type password</Text>
+                <Text style={themeStyle.textMedium}>{changeLanguage.RetypePassword}</Text>
                 <TextInput secureTextEntry={true} style={styles.input} defaultValue={rePassword} onChangeText={text=>{setRePassword(text)}}></TextInput>
 
                 <View style={styles.space}/>
-                <Text style={themeStyle.textMedium}>Email</Text>
+                <Text style={themeStyle.textMedium}>{changeLanguage.Email}</Text>
 
                 <TextInput style={styles.input} defaultValue={email} onChangeText={text=>{setEmail(text)}}></TextInput>
 
                 <View style={styles.space}/>
-                <Text style={themeStyle.textMedium}>Phone</Text>
+                <Text style={themeStyle.textMedium}>{changeLanguage.Phone}</Text>
 
                 <TextInput style={styles.input} keyboardType='numeric' defaultValue={phone} onChangeText={text=>{setPhone(text)}}></TextInput>
 
                 <View style={styles.space}/>
                 <View style={styles.space}/>
-                {message==="Register is success"
+                {message===changeLanguage.RegisterSuccess
                 ?
                 <Text style={themeStyle.textSuccess}>{message}</Text>
                 : <View></View>
                 }
-                {message!=="Register is success"
+                {message!==changeLanguage.RegisterSuccess
                 ?
                 <Text style={themeStyle.textError}>{message}</Text>
                 : <View></View>
@@ -173,14 +189,14 @@ const Register=(props)=>{
                 <TouchableHighlight onPress={onPressRegister}>
 
                     <View style={themeStyle.button}>
-                        <Text style={themeStyle.textButton}>Register</Text>
+                        <Text style={themeStyle.textButton}>{changeLanguage.Register}</Text>
                     </View>
                 </TouchableHighlight>
                 <View style={styles.space}/>
                 <TouchableHighlight onPress={onPressLogin}>
                     <View style={{alignItems:'center'}}>
                         <Text style={{color:'dodgerblue'}}>
-                            Login
+                            {changeLanguage.Login}
                         </Text>
                     </View>
                 </TouchableHighlight>

@@ -14,11 +14,12 @@ import UserApi from "../../api/userApi";
 import axios from "axios";
 import {AuthenticationContext} from "../../provider/authentication-provider";
 import {CoursesContext} from "../../provider/courses-provider";
-
+import {LanguageContext} from "../../provider/language-provider";
 import * as Permissions from 'expo-permissions';
 import * as MediaLibrary from 'expo-media-library';
 const First=(props)=>{
     const {listCourses}=useContext(CoursesContext);
+    const {changeLanguage}=useContext(LanguageContext);
     const [user,setUser]=useState(null);
     const [favoriteCategories,setFavoritesCategories]=useState([]);
     const [downloadList,setDownloadList]=useState([]);
@@ -80,14 +81,14 @@ const First=(props)=>{
             </View>
             <TouchableHighlight onPress={onPressLogin}>
                 <View style={themeStyle.button}>
-                    <Text style={themeStyle.textButton}>Login</Text>
+                    <Text style={themeStyle.textButton}>{changeLanguage.Login}</Text>
                 </View>
             </TouchableHighlight>
             <View style={styles.space} />
 
             <TouchableHighlight onPress={onPressRegister}>
                 <View style={themeStyle.button}>
-                    <Text style={themeStyle.textButton}>Register</Text>
+                    <Text style={themeStyle.textButton}>{changeLanguage.Register}</Text>
                 </View>
             </TouchableHighlight>
             <View style={styles.space} />

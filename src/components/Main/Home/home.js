@@ -15,10 +15,14 @@ import CourseApi from "../../../api/courseApi";
 import {AuthenticationContext} from "../../../provider/authentication-provider";
 import {MyCoursesContext} from "../../../provider/mycourses-provider";
 import {BookmarkContext} from "../../../provider/bookmark-provider";
+import {LanguageContext} from "../../../provider/language-provider";
+
 import PaymentApi from "../../../api/paymentApi";
 import UserApi from "../../../api/userApi";
 const Home=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
+    let {changeLanguage}=useContext(LanguageContext);
+
     let themeStyle;
 
     
@@ -69,9 +73,11 @@ const Home=(props)=>{
                 const courseId="7844e73e-f61b-4f1b-82ce-f98f120a7c46";
                 const res=await CourseApi.courseDetail(courseId,null);
 
-                res.payload.ratings.ratingList.map((item,i)=>{
-                    console.log("Check item detail:",item);
-                })
+                console.log("Check res detail exercise:",res.payload);
+
+                // res.payload.ratings.ratingList.map((item,i)=>{
+                //     console.log("Check item detail:",item);
+                // })
 
             }
             getDetail();
@@ -98,9 +104,9 @@ const Home=(props)=>{
     return(
         <ScrollView>
             <View style={{backgroundColor:changeTheme.background}}>
-                <SectionCourses navigation={props.navigation} title="New" isTopNew={true}/>
-                <SectionCourses navigation={props.navigation} title="Trending" isTopSell={true}/>
-                <SectionCoursesBookmark navigation={props.navigation} title="Bookmark"/>
+                <SectionCourses navigation={props.navigation} title={changeLanguage.New} isTopNew={true}/>
+                <SectionCourses navigation={props.navigation} title={changeLanguage.Trending} isTopSell={true}/>
+                <SectionCoursesBookmark navigation={props.navigation} title={changeLanguage.Bookmark}/>
             </View>
         </ScrollView>
 

@@ -6,12 +6,14 @@ import {ThemeContext} from "../../../provider/theme-provider";
 import {themes} from "../../../globals/themes";
 import DarkStyles from "../../../globals/dark-style";
 import LightStyles from "../../../globals/light-style";
+import {languageViet} from "../../../globals/language-Viet";
+import {languageEng} from "../../../globals/language-Eng";
 import {LanguageContext} from "../../../provider/language-provider";
 
-const ChangeThemes=(props)=>{
+const Language=(props)=>{
     let {changeTheme,setChangeTheme}=useContext(ThemeContext);
     let themeStyle;
-    const {changeLanguage}=useContext(LanguageContext);
+    let {changeLanguage,setChangeLanguage}=useContext(LanguageContext);
 
     if(changeTheme===themes.dark)
     {
@@ -23,15 +25,13 @@ const ChangeThemes=(props)=>{
         themeStyle=LightStyles;
     }
     console.log(changeTheme);
-    const light=(props)=>{
+    const viet=()=>{
 
-        setChangeTheme(themes.light);
-        console.log("Theme light");
+        setChangeLanguage(languageViet);
     }
-    const dark=(props)=>{
-        setChangeTheme(themes.dark);
+    const eng=()=>{
+        setChangeLanguage(languageEng);
 
-        console.log("Theme dark");
     }
     return(
         <ScrollView style={{backgroundColor:changeTheme.background}}>
@@ -43,20 +43,20 @@ const ChangeThemes=(props)=>{
                 <TouchableOpacity
                     style={{borderBottomColor: 'gray',
                         borderBottomWidth: 1,}}
-                    onPress={light}
+                    onPress={viet}
                 >
                     <View>
-                        <Text style={themeStyle.textMedium}>{changeLanguage.Light}</Text>
+                        <Text style={themeStyle.textMedium}>{changeLanguage.Vietnam}</Text>
                     </View>
                 </TouchableOpacity>
                 <View style={styles.space}/>
                 <TouchableOpacity
                     style={{borderBottomColor: 'gray',
                         borderBottomWidth: 1,}}
-                    onPress={dark}
+                    onPress={eng}
                 >
                     <View>
-                        <Text style={themeStyle.textMedium}>{changeLanguage.Dark}</Text>
+                        <Text style={themeStyle.textMedium}>{changeLanguage.English}</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -64,4 +64,4 @@ const ChangeThemes=(props)=>{
     );
 };
 
-export default ChangeThemes;
+export default Language;

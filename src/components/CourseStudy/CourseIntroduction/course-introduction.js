@@ -52,10 +52,8 @@ const CourseIntroduction=(props)=>{
     useEffect(()=>{
         if(averagePoint===null)
         {
-            console.log("Check props.item:",props.item);
             const getDetail=async()=>{
                 const res=await CourseApi.courseDetail(props.item.id,null);
-                console.log("Check res in introduction:",res.payload.averagePoint);
                 setAveragePoint(Math.round(res.payload.averagePoint));
             }
             getDetail();

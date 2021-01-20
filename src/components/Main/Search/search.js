@@ -16,8 +16,12 @@ import CourseApi from "../../../api/courseApi";
 import InstructorApi from "../../../api/instructorApi";
 import {CoursesContext} from "../../../provider/courses-provider";
 import {SearchHistoryContext} from "../../../provider/search-history-provider";
+import {LanguageContext} from "../../../provider/language-provider";
+
 const Search=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
+    let {changeLanguage}=useContext(LanguageContext);
+
     let {searchHistory,setSearchHistory}=useContext(SearchHistoryContext);
     let themeStyle;
 
@@ -45,6 +49,8 @@ const Search=(props)=>{
     const [emptySearchMessage,setEmptySearchMessage]=useState(null);
     const [isHidden,setIsHidden]=useState(false);
     
+    const [tabBarBackground,setTabBarBackground]=useState(null);
+    const [tabBarLabelColor,setTabBarLabelColor]=useState(null);
     const getAllInstructor=async()=>{
         const res=await InstructorApi.getAll();
         setInstructors(res.payload);
@@ -72,6 +78,32 @@ const Search=(props)=>{
     }
     
     useEffect(()=>{
+        if(tabBarBackground===null)
+        {
+            if(themeStyle===DarkStyles)
+            {
+                setTabBarBackground("black");
+
+            }
+            if(themeStyle===LightStyles)
+            {
+                setTabBarBackground("white");
+
+            }
+        }
+        if(tabBarLabelColor===null)
+        {
+            if(themeStyle===DarkStyles)
+            {
+                setTabBarLabelColor("white");
+
+            }
+            if(themeStyle===LightStyles)
+            {
+                setTabBarLabelColor("black");
+
+            }
+        }
         //get all courses
         if(totalCourse===0)
         {
@@ -176,7 +208,7 @@ const Search=(props)=>{
         {
             setIsClickSearch(false);
             setIsEmpty(false);
-            setEmptySearchMessage("Can't find course with that keyword.");
+            setEmptySearchMessage(changeLanguage.EmptySearchMessage);
         }
         if(resultAuthorsSearch.length===0 && resultCoursesSearch.length>0)
         {
@@ -338,7 +370,7 @@ const Search=(props)=>{
                         <View style={{
                             alignItems: "center",
                             padding: 10,}}>
-                            <Text style={themeStyle.text}>Search</Text>
+                            <Text style={themeStyle.text}>{changeLanguage.Search}</Text>
                         </View>
                     </TouchableHighlight>
                 </View>
@@ -348,7 +380,7 @@ const Search=(props)=>{
                     justifyContent:'space-between'
                 }}>
                     <View style={{marginLeft:10}}>
-                        <Text style={themeStyle.text}>Recent search</Text>
+                        <Text style={themeStyle.text}>{changeLanguage.RecenSearch}</Text>
                     </View>
                     <View style={{
                         flexDirection:'row',
@@ -356,17 +388,17 @@ const Search=(props)=>{
                         }}>
                         {isHidden===true ?
                             <TouchableHighlight onPress={changeIsHidden}>
-                                <Text style={{color:'aqua'}}>Show</Text>
+                                <Text style={{color:'aqua'}}>{changeLanguage.Show}</Text>
                             </TouchableHighlight>
                             :
                             <TouchableHighlight onPress={changeIsHidden}>
-                                <Text style={{color:'aqua'}}>Hide</Text>
+                                <Text style={{color:'aqua'}}>{changeLanguage.Hide}</Text>
                             </TouchableHighlight>
 
                         }
                         <Text>   </Text>
                         <TouchableHighlight onPress={deleteHistorySearch}>
-                            <Text style={{color:'aqua'}}>Delete</Text>
+                            <Text style={{color:'aqua'}}>{changeLanguage.Delete}</Text>
                         </TouchableHighlight>    
                     </View>
                                     
@@ -392,7 +424,18 @@ const Search=(props)=>{
                 }
                 <View style={styles.space}></View>
             
-                {isSearch===true  ? <SearchTab.Navigator>
+                {isSearch===true  ? 
+                <SearchTab.Navigator 
+                    tabBarOptions={{
+                        labelStyle: { fontSize: 12,
+                                        color: tabBarLabelColor
+                        },
+
+                        style: { 
+                            backgroundColor: tabBarBackground ,
+                        },
+                    }}
+                >
                     <SearchTab.Screen name="All"
 
                     >
@@ -401,14 +444,14 @@ const Search=(props)=>{
                                         navigation={props.navigation}
                         />}
                     </SearchTab.Screen>
-                    <SearchTab.Screen name={navigationName.ListCourses} options={{title:'Course'}}
+                    <SearchTab.Screen name={navigationName.ListCourses} options={{title:changeLanguage.Course}}
 
                     >
                         {()=><ListCourses searchResult={resultCoursesSearch} navigation={props.navigation}/>}
 
                     </SearchTab.Screen>
                     
-                    <SearchTab.Screen name={navigationName.Authors} options={{title:'Author'}}
+                    <SearchTab.Screen name={navigationName.Authors} options={{title:changeLanguage.Author}}
 
                     >
                         {()=><ListAuthors searchResult={resultAuthorsSearch} navigation={props.navigation}/>}

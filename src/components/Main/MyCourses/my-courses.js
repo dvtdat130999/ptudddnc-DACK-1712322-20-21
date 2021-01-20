@@ -10,9 +10,8 @@ import DarkStyles from "../../../globals/dark-style";
 import LightStyles from "../../../globals/light-style";
 import {AuthenticationContext} from "../../../provider/authentication-provider";
 import {ThemeContext} from "../../../provider/theme-provider";
-import {MyCoursesContext} from "../../../provider/mycourses-provider";
-import PaymentApi from "../../../api/paymentApi";
-import CourseApi from "../../../api/courseApi";
+import {LanguageContext} from "../../../provider/language-provider";
+
 import UserApi from "../../../api/userApi";
 import MyCoursesItem from "./my-courses-item";
 import PaymentCourses from "./PaymentCourses/payment-courses";
@@ -22,7 +21,8 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 const MyCoursesTab = createMaterialTopTabNavigator();
 const MyCourses=(props)=>{
     const {authentication}=useContext(AuthenticationContext);
-    
+    const {changeLanguage}=useContext(LanguageContext);
+
     const [isLoading,setIsLoading]=useState(true);
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
@@ -83,13 +83,13 @@ const MyCourses=(props)=>{
         <ScrollView style={{backgroundColor:changeTheme.background,flex:1}}>
             <MyCoursesTab.Navigator style={{flex:1}}>
                    
-                    <MyCoursesTab.Screen name={navigationName.ListCourses} options={{title:'Payment'}}
+                    <MyCoursesTab.Screen name={navigationName.ListCourses} options={{title:changeLanguage.Paid}}
                     >
                         {()=><PaymentCourses navigation={props.navigation}/>}
 
                     </MyCoursesTab.Screen>
                     
-                    <MyCoursesTab.Screen name={navigationName.Authors} options={{title:'Download'}}
+                    <MyCoursesTab.Screen name={navigationName.Authors} options={{title:changeLanguage.Downloaded}}
                     >
                         {()=><ListDownload navigation={props.navigation}/>}
                     </MyCoursesTab.Screen>

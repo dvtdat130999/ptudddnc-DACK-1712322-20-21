@@ -10,6 +10,7 @@ import DownloadIcon from "../../../../assets/downloadicon.jpg"
 import {AuthenticationContext} from "../../../provider/authentication-provider";
 import {BookmarkContext} from "../../../provider/bookmark-provider";
 import {MyCoursesContext} from "../../../provider/mycourses-provider";
+import {LanguageContext} from "../../../provider/language-provider";
 import {ThemeContext} from "../../../provider/theme-provider";
 import {themes} from "../../../globals/themes";
 import DarkStyles from "../../../globals/dark-style";
@@ -25,7 +26,7 @@ import * as MediaLibrary from 'expo-media-library';
 const CourseStudyService=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
-
+    const {changeLanguage}=useContext(LanguageContext);
     if(changeTheme===themes.dark)
     {
 
@@ -35,7 +36,6 @@ const CourseStudyService=(props)=>{
     {
         themeStyle=LightStyles;
     }
-    console.log("Check in service props:",props.item);
     const {coursesBookmark,setCoursesBookmark}=useContext(BookmarkContext);
     const {authentication}=useContext(AuthenticationContext);
 
@@ -165,7 +165,6 @@ const CourseStudyService=(props)=>{
         if(props.item.promoVidUrl!==null && props.item.promoVidUrl.includes(".mp4"))
         {
             setIsMp4(true);
-            console.log("Service check true mp4");
         }
         if(props.item.promoVidUrl!==null && !props.item.promoVidUrl.includes(".mp4"))
         {
@@ -196,7 +195,7 @@ const CourseStudyService=(props)=>{
                         />
                     </TouchableOpacity>
                     <View>
-                        <Text style={themeStyle.textSmall}>Unbookmark</Text>
+                        <Text style={themeStyle.textSmall}>{changeLanguage.Unbookmark}</Text>
                     </View>
                 </View>:
                 <View style={componentStyles.viewImage} >
@@ -207,7 +206,7 @@ const CourseStudyService=(props)=>{
                         />
                     </TouchableOpacity>
                     <View>
-                        <Text style={themeStyle.textSmall}>Bookmark</Text>
+                        <Text style={themeStyle.textSmall}>{changeLanguage.Bookmark}</Text>
                     </View>
                 </View>
 
@@ -224,7 +223,7 @@ const CourseStudyService=(props)=>{
 
                 </TouchableOpacity>
                 <View>
-                    <Text style={themeStyle.textSmall}>Buy</Text>
+                    <Text style={themeStyle.textSmall}>{changeLanguage.Buy}</Text>
                 </View>
             </View>
             :
@@ -237,7 +236,7 @@ const CourseStudyService=(props)=>{
 
                 </TouchableOpacity>
                 <View>
-                    <Text style={themeStyle.textSmall}>Bought</Text>
+                    <Text style={themeStyle.textSmall}>{changeLanguage.Bought}</Text>
                 </View>
             </View>
             

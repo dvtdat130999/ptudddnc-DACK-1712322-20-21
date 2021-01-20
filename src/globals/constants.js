@@ -27,4 +27,5 @@ export const navigationName={
     VideoDownload:"Video Download",
     ListDownload:"List Download",
     UpdateProfile:"Update Profile",
+    Language:"Language",
 }

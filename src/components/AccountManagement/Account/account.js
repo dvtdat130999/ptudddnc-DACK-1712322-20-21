@@ -13,15 +13,18 @@ import SectionSkillsItem from "../../Main/Browse/SectionSkillsItem/section-skill
 import {AuthenticationContext} from "../../../provider/authentication-provider";
 import UserApi from "../../../api/userApi";
 import CategoryApi from "../../../api/categoryApi";
+import {LanguageContext} from "../../../provider/language-provider";
+
 const Account=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
     const {authentication}=useContext(AuthenticationContext);
+    const {changeLanguage}=useContext(LanguageContext);
+
     const [user,setUser]=useState(null);
     const [favoriteCategories,setFavoritesCategories]=useState([]);
     const [category,setCategory]=useState(null);
     const [isLoading,setIsLoading]=useState(true);
-
     if(changeTheme===themes.dark)
     {
 
@@ -105,25 +108,23 @@ const Account=(props)=>{
 
                     }
                     {user && user.email ? 
-                        <Text style={themeStyle.text}>{`Email: ${user.email}`}</Text>
+                        <Text style={themeStyle.text}>{`${changeLanguage.Email}: ${user.email}`}</Text>
                         :
                         <View></View>                   
                     }
                     {user && user.name ? 
-                        <Text style={themeStyle.text}>{`Name: ${user.name}`}</Text>
+                        <Text style={themeStyle.text}>{`${changeLanguage.Name}: ${user.name}`}</Text>
                         :
                         <View></View>                   
                     }
                     {user && user.phone ? 
-                        <Text style={themeStyle.text}>{`Phone: ${user.phone}`}</Text>
+                        <Text style={themeStyle.text}>{`${changeLanguage.Phone}: ${user.phone}`}</Text>
                         :
                         <View></View>                   
                     }
                 </View>
                 <View style={styles.space}/>
-                <View>
-                    <Text style={themeStyle.textMedium}>Interested</Text>
-                </View>
+                
                 <View style={{marginTop:20}}>
                     <Text style={styles.skillBrowse}>{props.title}</Text>
                     <ScrollView horizontal={true} showHorizontalScrollIndicator={false}>
@@ -135,7 +136,7 @@ const Account=(props)=>{
             </View>
             <TouchableHighlight onPress={updateProfile}>
                 <View style={themeStyle.button}>
-                    <Text style={themeStyle.textButton}>Update</Text>
+                    <Text style={themeStyle.textButton}>{changeLanguage.Update}</Text>
                 </View>
             </TouchableHighlight>
         </ScrollView>

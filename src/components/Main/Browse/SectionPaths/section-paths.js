@@ -5,6 +5,8 @@ import styles from "../../../../globals/styles";
 import SectionCategoriesItem from "../SectionCategoriesItem/section-categories-item";
 import SectionPathsItem from "../SectionPathsItem/section-paths-item";
 import {ThemeContext} from "../../../../provider/theme-provider";
+import {LanguageContext} from "../../../../provider/language-provider";
+
 import {themes} from "../../../../globals/themes";
 import DarkStyles from "../../../../globals/dark-style";
 import LightStyles from "../../../../globals/light-style";
@@ -12,6 +14,8 @@ import {navigationName} from "../../../../globals/constants";
 
 const SectionPaths=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
+    let {changeLanguage}=useContext(LanguageContext);
+
     let themeStyle;
     if(changeTheme===themes.dark)
     {
@@ -50,7 +54,7 @@ const SectionPaths=(props)=>{
             }}>
                 <Text style={themeStyle.title}>{props.title}</Text>
                 <TouchableHighlight style={{marginRight:20}} onPress={seeAll}>
-                    <Text style={themeStyle.textMedium}>See all</Text>
+                    <Text style={themeStyle.textMedium}>{changeLanguage.SeeAll}</Text>
 
                 </TouchableHighlight>
             </View>

@@ -7,6 +7,8 @@ import SectionCoursesItem from "../SectionCoursesItem/section-courses-item";
 import {CoursesContext} from "../../../../provider/courses-provider";
 import {courses} from "../../../../data/courses";
 import {ThemeContext} from "../../../../provider/theme-provider";
+import {LanguageContext} from "../../../../provider/language-provider";
+
 import {themes} from "../../../../globals/themes";
 import DarkStyles from "../../../../globals/dark-style";
 import LightStyles from "../../../../globals/light-style";
@@ -15,6 +17,8 @@ import CourseApi from "../../../../api/courseApi";
 const SectionCourses=(props)=>{
 
     let {changeTheme}=useContext(ThemeContext);
+    let {changeLanguage}=useContext(LanguageContext);
+
     let themeStyle;
     const [isLoading,setIsLoading]=useState(true);
     if(changeTheme===themes.dark)
@@ -113,7 +117,7 @@ const SectionCourses=(props)=>{
             }}>
                 <Text style={themeStyle.title}>{props.title}</Text>
                 <TouchableHighlight style={{marginRight:20}} onPress={seeAll}>
-                    <Text style={themeStyle.textMedium}>See all</Text>
+                    <Text style={themeStyle.text}>{changeLanguage.SeeAll}</Text>
 
                 </TouchableHighlight>
             </View>

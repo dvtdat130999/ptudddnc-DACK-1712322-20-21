@@ -7,6 +7,8 @@ import {AuthenticationContext} from "../../../../provider/authentication-provide
 import {courses} from "../../../../data/courses";
 import SectionCoursesBookmarkItem from "../SectionCoursesBookmarkItem/section-courses-bookmark-item";
 import {ThemeContext} from "../../../../provider/theme-provider";
+import {LanguageContext} from "../../../../provider/language-provider";
+
 import {themes} from "../../../../globals/themes";
 import DarkStyles from "../../../../globals/dark-style";
 import LightStyles from "../../../../globals/light-style";
@@ -17,6 +19,8 @@ import {navigationName} from "../../../../globals/constants";
 
 const SectionCoursesBookmark=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
+    let {changeLanguage}=useContext(LanguageContext);
+
     let themeStyle;
     if(changeTheme===themes.dark)
     {
@@ -92,7 +96,7 @@ const SectionCoursesBookmark=(props)=>{
                         }}>
                         <Text style={themeStyle.title}>{props.title}</Text>
                         <TouchableHighlight style={{marginRight:20}} onPress={seeAll}>
-                            <Text style={themeStyle.textMedium}>See all</Text>
+                            <Text style={themeStyle.text}>{changeLanguage.SeeAll}</Text>
 
                         </TouchableHighlight>
                     </View>

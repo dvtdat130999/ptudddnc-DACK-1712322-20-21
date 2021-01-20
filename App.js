@@ -36,8 +36,12 @@ import ForgetPassword from "./src/components/Authentication/forget-password";
 import Download from "./src/components/Main/Download/list-download";
 import MyCourses from "./src/components/Main/MyCourses/my-courses";
 import Search from "./src/components/Main/Search/search";
+import Language from "./src/components/AccountManagement/Language/language";
+
 import {AuthenticationContext, AuthenticationProvider} from "./src/provider/authentication-provider";
 import {SearchHistoryProvider} from "./src/provider/search-history-provider";
+import {LanguageProvider,LanguageContext} from "./src/provider/language-provider";
+
 import {CoursesProvider} from "./src/provider/courses-provider";
 import RelatedPathsAndCourses from "./src/components/CourseStudy/RelatedPathsAndCourses/related-paths-courses";
 import {BookmarkContext, BookmarkProvider} from "./src/provider/bookmark-provider";
@@ -65,31 +69,34 @@ const BrowseStack=createStackNavigator();
 const SearchStack=createStackNavigator();
 
 const SearchNavigation=()=>{
+    const {changeLanguage}=useContext(LanguageContext);
     return(
         <SearchStack.Navigator>
-            <SearchStack.Screen name={navigationName.Search} component={Search} options={{ headerShown: false }}/>
-            <SearchStack.Screen name={navigationName.CourseStudy} component={CourseStudy}  />
-            <SearchStack.Screen name={navigationName.ListCourses} component={ListCourses} />
-            <SearchStack.Screen name={navigationName.Authors} component={ListAuthors} />
-            <SearchStack.Screen name={navigationName.LessonDetail} component={LessonDetail} options={{title:"Lesson"}} />
-            <SearchStack.Screen name={navigationName.AuthorDetail} component={AuthorDetail} options={{title:"Author"}} />
+            <SearchStack.Screen name={navigationName.Search} component={Search} options={{ title:changeLanguage.Search }}/>
+            <SearchStack.Screen name={navigationName.CourseStudy} component={CourseStudy} options={{ title:changeLanguage.CourseStudy }} />
+            <SearchStack.Screen name={navigationName.ListCourses} component={ListCourses} options={{  headerShown: false  }}/>
+            <SearchStack.Screen name={navigationName.Authors} component={ListAuthors} options={{ title: changeLanguage.Authors }}/>
+            <SearchStack.Screen name={navigationName.LessonDetail} component={LessonDetail}  options={{ headerShown: false }}/>
+            <SearchStack.Screen name={navigationName.AuthorDetail} component={AuthorDetail} options={{ headerShown: false }} />
 
         </SearchStack.Navigator>
     );
 }
 const BrowseNavigation=()=>{
+    const {changeLanguage}=useContext(LanguageContext);
+
     return(
         <BrowseStack.Navigator>
-            <BrowseStack.Screen name={navigationName.Browse} component={Browse} options={{ headerShown: false }}/>
-            <BrowseStack.Screen name={navigationName.CourseStudy} component={CourseStudy}  />
-            <BrowseStack.Screen name={navigationName.ListCourses} component={ListCourses} />
-            <BrowseStack.Screen name={navigationName.RelatedPathsAndCourses} component={RelatedPathsAndCourses} options={{title:'Related'}}/>
-            <BrowseStack.Screen name={navigationName.Categories} component={ListCategories}  />
-            <BrowseStack.Screen name={navigationName.Paths} component={ListPaths}  />
-            <BrowseStack.Screen name={navigationName.Authors} component={ListAuthors}  />
-            <BrowseStack.Screen name={navigationName.AuthorDetail} component={AuthorDetail} options={{title:'Author'}}  />
-            <BrowseStack.Screen name={navigationName.LessonDetail} component={LessonDetail} options={{title:'Lesson'}}  />
-            <BrowseStack.Screen name={navigationName.ListRecommendCourse} component={ListRecommendCourse} options={{title:'Recommend'}}  />
+            <BrowseStack.Screen name={navigationName.Browse} component={Browse}/>
+            <BrowseStack.Screen name={navigationName.CourseStudy} component={CourseStudy} options={{ title:changeLanguage.CourseStudy }} />
+            <BrowseStack.Screen name={navigationName.ListCourses} component={ListCourses} options={{ headerShown: false }}/>
+            <BrowseStack.Screen name={navigationName.RelatedPathsAndCourses} component={RelatedPathsAndCourses} options={{ headerShown: false }}/>
+            <BrowseStack.Screen name={navigationName.Categories} component={ListCategories} options={{ title:changeLanguage.Categories }} />
+            <BrowseStack.Screen name={navigationName.Paths} component={ListPaths} options={{ headerShown: false }} />
+            <BrowseStack.Screen name={navigationName.Authors} component={ListAuthors} options={{ title:changeLanguage.Authors }} />
+            <BrowseStack.Screen name={navigationName.AuthorDetail} component={AuthorDetail} options={{ headerShown: false }}  />
+            <BrowseStack.Screen name={navigationName.LessonDetail} component={LessonDetail} options={{ headerShown: false }}  />
+            <BrowseStack.Screen name={navigationName.ListRecommendCourse} component={ListRecommendCourse} options={{ title:changeLanguage.Recommend }}  />
 
         </BrowseStack.Navigator>
     );
@@ -97,33 +104,37 @@ const BrowseNavigation=()=>{
 
 
 const HomeNavigation=()=>{
+    const {changeLanguage}=useContext(LanguageContext);
+
     return(
         <HomeStack.Navigator>
-            <HomeStack.Screen name={navigationName.Home} component={Home} />
+            <HomeStack.Screen name={navigationName.Home} component={Home}options={{ title:changeLanguage.Home }}/>
 
-            <HomeStack.Screen name={navigationName.CourseStudy} component={CourseStudy} />
-            <HomeStack.Screen name={navigationName.Setting} component={Setting} />
-            <HomeStack.Screen name={navigationName.UpdateProfile} component={UpdateProfile} />
+            <HomeStack.Screen name={navigationName.CourseStudy} component={CourseStudy} options={{ title:changeLanguage.CourseStudy }} />
+            <HomeStack.Screen name={navigationName.Setting} component={Setting} options={{ title:changeLanguage.Setting }}/>
+            <HomeStack.Screen name={navigationName.UpdateProfile} component={UpdateProfile} options={{ title:changeLanguage.UpdateProfile }}/>
+            <HomeStack.Screen name={navigationName.Language} component={Language} options={{ title:changeLanguage.Language }}/>
 
-            <HomeStack.Screen name={navigationName.Account} component={Account} />
-            <HomeStack.Screen name={navigationName.Theme} component={ChangeThemes} />
-            <HomeStack.Screen name={navigationName.RelatedPathsAndCourses} component={RelatedPathsAndCourses} options={{title:'Related'}}/>
-            <HomeStack.Screen name={navigationName.ListCourses} component={ListCourses} />
-            <HomeStack.Screen name={navigationName.LessonDetail} component={LessonDetail} options={{title:'Lesson'}} />
-            <HomeStack.Screen name={navigationName.ListCoursesBookmark} component={ListCoursesBookmark} options={{title:'Bookmark'}} />
+            <HomeStack.Screen name={navigationName.Account} component={Account} options={{ title:changeLanguage.Account }}/>
+            <HomeStack.Screen name={navigationName.Theme} component={ChangeThemes} options={{ title:changeLanguage.Theme }}/>
+            <HomeStack.Screen name={navigationName.RelatedPathsAndCourses} component={RelatedPathsAndCourses} options={{ headerShown: false }}/>
+            <HomeStack.Screen name={navigationName.ListCourses} component={ListCourses} options={{ headerShown: false }}/>
+            <HomeStack.Screen name={navigationName.LessonDetail} component={LessonDetail} options={{ headerShown: false }}/>
+            <HomeStack.Screen name={navigationName.ListCoursesBookmark} component={ListCoursesBookmark}  options={{ title:changeLanguage.Recommend }}/>
 
         </HomeStack.Navigator>
     );
 }
 const MyCoursesNavigation=()=>{
+    const {changeLanguage}=useContext(LanguageContext);
     return(
         <MyCoursesStack.Navigator>
 
 
-            <MyCoursesStack.Screen name={navigationName.MyCourses} component={MyCourses} options={{title:'My Courses'}}/>
-            <MyCoursesStack.Screen name={navigationName.CourseStudy} component={CourseStudy} />
-            <MyCoursesStack.Screen name={navigationName.VideoDownload} component={ListDownloadItemVideo} />
-            <MyCoursesStack.Screen name={navigationName.ListDownload} component={ListDownload} />
+            <MyCoursesStack.Screen name={navigationName.MyCourses} component={MyCourses} />
+            <MyCoursesStack.Screen name={navigationName.CourseStudy} component={CourseStudy} options={{title:changeLanguage.CourseStudy}} />
+            <MyCoursesStack.Screen name={navigationName.VideoDownload} component={ListDownloadItemVideo}  />
+            <MyCoursesStack.Screen name={navigationName.ListDownload} component={ListDownload} options={{title:changeLanguage.Download}}/>
 
         </MyCoursesStack.Navigator>
     );
@@ -133,8 +144,8 @@ const ListCoursesStack=()=>{
         <CourseStack.Navigator>
 
 
-            <CourseStack.Screen name={navigationName.ListCourses} component={ListCourses} options={{title:'List Courses'}}/>
-            <CourseStack.Screen name={navigationName.CourseStudy} component={CourseStudy} />
+            <CourseStack.Screen name={navigationName.ListCourses} component={ListCourses} options={{ headerShown: false }}/>
+            <CourseStack.Screen name={navigationName.CourseStudy} component={CourseStudy} options={{ headerShown: false }}/>
 
         </CourseStack.Navigator>
 
@@ -213,27 +224,30 @@ const MainStackApp=()=>{
 export default function App() {
 
   return (
-    <SearchHistoryProvider>
-        <AuthenticationProvider>
-            <MyCoursesProvider>
-                <BookmarkProvider>
-                    <ThemeProvider>
-                        <CoursesProvider>
-                                <UserProvider>
-                                    <NavigationContainer  >
-                                        <MainStackApp/>
+      <LanguageProvider>
+        <SearchHistoryProvider>
+                <AuthenticationProvider>
+                    <MyCoursesProvider>
+                        <BookmarkProvider>
+                            <ThemeProvider>
+                                <CoursesProvider>
+                                        <UserProvider>
+                                            <NavigationContainer  >
+                                                <MainStackApp/>
 
-                                    </NavigationContainer>
-                                </UserProvider>
-                        </CoursesProvider>
-                    </ThemeProvider>
+                                            </NavigationContainer>
+                                        </UserProvider>
+                                </CoursesProvider>
+                            </ThemeProvider>
 
-                </BookmarkProvider>
-            </MyCoursesProvider>
-        </AuthenticationProvider>
+                        </BookmarkProvider>
+                    </MyCoursesProvider>
+                </AuthenticationProvider>
 
-    </SearchHistoryProvider>
-   
+            </SearchHistoryProvider>
+        
+      </LanguageProvider>
+    
 
 
   );

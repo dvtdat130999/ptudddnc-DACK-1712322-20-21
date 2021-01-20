@@ -1,4 +1,4 @@
-import React, {Component, useContext,useState,useEffect} from 'react';
+import React, {Component, useContext,useState,useEffect,useRef,useCallback} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, 
     TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,Button,
     SafeAreaView
@@ -9,18 +9,24 @@ import DarkStyles from "../../../globals/dark-style"
 import LightStyles from "../../../globals/light-style";
 import styles from "../../../globals/styles";
 import {ThemeContext} from "../../../provider/theme-provider";
+import {AuthenticationContext} from "../../../provider/authentication-provider";
+import {LanguageContext} from "../../../provider/language-provider";
+
 import Lesson from "../Lesson/lesson";
 import YoutubePlayer from 'react-native-youtube-iframe';
-import {Video} from 'expo-av';
+import {Video} from 'expo-video';
 import * as FileSystem from 'expo-file-system';
 import * as Permissions from 'expo-permissions';
 import * as MediaLibrary from 'expo-media-library';
 
+import LessonApi from "../../../api/lessonApi";
 const {width,height}=Dimensions.get('window');
 const LessonDetail=(props)=>{
+
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
-
+    const {authentication}=useContext(AuthenticationContext);
+    const {changeLanguage}=useContext(LanguageContext);
     if(changeTheme===themes.dark)
     {
 
@@ -43,7 +49,17 @@ const LessonDetail=(props)=>{
     const [isDownloaded,setIsDownloaded]=useState(false);
     const [totalSize,setTotalSize]=useState(0);
 
-    
+    const [videoProgress,setVideoProgress]=useState(0);
+    const [previousVideoProgress,setPreviousVideoProgress]=useState(null);
+
+    const [first,setFirst]=useState(true);
+    const onProgressMp4 = (progress) => {
+        setVideoProgress(progress.progress);
+    };
+    const onProgressYoutube = (progress) => {
+        console.log("Check current time youtube:",progress);
+        setVideoProgress(progress);
+    };
     const formatBytes=(bytes,decimals=2)=>{
         if(bytes===0)
         {
@@ -57,15 +73,38 @@ const LessonDetail=(props)=>{
     }
     const renderListLesson=()=>{
         return listLesson.map((item,i)=>{
-            console.log("CHeck lesson for videoUrl");
-            console.log(item);
+            
             return <Lesson navigation={props.navigation} item={item} listLesson={listLesson} stt={i+1} key={i}/>
         })
     }
+    const updateLesson=async()=>{
+        const res=await LessonApi.updateCurrentTimeLearn(authentication,item.id,videoProgress);
+
+    }
+
     
     useEffect(()=>{
-        console.log("Check route params lesson video url");
-        console.log(props.route.params.lesson.videoUrl);
+        
+        if(previousVideoProgress===null && item!==null && first===true)
+        {
+            const getLessonPreviousProgress=async()=>{
+                const res=await LessonApi.getRecentVideo(authentication,item.courseId,item.id);
+                console.log("Check res get previous progress:",res);
+                if(res.payload!==null && res.payload.currentTime!==null)
+                {
+                    setVideoProgress(res.payload.currentTime);
+                    setPreviousVideoProgress(res.payload.currentTime);
+                }
+                else
+                {
+                    setPreviousVideoProgress(0);
+                    console.log("Chui vao day");
+                }
+            }
+            getLessonPreviousProgress();
+            setFirst(false);
+        }
+
         if(item!==props.route.params.lesson)
         {
             setItem(props.route.params.lesson);
@@ -77,7 +116,7 @@ const LessonDetail=(props)=>{
         if(item!==null && item.videoUrl && url!==item.videoUrl)
         {
             setUrl(item.videoUrl);
-            console.log("Check video url:",item.videoUrl);
+            console.log("Check item url:",item.videoUrl)
         }
         if(url!==null)
         {
@@ -108,7 +147,7 @@ const LessonDetail=(props)=>{
                     if(url.includes(".mp4"))
                     {
                         setIsMp4(true);
-
+                        console.log("That la mp4");
                     }
                 }
                 
@@ -139,6 +178,17 @@ const LessonDetail=(props)=>{
             }
            
         }
+
+        return()=>{
+            if(item!==null)
+            {
+                updateLesson();
+            }
+
+        }
+        
+        
+        
         
           
     })
@@ -169,7 +219,6 @@ const LessonDetail=(props)=>{
         try {
             const { uri } = await downloadResumable.downloadAsync();
 
-            console.log('Finished downloading to ', uri);
             saveFile(uri);
             setButtonTitle("Downloaded");
             setIsDownloaded(false);
@@ -178,18 +227,25 @@ const LessonDetail=(props)=>{
           } 
                        
     }
+
+    
     return(
 
         <ScrollView style={{backgroundColor:changeTheme.background,flex:1}}>
             <View style={{flex:1}}>
                
                 {urlSplit!==null && isYoutube===true?
-                    <YoutubePlayer            
+                    <YoutubePlayer    
                     height={height/3} 
                     videoId={urlSplit[1]}
-                    play={false} />:
-                    <View></View>}
-                {isMp4===true  ?  
+                    play={false}
+                    
+
+                    />:
+                    <View></View>
+                }
+                
+                {isMp4===true && previousVideoProgress>0 && videoProgress>0  ?  
                 <Video
                     source={{uri:url}}
                     rate={1.0}
@@ -199,13 +255,45 @@ const LessonDetail=(props)=>{
                     shouldPlay={false}
                     isLooping={false}
                     useNativeControls
+                    onProgress={onProgressMp4}
+                    positionMillis={previousVideoProgress}
                     style={{ width: width, height: height/3 }}
                 />
                 :
-                <View></View>
-                                         
+                <View></View>                      
                 }                
-                
+                {isMp4===true && previousVideoProgress===0  ?  
+                <Video
+                    source={{uri:url}}
+                    rate={1.0}
+                    volume={1.0}
+                    isMuted={false}
+                    resizeMode="cover"
+                    shouldPlay={false}
+                    isLooping={false}
+                    useNativeControls
+                    onProgress={onProgressMp4}
+                    style={{ width: width, height: height/3 }}
+                />
+                :
+                <View></View>                      
+                }
+                {isMp4===true && previousVideoProgress===null  ?  
+                <Video
+                    source={{uri:url}}
+                    rate={1.0}
+                    volume={1.0}
+                    isMuted={false}
+                    resizeMode="cover"
+                    shouldPlay={false}
+                    isLooping={false}
+                    useNativeControls
+                    onProgress={onProgressMp4}
+                    style={{ width: width, height: height/3 }}
+                />
+                :
+                <View></View>                      
+                }  
                 {item? 
                     <Text style={themeStyle.text}>{item.content}</Text>:
                     <View></View>
@@ -223,9 +311,9 @@ const LessonDetail=(props)=>{
                     {isDownloaded===true
                         ?
                     <View>
-                        <Text style={themeStyle.text}>Size: {totalSize}</Text>
+                        <Text style={themeStyle.text}>{changeLanguage.Size}: {totalSize}</Text>
 
-                        <Text style={themeStyle.text}>Progress: {downloadProgress}%</Text>
+                        <Text style={themeStyle.text}>{changeLanguage.Progress}: {downloadProgress}%</Text>
                     </View>    
                         :
                     <View></View>

@@ -36,9 +36,7 @@ const ListComment=(props)=>{
         if(DATA.length===0)
         {
             const getDetail=async()=>{
-                console.log("Check course id in list comment:",props.item);
                 const res=await CourseApi.courseDetail(props.item.id,null);
-                console.log("Check res in list comment:",res);
                 setDATA(res.payload.ratings.ratingList);
 
             }

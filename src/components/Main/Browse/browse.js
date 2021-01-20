@@ -10,12 +10,15 @@ import SectionCategories from "./SectionCategories/section-categories";
 import styles from "../../../globals/styles"
 import SectionPaths from "./SectionPaths/section-paths";
 import {ThemeContext} from "../../../provider/theme-provider";
+import {LanguageContext} from "../../../provider/language-provider";
+
 import {themes} from "../../../globals/themes";
 import DarkStyles from "../../../globals/dark-style";
 import LightStyles from "../../../globals/light-style";
 const Browse=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
+    let {changeLanguage}=useContext(LanguageContext);
 
     if(changeTheme===themes.dark)
     {
@@ -31,9 +34,9 @@ const Browse=(props)=>{
                 <View style={styles.space}></View>
                 <View style={styles.space}></View>
 
-                <ImageButton navigation={props.navigation}  title="Recommend" topRate={true} styleImageButton={styles.imageButtonImageBackground}/>
-                <SectionCategories navigation={props.navigation}  title="Categories"/>
-                <SectionAuthors navigation={props.navigation}  title="Authors"/>
+                <ImageButton navigation={props.navigation}  title={changeLanguage.Recommend} topRate={true} styleImageButton={styles.imageButtonImageBackground}/>
+                <SectionCategories navigation={props.navigation}  title={changeLanguage.Categories}/>
+                <SectionAuthors navigation={props.navigation}  title={changeLanguage.Authors}/>
             </ScrollView>
 
 

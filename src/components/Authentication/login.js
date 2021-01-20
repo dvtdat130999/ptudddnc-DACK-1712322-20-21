@@ -3,6 +3,8 @@ import { StyleSheet,View, Image, TextInput,TouchableHighlight,Dimensions,ScrollV
 
 import styles from "../../globals/styles";
 import {ThemeContext} from "../../provider/theme-provider";
+import {LanguageContext} from "../../provider/language-provider";
+
 import DarkStyles from "../../globals/dark-style";
 import LightStyles from "../../globals/light-style";
 import {themes} from "../../globals/themes";
@@ -14,6 +16,7 @@ import UserApi from "../../api/userApi"
 const Login=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
     let themeStyle;
+    const {changeLanguage}=useContext(LanguageContext);
 
     if(changeTheme===themes.dark)
     {
@@ -46,7 +49,7 @@ const Login=(props)=>{
         }
         else if(status.status===200)
             {
-                return <Text style={themeStyle.text}>Login success</Text>
+                return <Text style={themeStyle.text}>{changeLanguage.LoginSuccess}</Text>
             }
         else {
             return <Text style={themeStyle.text}>{status.errorString}</Text>
@@ -81,7 +84,7 @@ const Login=(props)=>{
         // return false;
         if(message==="OK")
         {
-            setMessage("Login is success");
+            setMessage(changeLanguage.LoginSuccess);
             return true;
            
         }
@@ -89,7 +92,7 @@ const Login=(props)=>{
         {
             
             //save message to render
-            setMessage("Login is failed");
+            setMessage(changeLanguage.LoginFailed);
             return false;
         }
     }
@@ -98,7 +101,7 @@ const Login=(props)=>{
         if(!message){
             return <View/>
         }
-        else if(message==="Login is success")
+        else if(message===changeLanguage.LoginSuccess)
             {
                 return <Text style={themeStyle.textSuccess}>{message}</Text>
             }
@@ -134,7 +137,7 @@ const Login=(props)=>{
             }
         }
         else{
-            setMessage("Login is failed");
+            setMessage(changeLanguage.LoginFailed);
         }
         
         
@@ -150,7 +153,7 @@ const Login=(props)=>{
 
                     <View style={componentStyle.titleView}>
                         <Text style={themeStyle.title} >
-                            Login
+                            {changeLanguage.Login}
                         </Text>
                     </View>
 
@@ -158,12 +161,12 @@ const Login=(props)=>{
 
                 <View style={{flex: 10}}>
 
-                    <Text style={themeStyle.textMedium}>Email</Text>
+                    <Text style={themeStyle.textMedium}>{changeLanguage.Email}</Text>
 
                     <TextInput style={styles.input} onChangeText={text=>{setEmail(text)}} defaultValue={email}></TextInput>
 
                     <View style={styles.space}/>
-                    <Text style={themeStyle.textMedium}>Password</Text>
+                    <Text style={themeStyle.textMedium}>{changeLanguage.Password}</Text>
                     <TextInput secureTextEntry={true} style={styles.input} defaultValue={password} onChangeText={text=>{setPassword(text)}}></TextInput>
                     <View style={styles.space}/>
                     {renderMessage()}
@@ -172,20 +175,20 @@ const Login=(props)=>{
 */}
                     <TouchableHighlight onPress={onPressLogin}>
                         <View style={themeStyle.button}>
-                            <Text style={themeStyle.textButton}> Login</Text>
+                            <Text style={themeStyle.textButton}>{changeLanguage.Login}</Text>
                         </View>
                     </TouchableHighlight>
                     <View style={styles.space}/>
                     <TouchableHighlight onPress={onPressForgetPassword}>
                         <View style={themeStyle.buttonLight}>
-                            <Text style={themeStyle.textLightButton}>Forget password</Text>
+                            <Text style={themeStyle.textLightButton}>{changeLanguage.ForgetPassword}</Text>
                         </View>
                     </TouchableHighlight>
                     <View style={styles.space}/>
 
                     <TouchableHighlight onPress={onPressRegister}>
                         <View style={themeStyle.buttonLight}>
-                            <Text  style={themeStyle.textLightButton}>Register</Text>
+                            <Text  style={themeStyle.textLightButton}>{changeLanguage.Register}</Text>
                         </View>
                     </TouchableHighlight>
                     <View style={styles.space}/>
