@@ -1,0 +1,109 @@
+import React, {Component, useContext, useEffect,useState} from 'react';
+import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList,TouchableOpacity } from 'react-native';
+
+import styles from "../../../../globals/styles";
+import {CoursesContext} from "../../../../provider/courses-provider";
+import {AuthenticationContext} from "../../../../provider/authentication-provider";
+import {courses} from "../../../../data/courses";
+import SectionCoursesBookmarkItem from "../SectionCoursesBookmarkItem/section-courses-bookmark-item";
+import {ThemeContext} from "../../../../provider/theme-provider";
+import {LanguageContext} from "../../../../provider/language-provider";
+
+import {themes} from "../../../../globals/themes";
+import DarkStyles from "../../../../globals/dark-style";
+import LightStyles from "../../../../globals/light-style";
+import CourseApi from "../../../../api/courseApi";
+import UserApi from "../../../../api/userApi";
+import {BookmarkContext} from "../../../../provider/bookmark-provider";
+import {navigationName} from "../../../../globals/constants";
+
+const SectionCoursesBookmark=(props)=>{
+    let {changeTheme}=useContext(ThemeContext);
+    let {changeLanguage}=useContext(LanguageContext);
+
+    let themeStyle;
+    if(changeTheme===themes.dark)
+    {
+
+        themeStyle=DarkStyles;
+    }
+    else
+    {
+        themeStyle=LightStyles;
+    }
+    
+    
+
+
+    const [DATA,setDATA]=useState([]);
+    const {coursesBookmark}=useContext(BookmarkContext);
+    
+    useEffect(()=>{
+        
+        const getFavoriteCoursesUser=async()=>{
+            const res=await UserApi.getFavoriteCourses(authentication);
+            
+            if(res.payload!==DATA)
+            {
+                setDATA(res.payload);
+                
+            }
+        }
+        getFavoriteCoursesUser();
+        
+    });
+    const {authentication}=useContext(AuthenticationContext);
+    const getCourseLikeStatus=async(courseId)=>{
+        const res=await UserApi.getCourseLikeStatus(authentication,courseId);
+        console.log("Check like status in section courses bookmark cua ",courseId);
+        console.log(res.likeStatus);
+        return res.likeStatus;
+    }    
+    const renderItem=()=>{
+
+        return DATA.map((item,i)=>{
+            
+            if(i<10)
+                {
+                    return <SectionCoursesBookmarkItem navigation={props.navigation} item={item} key={i} data={DATA}/>
+    
+                }
+                else {
+                    return <View key={i}></View>
+                }
+            
+        })
+    };
+
+    const seeAll=()=>{
+        props.navigation.navigate(navigationName.ListCoursesBookmark,{
+            message:"This is from section course bookmark, we want to see all courses we bookmarked",
+        })
+    }
+    return(
+        <View style={{marginTop:60}}>
+            {DATA.length>0 ?
+                <View>
+                    <View style={{
+
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        }}>
+                        <Text style={themeStyle.title}>{props.title}</Text>
+                        <TouchableHighlight style={{marginRight:20}} onPress={seeAll}>
+                            <Text style={themeStyle.text}>{changeLanguage.SeeAll}</Text>
+
+                        </TouchableHighlight>
+                    </View>
+                    <ScrollView horizontal={true} showHorizontalScrollIndicator={false}>
+                        {renderItem()}
+                    </ScrollView>
+                </View>
+                : <View/>
+            }
+
+        </View>
+    );
+};
+
+export default SectionCoursesBookmark;

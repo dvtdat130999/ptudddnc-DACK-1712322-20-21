@@ -1,64 +1,121 @@
-import React, { Component } from 'react';
-import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList } from 'react-native';
+import React, {Component, useContext,useEffect,useState} from 'react';
+import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions 
+    ,SectionList,FlatList,TouchableOpacity,ActivityIndicator } from 'react-native';
 
 import styles from "../../../../globals/styles";
 import SectionCoursesItem from "../SectionCoursesItem/section-courses-item";
+import {CoursesContext} from "../../../../provider/courses-provider";
+import {courses} from "../../../../data/courses";
+import {ThemeContext} from "../../../../provider/theme-provider";
+import {LanguageContext} from "../../../../provider/language-provider";
 
+import {themes} from "../../../../globals/themes";
+import DarkStyles from "../../../../globals/dark-style";
+import LightStyles from "../../../../globals/light-style";
+import {navigationName} from "../../../../globals/constants";
+import CourseApi from "../../../../api/courseApi";
 const SectionCourses=(props)=>{
-    const DATA = [
-        {
-            id: '1',
-            title: 'First course',
-            author:'Dat',
-            level:'Beginner',
-            createdDate:'22/10/2020',
-        },
-        {
-            id: '2',
-            title: 'Second course',
-            author:'Doan',
-            level:'Beginner',
-            createdDate:'23/10/2020',
-        },
-        {
-            id: '3',
-            title: 'Third course',
-            author:'Vu',
-            level:'Intermediate',
-            createdDate:'23/10/2020',
-        },
-        {
-            id: '4',
-            title: 'Fourth course',
-            author:'Tien',
-            level:'Beginner',
-            createdDate:'24/10/2020',
-        },
-        {
-            id: '5',
-            title: 'Fifth course',
-            author:'Dat',
-            level:'Beginner',
-            createdDate:'25/10/2020',
-        },
-        {
-            id: '6',
-            title: 'Sixth course',
-            author:'Hay',
-            level:'Beginner',
-            createdDate:'25/10/2020',
-        },
 
-    ];
+    let {changeTheme}=useContext(ThemeContext);
+    let {changeLanguage}=useContext(LanguageContext);
 
-    const renderItem=()=>{
-        return DATA.map((item,i)=>{
-            return <SectionCoursesItem title={item.title} author={item.author} level={item.level} createdDate={item.createdDate} key={item.id}/>
+    let themeStyle;
+    const [isLoading,setIsLoading]=useState(true);
+    if(changeTheme===themes.dark)
+    {
+
+        themeStyle=DarkStyles;
+    }
+    else
+    {
+        themeStyle=LightStyles;
+    }
+    const seeAll=()=>{
+        let type=null;
+        if(props.isTopNew)
+        {
+            type="new";
+        }
+        else
+        {
+            type="sell";
+        }
+        props.navigation.navigate(navigationName.ListCourses,{
+            message:"This is from section course, we want to see all courses",
+            type:type,
         })
     };
+    const [DATA,setDATA]=useState([]);
+    
+    
+    
+    
+    const renderItem=()=>{
+        
+        return DATA.map((item,i)=>{
+            if(i<10)
+            {
+                return <SectionCoursesItem navigation={props.navigation} item={item} key={i} data={DATA}/>
+
+            }
+            else
+            {
+                <View key={i}></View>
+            }
+        })
+        //return <Text >This is for test</Text>
+
+    };
+    useEffect(()=>{
+        if(DATA.length===0)
+        {
+            if(props.isTopNew)
+            {
+                const params={
+                    limit:10,
+                    page:1
+                };
+                const callApiTopNewCourse=async()=>{
+                    const response=await CourseApi.topNew(params);
+                    setDATA(response.payload);
+                    setIsLoading(false);
+                };
+                callApiTopNewCourse();
+                
+            }
+            if(props.isTopSell)
+            {
+                const params={
+                    limit:10,
+                    page:1
+                };
+                const callApiTopSellCourse=async()=>{
+                    const response=await CourseApi.topSell(params);
+                    
+                    setDATA(response.payload);
+                    setIsLoading(false);
+
+                }
+                callApiTopSellCourse()
+        
+            }
+        }
+       
+    })
     return(
         <View style={{marginTop:60}}>
-            <Text style={styles.courseOfHome}>{props.title}</Text>
+            { isLoading && <ActivityIndicator size="large" color="red"/> }
+            <View style={{
+
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+            }}>
+                <Text style={themeStyle.title}>{props.title}</Text>
+                <TouchableHighlight style={{marginRight:20}} onPress={seeAll}>
+                    <Text style={themeStyle.text}>{changeLanguage.SeeAll}</Text>
+
+                </TouchableHighlight>
+            </View>
             <ScrollView horizontal={true} showHorizontalScrollIndicator={false}>
                 {renderItem()}
             </ScrollView>

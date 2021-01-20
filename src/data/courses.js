@@ -1,0 +1,218 @@
+export const courses=[
+    
+    {
+        id: '2',
+        title: 'React second course',
+        author:'Doan',
+        level:'Beginner',
+        createdDate:'23/10/2020',
+        length:'5m',
+        introduction:'This is second course',
+        category:'Software Development',
+        path:'React basic',
+        skill:'React',
+
+    },
+    {
+        id: '3',
+        title: 'React third course',
+        author:'Vu',
+        level:'Intermediate',
+        createdDate:'23/10/2020',
+        length:'15m',
+        introduction:'This is third course',
+        category:'Software Development',
+        path:'React basic',
+        skill:'React',
+
+    },
+    {
+        id: '4',
+        title: 'React fourth course',
+        author:'Tien',
+        level:'Beginner',
+        createdDate:'24/10/2020',
+        length:'27m',
+        introduction:'This is fourth course',
+        category:'Software Development',
+        path:'React basic',
+        skill:'React',
+
+    },
+    {
+        id: '5',
+        title: 'React fifth course',
+        author:'Dat',
+        level:'Beginner',
+        createdDate:'25/10/2020',
+        length:'35m',
+        introduction:'This is fifth course',
+        category:'Software Development',
+        path:'React basic',
+        skill:'React',
+
+    },
+    {
+        id: '6',
+        title: 'React sixth course',
+        author:'Hay',
+        level:'Beginner',
+        createdDate:'25/10/2020',
+        length:'29m',
+        introduction:'This is sixth course',
+        category:'Software Development',
+        path:'React basic',
+        skill:'React',
+
+    },
+    {
+        id: '7',
+        title: 'Effective phone skills',
+        author:'Lam',
+        level:'Beginner',
+        createdDate:'28/10/2020',
+        length:'39m',
+        introduction:'This is for business professional',
+        category:'Business Professional',
+        path:'Business basic',
+        skill:'Communication',
+    },
+    {
+        id: '8',
+        title: 'Manage Identity and Access in Microsoft Azure',
+        author:'Dan',
+        level:'Beginner',
+        createdDate:'28/10/2020',
+        length:'32m',
+        introduction:'This is for business professional exam alert',
+        category:'Business Professional',
+        path:'Business basic',
+        skill:'',
+    },
+    {
+        id: '9',
+        title: 'Upgrading to Microsoft Teams from Skype for Business',
+        author:'Hiep',
+        level:'Beginner',
+        createdDate:'28/10/2020',
+        length:'32m',
+        introduction:'Microsoft Teams is the fastest growing product in Microsoft 365,' +
+            ' but many organizations are still using Skype for Business. This course will teach ' +
+            'you how to plan and migrate to Microsoft\'s newest collaboration tool, Microsoft Teams.' ,
+        category:'IT Ops',
+        path:'',
+        skill:'',
+
+    },
+    {
+        id: '10',
+        title: 'Exam Alert: Implement and Manage Azure Storage',
+        author:'Bao',
+        level:'Beginner',
+        createdDate:'29/10/2020',
+        length:'33m',
+        introduction:'Looking for the "Must Know" Azure Storage topics for the AZ-104 exam?' +
+            ' If so, this course is for you as you prepare for the AZ-104 exam.',
+        category:'IT Ops',
+        path:'',
+        skill:'',
+
+    },
+    {
+        id: '11',
+        title: 'Exploring Existing Evidence',
+        author:'Quoc',
+        level:'Beginner',
+        createdDate:'29/10/2020',
+        length:'31m',
+        introduction:'This course will provide you with a set of tools for better exploration of your stakeholders’ input.',
+        category:'Data Professional',
+        path:'',
+        skill:'',
+
+    },
+    {
+        id: '12',
+        title: 'Applying Statistics in Lean Six Sigma',
+        author:'Thai',
+        level:'Beginner',
+        createdDate:'29/10/2020',
+        length:'31m',
+        introduction:'This course will teach you all the essential tools and ' +
+            'techniques regarding intermediate statistics in Lean Six Sigma.',
+        category:'Data Professional',
+        path:'',
+        skill:'',
+
+    },
+    {
+        id: '13',
+        title: 'Creating Holistic Product Strategies',
+        author:'Mi',
+        level:'Beginner',
+        createdDate:'29/10/2020',
+        length:'31m',
+        introduction:'This course will teach you how to create a viable product strategy and ' +
+            'navigate the tensions between your customer’s needs and your own business’s needs.',
+        category:'Creative Professional',
+        path:'',
+        skill:'',
+
+    },
+    {
+        id: '14',
+        title: 'How to Make AI Feel Less Like Sci-Fi',
+        author:'Mai',
+        level:'Beginner',
+        createdDate:'29/10/2020',
+        length:'31m',
+        introduction:'In this talk, Chloe Condon will share how you can build and ' +
+            'train your own models and add even more intelligence to your apps with Azure AI + Cognitive Services!',
+        category:'Creative Professional',
+        path:'',
+        skill:'',
+
+    },
+    {
+        id: '15',
+        title: 'Exam Alert: Manage Azure Identities and Governance',
+        author:'Dao',
+        level:'Beginner',
+        createdDate:'29/10/2020',
+        length:'21m',
+        introduction:'This course will teach you what you need for success in this functional group.',
+        category:'Information and Cyber Security',
+        path:'',
+        skill:'',
+
+    },
+    {
+        id: '16',
+        title: 'Incident Response and Recovery for CompTIA CySA+',
+        author:'Tien',
+        level:'Beginner',
+        createdDate:'29/10/2020',
+        length:'22m',
+        introduction:'This course will teach you the skills needed to communicate and' +
+            ' coordinate response efforts, and how to recover...',
+        category:'Information and Cyber Security',
+        path:'',
+        skill:'',
+
+    },
+    {
+        id: '17',
+        title: 'Angular: The Big Picture',
+        author:'Vu',
+        level:'Beginner',
+        createdDate:'29/10/2020',
+        length:'22m',
+        introduction:'This course will teach you a high level view of Angular, ' +
+            'to assist you in either understanding Angular better for your own development,' +
+            ' or learning when to use Angular vs. other front end frameworks.\n',
+        category:'Software Development',
+        path:'Angular',
+        skill:'Angular',
+
+    },
+];

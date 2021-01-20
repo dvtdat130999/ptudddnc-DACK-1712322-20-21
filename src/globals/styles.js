@@ -1,20 +1,23 @@
 import React from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions  } from 'react-native';
+
+const {widthFull,heightFull}=Dimensions.get('window');
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 10,
         backgroundColor:'black'
     },
+
+
     label:{
       color:'azure'
     },
-    inputLogin:{
+    input:{
         height: 40,
-        borderColor: 'gray',
         borderWidth: 1,
         borderRadius:5,
-        backgroundColor:'azure'
+        backgroundColor:'white'
     },
     item: {
         backgroundColor: "#f9c2ff",
@@ -81,6 +84,7 @@ const styles = StyleSheet.create({
         ,fontWeight:'bold'
         ,fontSize:20
         ,color:'white'
+        ,width:'100%'
     },
     course:{
         flexDirection:'column',
@@ -94,7 +98,7 @@ const styles = StyleSheet.create({
         marginTop:10,
         marginLeft:30,
         marginRight:30,
-        height:300,
+        width:350,
         backgroundColor:'lightslategrey',
     },
     sectionCourseItemText:{
@@ -121,9 +125,7 @@ const styles = StyleSheet.create({
         height:200,
     },
 
-    courseOfList:{
 
-    },
     imageButtonImageBackground:{
         height:100,
         marginTop:20,
@@ -163,8 +165,10 @@ const styles = StyleSheet.create({
         ,color:'white'
     },
     sectionAuthorItem:{
-        marginLeft:30,
-        marginRight:30,
+        justifyContent:'center',
+        width:150,
+        marginLeft:5,
+        marginRight:20,
     },
     sectionSkillsItem:{
         justifyContent:'center',
@@ -192,7 +196,7 @@ const styles = StyleSheet.create({
         marginTop:10,
         marginLeft:30,
         marginRight:30,
-        height:100,
+        height:150,
         width:300
 
 
@@ -207,7 +211,9 @@ const styles = StyleSheet.create({
     },
     listCoursesItem:{
         flexDirection:'row',
-        marginTop:10,
+        width:250,
+
+        marginTop:20,
         marginLeft:20,
         borderBottomColor:'white',
         borderBottomWidth:1,
