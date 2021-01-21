@@ -1,6 +1,5 @@
 import React, {Component, useContext,useState,useEffect} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList } from 'react-native';
-import {categories} from"../../../../data/categories"
 import styles from "../../../../globals/styles";
 import SectionCategoriesItem from "../SectionCategoriesItem/section-categories-item";
 import {ThemeContext} from "../../../../provider/theme-provider";

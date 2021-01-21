@@ -2,7 +2,6 @@ import React, {Component, useContext} from 'react';
 import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,Dimensions ,SectionList,FlatList } from 'react-native';
 
 import styles from "../../../globals/styles";
-import {paths} from "../../../data/paths";
 import ListPathsItem from "../ListPathsItem/list-paths-item";
 import {themes} from "../../../globals/themes";
 import DarkStyles from "../../../globals/dark-style";

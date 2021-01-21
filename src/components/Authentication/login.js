@@ -9,7 +9,6 @@ import DarkStyles from "../../globals/dark-style";
 import LightStyles from "../../globals/light-style";
 import {themes} from "../../globals/themes";
 import {navigationName} from "../../globals/constants";
-import {login} from "../core/services/authentication-services";
 import {UserContext} from "../../provider/users-provider";
 import {AuthenticationContext, AuthenticationProvider} from "../../provider/authentication-provider";
 import UserApi from "../../api/userApi"

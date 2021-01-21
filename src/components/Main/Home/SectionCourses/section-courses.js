@@ -5,7 +5,6 @@ import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,
 import styles from "../../../../globals/styles";
 import SectionCoursesItem from "../SectionCoursesItem/section-courses-item";
 import {CoursesContext} from "../../../../provider/courses-provider";
-import {courses} from "../../../../data/courses";
 import {ThemeContext} from "../../../../provider/theme-provider";
 import {LanguageContext} from "../../../../provider/language-provider";
 

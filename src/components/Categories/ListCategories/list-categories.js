@@ -6,7 +6,6 @@ import {ThemeContext} from "../../../provider/theme-provider";
 import DarkStyles from "../../../globals/dark-style";
 import LightStyles from "../../../globals/light-style";
 import {themes} from "../../../globals/themes";
-import {categories} from "../../../data/categories";
 import SectionCategoriesItem from "../../Main/Browse/SectionCategoriesItem/section-categories-item";
 
 const ListCategories=(props)=>{

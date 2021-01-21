@@ -4,7 +4,6 @@ import { StyleSheet,View, Text, Image, ScrollView, TextInput,TouchableHighlight,
 import styles from "../../../../globals/styles";
 import {CoursesContext} from "../../../../provider/courses-provider";
 import {AuthenticationContext} from "../../../../provider/authentication-provider";
-import {courses} from "../../../../data/courses";
 import SectionCoursesBookmarkItem from "../SectionCoursesBookmarkItem/section-courses-bookmark-item";
 import {ThemeContext} from "../../../../provider/theme-provider";
 import {LanguageContext} from "../../../../provider/language-provider";

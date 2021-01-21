@@ -8,7 +8,7 @@ import DarkStyles from "../../../globals/dark-style";
 import LightStyles from "../../../globals/light-style";
 import {themes} from "../../../globals/themes";
 import ListAuthorsItem from "../ListAuthorsItem/list-authors-item";
-import {authors} from "../../../data/authors";
+
 import InstructorApi from "../../../api/instructorApi";
 const ListAuthors=(props)=>{
     let {changeTheme}=useContext(ThemeContext);
