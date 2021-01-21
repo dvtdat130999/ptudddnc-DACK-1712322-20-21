@@ -35,7 +35,7 @@ export const languageEng={
     Comment:"Comment",
     FormalityPoint:"Formality Point",
     ContentPoint:"Content Point",
-    presentationPoint:"Presentation Point",
+    PresentationPoint:"Presentation Point",
     Rating:"Rating",
     Contents:"Contents",
     SeeAll:"See all",

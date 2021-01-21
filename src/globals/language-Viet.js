@@ -36,7 +36,7 @@ export const languageViet={
     Comment:"Bình luận",
     FormalityPoint:"Điểm hình thức",
     ContentPoint:"Điểm nội dung",
-    presentationPoint:"Điểm trình bày",
+    PresentationPoint:"Điểm trình bày",
     Rating:"Đánh giá",
     Contents:"Nội dung",
     SeeAll:"Xem thêm",
